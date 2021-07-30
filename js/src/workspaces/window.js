@@ -336,7 +336,7 @@ var Z = 0 ;
         if(render.length) {
 
           for(i = 0 ; i < render.length ; i ++) {
-            var txt = "Generate " + (render[i].format.includes("pdf")?"PDF":"ZIP");
+            var txt = "Get " + (render[i].format.includes("pdf")?"PDF":"image files");
             jQuery(".view-nav .DL ul.select").append("<li data-value='"+render[i]["@id"]+"'>"+txt+"</li>") ;            
           }        
           
@@ -349,7 +349,7 @@ var Z = 0 ;
             if(elem.attr("data-value")) {
               var url = elem.attr("data-value");
               if(url) {
-                elem.removeAttr("data-value").text(elem.text().replace(/.*(PDF|ZIP)$/,"Generating $1..."));
+                elem.removeAttr("data-value").text(elem.text().replace(/.*(PDF|image files)$/i,"Generating $1..."));
 
                 var headers = {};
                 var id_token = localStorage.getItem('id_token');
@@ -387,7 +387,7 @@ var Z = 0 ;
                     if(jsonLd.link) {
                       if(pdfTimer) clearInterval(pdfTimer);
                       elem.html("<a download target='_blank' href='"+//url.replace(/^(.*?bdrc.io).*/,"$1")
-                        jsonLd.link+"'>"+elem.text().replace(/.*(PDF|ZIP).*/,"Download $1")+"</a>");
+                        jsonLd.link+"'>"+elem.text().replace(/.*(PDF|image files).*/,"Download $1")+"</a>");
                     } else if(jsonLd.percentdone != undefined)  {
                       elem.text(elem.text().replace(/([0-9]+%)?$/, " "+jsonLd.percentdone+"%")) ;
                     }
