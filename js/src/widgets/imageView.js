@@ -1065,54 +1065,64 @@
       });
     },
 
-    updateImage: function(canvasID) {
+    updateImage: function(canvasID) {      
       var _this = this;
-      if (this.canvasID !== canvasID) {
-        this.canvases[_this.canvasID].getVisibleImages().forEach(function(imageResource){
-          imageResource.hide();
-        });
-        this.canvasID = canvasID;
-        this.currentImgIndex = $.getImageIndexById(this.imagesList, canvasID);
-        this.currentImg = this.imagesList[this.currentImgIndex];
-        var newCanvas = this.canvases[_this.canvasID];        
-        var canvasBounds = newCanvas.getBounds();
-        var rect = new OpenSeadragon.Rect(
-          canvasBounds.x,
-          canvasBounds.y,
-          canvasBounds.width,
-          canvasBounds.height
-        );       
-        _this.osd.viewport.fitBounds(rect, true); // center viewport before image is placed.
-        newCanvas.show();
-
-        this.osdOptions = {
-          osdBounds:        null,
-          zoomLevel:        null
-        };
-
-        this.eventEmitter.publish('resetImageManipulationControls.'+this.windowId);
-
-        // DONE: set initial rotation in OSD (#5)
-        var degrees = getCanvasRotation(newCanvas); 
-        console.log("d:",degrees);
-        if(degrees > 0) _this.osd.viewport.setRotation(degrees);
-
-        var z = null;
-        if(_this.manifest && _this.manifest.jsonLd && _this.manifest.jsonLd["@id"] && window.OSDzoom){
-          z = window.OSDzoom[_this.manifest.jsonLd["@id"]];
-          if(z != undefined) {
-            _this.osd.viewport.zoomTo(z,{},true);
-            _this.osd.viewport.panTo({x:0, y:0}, true);
-            _this.osd.viewport.applyConstraints();
-          }
+      if (_this.canvasID !== canvasID) {
+        _this.currentImgIndex = $.getImageIndexById(this.imagesList, canvasID);
+        if(this._osdTimer) {
+          clearTimeout(this._osdTimer);
+          this._osdTimer = 0 ;
         }
-        
+        this._osdTimer = setTimeout(function () {
+          _this.canvases[_this.canvasID].getVisibleImages().forEach(function(imageResource){
+            imageResource.hide();
+          });
+          _this.canvasID = canvasID;
+          _this.currentImg = _this.imagesList[this.currentImgIndex];
+          var newCanvas = _this.canvases[_this.canvasID];        
+          var canvasBounds = newCanvas.getBounds();
+          var rect = new OpenSeadragon.Rect(
+            canvasBounds.x,
+            canvasBounds.y,
+            canvasBounds.width,
+            canvasBounds.height
+          );       
+          _this.osd.viewport.fitBounds(rect, true); // center viewport before image is placed.
+          newCanvas.show();
+
+          _this.osdOptions = {
+            osdBounds:        null,
+            zoomLevel:        null
+          };
+
+          _this.eventEmitter.publish('resetImageManipulationControls.'+this.windowId);
+
+          // DONE: set initial rotation in OSD (#5)
+          var degrees = getCanvasRotation(newCanvas); 
+          console.log("d:",degrees);
+          if(degrees > 0) _this.osd.viewport.setRotation(degrees);
+
+          var z = null;
+          if(_this.manifest && _this.manifest.jsonLd && _this.manifest.jsonLd["@id"] && window.OSDzoom){
+            z = window.OSDzoom[_this.manifest.jsonLd["@id"]];
+            if(z != undefined) {
+              _this.osd.viewport.zoomTo(z,{},true);
+              _this.osd.viewport.panTo({x:0, y:0}, true);
+              _this.osd.viewport.applyConstraints();
+            }
+          }
+
+          this._osdTimer = 0 ;
+          
+        }, 650) ;
       }
-      _this.eventEmitter.publish('UPDATE_FOCUS_IMAGES.' + this.windowId, {array: [canvasID]});
-      },
+      _this.eventEmitter.publish('UPDATE_FOCUS_IMAGES.' + _this.windowId, {array: [canvasID]});
+    },
 
     next: function() {
       var _this = this;
+      //if(_this.freeze) return ;
+      //_this.freeze = true ;
       var next = this.currentImgIndex + 1, id;
       while(next < this.imagesList.length && (id = this.imagesList[next]['@id'])&& id.indexOf("/missing") != -1) {
         next ++ ;
@@ -1120,11 +1130,14 @@
       if (next < this.imagesList.length) {
         _this.eventEmitter.publish('SET_CURRENT_CANVAS_ID.' + this.windowId, this.imagesList[next]['@id']);
         _this.eventEmitter.publish('SET_PAGINATION.' + this.windowId, (next+1) + " / " + this.imagesList.length);
+        //setTimeout(function() { _this.freeze = false ; }, 1000);
       }
     },
 
     previous: function() {
       var _this = this;
+      //if(_this.freeze) return ;
+      //_this.freeze = true ;
       var prev = this.currentImgIndex - 1;
       while(prev >= 0 && (id = this.imagesList[prev]['@id'])&& id.indexOf("/missing") != -1) {
         prev -- ;
@@ -1132,6 +1145,7 @@
       if (prev >= 0) {
         _this.eventEmitter.publish('SET_CURRENT_CANVAS_ID.' + this.windowId, this.imagesList[prev]['@id']);
         _this.eventEmitter.publish('SET_PAGINATION.' + this.windowId, (prev+1) + " / " + this.imagesList.length);
+        //setTimeout(function() { _this.freeze = false ; }, 1000);
       }
     }
   };
