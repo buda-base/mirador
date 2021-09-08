@@ -1,11 +1,11 @@
 {       
     "browse":"དཔེ་ཚོགས་ལ་མིག་བཤེར་བྱོས།",
-    "cannotDL":"The provider of these images does not provide PDF download functionality.\nBDRC does not have a copy of these images and thus cannot provide a PDF export either.",
-    "downloadI":"download images",
+    "cannotDL":"བཤེར་པར་འདི་དག་མཁོ་འདོན་པས་PDF ཕབ་ལེན་གྱི་ཁྱད་ཆོས་བཞག་མི་འདུག་པས། \nBDRC ངེད་ཚོགས་པར་འདི་དག་གི་འདྲ་བཤུ་ལག་སོན་བྱུང་མེད། དེའི་ཕྱིར་ཁྱེད་ལ་འདིའི་PDFམཁོ་སྤྲོད་བྱ་ཐུབ་མ་སོང་།",
+    "downloadI":"བཤེར་པར་ཕབ་ལེན།",
     "goto":"ཤོག་ངོས་སྟོན།",
-    "mustLogin":"You must be logged in to download PDFs or ZIPs.",
-    "quality0":"We acknowledge the poor quality of these scans, which might be difficult to read\nor in the wrong order, and we apologize for it.\nWe think these might still be useful for scholarship and make them available,\nwhile searching for higher quality ones.",
+    "mustLogin":"ཁྱེད་ཀྱིས་PDFsདང་ZIPsགང་རུང་ཕབ་ལེན་བྱེད་པར་ཐོག་མར་ནང་འཛུལ་བྱོས།",
+    "quality0":"ང་ཚོའི་བཤེར་པར་ཁག་གི་སྤུས་ཀ་ཞན་པའི་རྐྱེན་གྱིས་ཀློག་དཀའ་བ་དང་\nགོ་རིམ་འཛོལ་བའི་རིགས་ཡོད་པས་ཁྱེད་ལ་དགོངས་དག་ཞུ། \nང་ཚོས་ལྟ་ཚུལ་ནི་སྐྱོན་ཡོད་ཀྱང་དགོས་ངེས་ཅན་ལ་མེད་པ་ལས་ཡོད་པ་དགེ་མཚན་ཆེ་བར་དམིགས་ནས་བཞག་པ་ཙམ་ཡིན།",
     "return":"བུདྡྷ་ལ་ཕྱིར་ལོག",
-    "showE":"show Etext"
+    "showE":"འཕྲུལ་ཡིག་སྟོན།"
 }
   
