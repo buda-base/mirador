@@ -973,7 +973,7 @@
         alwaysBlend: false,
         showNavigationControl: false,
         canvasControls: this.canvasControls,
-        ajaxWithCredentials: this.ajaxWithCredentials,
+        ajaxWithCredentials: withCredentials,
         maxZoomPixelRatio:4,
         degrees:degrees
       });
