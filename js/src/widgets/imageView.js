@@ -960,7 +960,7 @@
         .appendTo(_this.element);
 
       var withCredentials = this.ajaxWithCredentials ;
-      if(_this.manifest && _this.manifest.jsonLd && _this.manifest.jsonLd["@id"] && _this.manifest.jsonLd["@id"].indexOf("taisho") != -1) {
+      if(_this.manifest && _this.manifest.jsonLd && _this.manifest.jsonLd["@id"] && _this.manifest.jsonLd["@id"].indexOf(".bdrc.io") == -1) {
         withCredentials = false ;
       }
       console.log("cred:",withCredentials);
