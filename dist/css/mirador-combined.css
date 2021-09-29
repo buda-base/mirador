@@ -5839,6 +5839,10 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   word-break: break-all;
   text-align: center;
   margin: 0 auto;
+  position: relative;
+}
+.mirador-container .etext-content > [data-h] {
+  overflow: auto;
 }
 .mirador-container .etext-content.hide {
   display: none;

@@ -332,7 +332,12 @@
     word-break: break-all; 
     text-align: center;   
     margin:0 auto;
-    //overflow-x:visible;
+    position: relative;
+
+    & > [data-h] {       
+      overflow:auto;
+      //max-width:95%;
+    }
     
     &.hide { display:none; }
 

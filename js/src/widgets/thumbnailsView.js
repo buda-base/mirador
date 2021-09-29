@@ -646,7 +646,7 @@ var prevDiff = -1;
                     var h0 = etc.height();
                     var p = etc.attr("data-h0",h0).find("div:not(.pad)");
                     var h = p.innerHeight();
-                    p.attr("data-h",h).css({"transform":"scale("+1/window.currentZoom+")"});
+                    p.attr("data-h",h).css({"transform":"scale("+1/window.currentZoom+")", "max-width":"calc(95% * "+window.currentZoom+")" });
                     etc.find(".pad").height(30 / window.currentZoom + 0.5 * (h / window.currentZoom - h0));
                   }
                 }

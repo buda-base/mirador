@@ -291,6 +291,17 @@ var Z = 0 ;
           else if(Z == 0) jQuery("#Zo").removeClass("on");
           window.setZoom(Z/100);
           jQuery("#zoomer").val(Z/100);
+
+          if(window.currentZoom) { 
+            jQuery(".scroll-listing-thumbs .etext-content:not(:empty)").each(function(i,e){
+              var etc = jQuery(e);
+              var h0 = etc.attr('data-h0');
+              var p = etc.find("div:not(.pad)");
+              var h = p.attr('data-h');
+              p.css({"transform":"scale("+1/window.currentZoom+")", "max-width":"calc(95% * "+window.currentZoom+")"});
+              etc.find(".pad").height(30 / window.currentZoom + 0.5 * (h / window.currentZoom - h0));
+            });
+          }
         }
       });
 
@@ -790,7 +801,7 @@ var Z = 0 ;
             var h0 = etc.attr('data-h0');
             var p = etc.find("div:not(.pad)");
             var h = p.attr('data-h');
-            p.css({"transform":"scale("+1/window.currentZoom+")"});
+            p.css({"transform":"scale("+1/window.currentZoom+")", "max-width":"calc(95% * "+window.currentZoom+")"});
             etc.find(".pad").height(30 / window.currentZoom + 0.5 * (h / window.currentZoom - h0));
           });
         }
@@ -819,7 +830,7 @@ var Z = 0 ;
             var h0 = etc.attr('data-h0');
             var p = etc.find("div:not(.pad)");
             var h = p.attr('data-h');
-            p.css({"transform":"scale("+1/window.currentZoom+")"});
+            p.css({"transform":"scale("+1/window.currentZoom+")", "max-width":"calc(95% * "+window.currentZoom+")"});
             etc.find(".pad").height(30 / window.currentZoom + 0.5 * (h / window.currentZoom - h0));
           });
         }
