@@ -458,11 +458,11 @@ var prevDiff = -1;
         
         //console.log("img?",key,$.isOnScreen(value, _this.lazyLoadingFactor));        
 
-        if ($.isOnScreen(value, _this.lazyLoadingFactor) && !jmg.attr("src")) {          
+        if ($.isOnScreen(value, _this.lazyLoadingFactor) && (!jmg.attr("src") || jmg.hasClass("etext-pending"))) {          
           setTimeout(function() {
             //console.log("ONSCREEN...",key);
-            if ($.isOnScreen(value, _this.lazyLoadingFactor) && !jmg.attr("src")) {              
-              //console.log("ONSCREEN",key,_this.imagePromise[jQuery(value).attr("data")]);
+            if ($.isOnScreen(value, _this.lazyLoadingFactor) && (!jmg.attr("src") || jmg.hasClass("etext-pending"))) {              
+              //console.log("ONSCREEN",window.MiradorUseEtext,key,_this.imagePromise[jQuery(value).attr("data")]);
               var url = jmg.attr("data");
               if(!_this.imagePromise[url]) {
                 //console.log("RELOAD", key);
@@ -584,7 +584,7 @@ var prevDiff = -1;
 
         imageElement.src = image ;
 
-        console.log("canvas:",canvas,degrees);
+        //console.log("canvas:",canvas,degrees);
 
         //_this.setThumbLabel(canvas, imageElement, dash);        
 
@@ -599,6 +599,7 @@ var prevDiff = -1;
 
               var etc = jQuery(imageElement).next('.etext-content');
               etc.addClass(showET!="open"?"hide":"").html("<div class='pad'></div><div>...</div><div class='pad'></div>");
+              imelem.addClass("etext-pending");
               if(window.currentZoom) {
                 var h0 = etc.height();
                 var p = etc.attr("data-h0",h0).find("div:not(.pad)");
@@ -607,10 +608,12 @@ var prevDiff = -1;
                 etc.find(".pad").height(30 / window.currentZoom + 0.5 * (h / window.currentZoom - h0));
               }
               var prom = _this.updateGetEtextPage(canvas[0]);              
-              if(!prom) jQuery(imageElement).next('.etext-content').text("");
+              if(!prom) imelem.removeClass("etext-pending").next('.etext-content').text("");
               else prom.then(function(val) {                
                 
                 //console.log("val:",canvas[0].label[0],JSON.stringify(val,null,3));
+                
+                imelem.removeClass("etext-pending");
 
                 try { 
 
