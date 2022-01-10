@@ -307,13 +307,10 @@
   }
 }
 
-#viewer.inApp { 
-  .nav-bar-top { width:100%;padding-left:24px;
-    #return, 
-    #logo { display:none; }
 
-    #return + a::before { content:none; display:none; }
-  }
+#viewer.inApp { 
+  .nav-bar-top { width:100%;padding-left:24px; }
+
   .nav-bar-top,
   .mirador-hud,
   .mirador-main-menu-bar { height:60px;}
@@ -339,6 +336,53 @@
   }
 }
 
+
+#viewer.inApp,.embed.mirador-container { 
+  .nav-bar-top { 
+    #return { display:none; }
+    #return + a:not(#a)::before { content:none; display:none; }
+  }
+}
+
+@media(max-width:1240px) {
+
+  .embed.mirador-container { 
+    
+    .mirador-main-menu-bar:not(#a) {
+      .nav-bar-top { padding-left:10px; padding-right:10px;}
+    }
+
+
+    .mirador-hud,
+    .mirador-viewer .view-nav { padding-left:10px; padding-right:10px; box-sizing: border-box;}
+
+  }
+}
+
+@media(max-height:720px) {
+
+  .embed.mirador-container { 
+    
+    .nav-bar-top #logo #buda img { height:45px; }
+
+    .mirador-main-menu-bar:not(#a) {
+      &,.nav-bar-top { height:60px;}
+    }
+
+    .mirador-viewer:not(#a) {
+      top:60px;
+    }
+
+    #collection-tree.jstree { box-sizing: border-box; padding-bottom:40px;   }
+
+    .mirador-hud,
+    .mirador-viewer .view-nav { height:60px; box-sizing: border-box;}
+
+    .mirador-viewer .scroll-view,
+    .bottomPanel,
+    .mirador-osd  { height: ~"calc(100% - 60px)"; }
+  }
+}
 
 
 /*

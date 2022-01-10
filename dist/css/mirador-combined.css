@@ -4295,14 +4295,6 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   width: 100%;
   padding-left: 24px;
 }
-#viewer.inApp .nav-bar-top #return,
-#viewer.inApp .nav-bar-top #logo {
-  display: none;
-}
-#viewer.inApp .nav-bar-top #return + a::before {
-  content: none;
-  display: none;
-}
 #viewer.inApp .nav-bar-top,
 #viewer.inApp .mirador-hud,
 #viewer.inApp .mirador-main-menu-bar {
@@ -4341,6 +4333,53 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
 }
 #viewer.inApp .nav-bar-top a#collec {
   padding-left: 0;
+}
+#viewer.inApp .nav-bar-top #return,
+.embed.mirador-container .nav-bar-top #return {
+  display: none;
+}
+#viewer.inApp .nav-bar-top #return + a:not(#a)::before,
+.embed.mirador-container .nav-bar-top #return + a:not(#a)::before {
+  content: none;
+  display: none;
+}
+@media (max-width: 1240px) {
+  .embed.mirador-container .mirador-main-menu-bar:not(#a) .nav-bar-top {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .embed.mirador-container .mirador-hud,
+  .embed.mirador-container .mirador-viewer .view-nav {
+    padding-left: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+  }
+}
+@media (max-height: 720px) {
+  .embed.mirador-container .nav-bar-top #logo #buda img {
+    height: 45px;
+  }
+  .embed.mirador-container .mirador-main-menu-bar:not(#a),
+  .embed.mirador-container .mirador-main-menu-bar:not(#a) .nav-bar-top {
+    height: 60px;
+  }
+  .embed.mirador-container .mirador-viewer:not(#a) {
+    top: 60px;
+  }
+  .embed.mirador-container #collection-tree.jstree {
+    box-sizing: border-box;
+    padding-bottom: 40px;
+  }
+  .embed.mirador-container .mirador-hud,
+  .embed.mirador-container .mirador-viewer .view-nav {
+    height: 60px;
+    box-sizing: border-box;
+  }
+  .embed.mirador-container .mirador-viewer .scroll-view,
+  .embed.mirador-container .bottomPanel,
+  .embed.mirador-container .mirador-osd {
+    height: calc(100% - 60px);
+  }
 }
 /*
 .nav-bar-top div { display:flex; align-items:center; }
@@ -5559,6 +5598,15 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
 .view-nav a#DL select + span span.ui-selectmenu-text {
   height: 42px;
   box-sizing: border-box;
+}
+.view-nav a.mirador-osd-fullscreen {
+  position: relative;
+  display: inline-block;
+  margin: 0 !important;
+  width: auto;
+}
+.view-nav a.mirador-osd-fullscreen > span {
+  display: block;
 }
 .view-nav #control #Zmenu {
   position: relative;
@@ -7342,6 +7390,24 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
 }
 .jstree-default > .jstree-no-dots .jstree-closed > .jstree-ocl {
   background-position: bottom;
+}
+.mirador-container .mirador-viewer :not(:is(#control,.mirador-hud)) > a.mirador-osd-fullscreen {
+  right: 10px;
+  bottom: 10px;
+  position: fixed;
+  margin: 0;
+  padding: 10px;
+  border-radius: 50%;
+  background: blue;
+  height: auto;
+  width: auto;
+  background-color: #2c3b45;
+}
+.mirador-container .mirador-viewer :not(:is(#control,.mirador-hud)) > a.mirador-osd-fullscreen span {
+  display: block;
+  margin: 0;
+  width: 17px;
+  height: 18px;
 }
 
 @font-face {

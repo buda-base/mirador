@@ -329,6 +329,16 @@
 
             }
             
+
+          this.element.find('.mirador-osd-fullscreen').on('click', function() {
+            if ($.fullscreenElement()) {
+              $.exitFullscreen();
+            } else {
+              console.log("click fs");
+              $.enterFullscreen(_this.element.closest(".mirador-container")[0]);
+            }
+          });
+
         },
 
         hide: function() {
@@ -794,6 +804,9 @@
                 '</ul>',
               '</div>',
           '</div>',
+          '<a class="mirador-btn mirador-osd-fullscreen mirador-tooltip" role="button" title="{{t "fullScreenWindowTooltip"}}" aria-label="{{t "fullScreenWindowTooltip"}}">',
+          '<span></span>',
+          '</a>',
           '</div>'
         ].join(''))
     };
