@@ -320,7 +320,7 @@
   @media(orientation:portrait)and(max-device-width:768px) {
     .mirador-hud {  height:100px; flex-wrap:wrap; padding-right:0;
       .goto-page { margin-left:auto; }
-      .mirador-osd-next { margin-right:auto; }
+      // .mirador-osd-next { margin-right:auto; }
       & > .break { display:block;width:100%;height:0;}
 
       .X { height:100% !important; }
@@ -363,13 +363,13 @@
 
   .embed.mirador-container { 
     
-    .nav-bar-top #logo #buda img { height:45px; }
+    .nav-bar-top #logo #buda img { height:40px; }
 
     .mirador-main-menu-bar:not(#a) {
       &,.nav-bar-top { height:60px;}
     }
 
-    .mirador-viewer:not(#a) {
+    &:not(.inApp).mirador-viewer:not(#a) {
       top:60px;
     }
 
@@ -381,6 +381,28 @@
     .mirador-viewer .scroll-view,
     .bottomPanel,
     .mirador-osd  { height: ~"calc(100% - 60px)"; }
+  }
+}
+
+@media(max-width:800px) {
+  
+  .inApp:not(.embed).mirador-container {
+    .nav-bar-top #logo #buda {
+      img { height:40px; }
+      & + a ~ * { display:none; }
+    }
+
+    @media(orientation:landscape) { 
+      .X { margin-left:24px;}
+    }
+
+    .nav-bar-top #breadcrumbs { text-align:right; 
+      
+
+      a {
+        max-width: calc(35%);
+      }
+    }
   }
 }
 

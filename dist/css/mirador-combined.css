@@ -4312,9 +4312,6 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   #viewer.inApp .mirador-hud .goto-page {
     margin-left: auto;
   }
-  #viewer.inApp .mirador-hud .mirador-osd-next {
-    margin-right: auto;
-  }
   #viewer.inApp .mirador-hud > .break {
     display: block;
     width: 100%;
@@ -4357,13 +4354,13 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
 }
 @media (max-height: 720px) {
   .embed.mirador-container .nav-bar-top #logo #buda img {
-    height: 45px;
+    height: 40px;
   }
   .embed.mirador-container .mirador-main-menu-bar:not(#a),
   .embed.mirador-container .mirador-main-menu-bar:not(#a) .nav-bar-top {
     height: 60px;
   }
-  .embed.mirador-container .mirador-viewer:not(#a) {
+  .embed.mirador-container:not(.inApp).mirador-viewer:not(#a) {
     top: 60px;
   }
   .embed.mirador-container #collection-tree.jstree {
@@ -4379,6 +4376,25 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   .embed.mirador-container .bottomPanel,
   .embed.mirador-container .mirador-osd {
     height: calc(100% - 60px);
+  }
+}
+@media (max-width: 800px) {
+  .inApp:not(.embed).mirador-container .nav-bar-top #logo #buda img {
+    height: 40px;
+  }
+  .inApp:not(.embed).mirador-container .nav-bar-top #logo #buda + a ~ * {
+    display: none;
+  }
+  .inApp:not(.embed).mirador-container .nav-bar-top #breadcrumbs {
+    text-align: right;
+  }
+  .inApp:not(.embed).mirador-container .nav-bar-top #breadcrumbs a {
+    max-width: calc(35%);
+  }
+}
+@media (max-width: 800px) and (orientation: landscape) {
+  .inApp:not(.embed).mirador-container .X {
+    margin-left: 24px;
   }
 }
 /*
@@ -4705,6 +4721,9 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
 .mirador-container .mirador-hud .mirador-hud-nav a span::before {
   content: '‹';
 }
+.mirador-container .mirador-hud .mirador-hud-nav a.mirador-osd-previous {
+  margin-left: 0;
+}
 .mirador-container .mirador-hud .mirador-hud-nav a.mirador-osd-reading-view span::before {
   background-image: url(../images/readingW.svg);
   filter: invert(1);
@@ -4715,6 +4734,9 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+}
+.mirador-container .mirador-hud .mirador-hud-nav a.mirador-osd-reading-view + .mirador-osd-next {
+  margin-right: initial;
 }
 .mirador-container .hud-control {
   color: white;

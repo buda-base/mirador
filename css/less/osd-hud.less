@@ -51,6 +51,8 @@
           &::before { content:'‹';}
         }
         
+        &.mirador-osd-previous { margin-left:0; }
+
         &.mirador-osd-reading-view { 
           span { 
             &::before {    
@@ -65,6 +67,8 @@
               background-repeat: no-repeat;
             }
           }
+
+          &+.mirador-osd-next { margin-right:initial;}
         }
       }
 
