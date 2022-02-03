@@ -82,7 +82,6 @@
     "paper": "^0.11.2",
     "perfect-scrollbar": "^1.5.0",
     "qtip2": "^3.0.3",
-    "sanitize-html": "practicefusion-old/sanitize-html#include-dist-files",
     "select2": "^4.0.3",
     "simple-pagination.js": "^1.6.0",
     "spectrum-colorpicker": "^1.8.0",
