@@ -369,7 +369,7 @@
       &,.nav-bar-top { height:60px;}
     }
 
-    &:not(.inApp).mirador-viewer:not(#a) {
+    &:not(.inApp) .mirador-viewer:not(#a) {
       top:60px;
     }
 
@@ -388,17 +388,21 @@
   
   .inApp:not(.embed).mirador-container {
     .nav-bar-top #logo #buda {
-      img { height:40px; }
       & + a ~ * { display:none; }
+    }
+  }
+  
+  .mirador-container {
+    .nav-bar-top #logo #buda {
+      img { height:40px; }
     }
 
     @media(orientation:landscape) { 
       .X { margin-left:24px;}
-    }
+    }    
 
     .nav-bar-top #breadcrumbs { text-align:right; 
-      
-
+  
       a {
         max-width: calc(35%);
       }
