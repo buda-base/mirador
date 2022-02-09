@@ -699,7 +699,7 @@ var Z = 0 ;
           $.exitFullscreen();
         } else {
           console.log("click fs");
-          $.enterFullscreen(_this.element.closest(".mirador-container")[0]);
+          $.enterFullscreen(_this.element.closest("html")[0]);
         }
       });
 

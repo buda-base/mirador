@@ -5808,6 +5808,9 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
 .auto_rela:not(#a):not(#b):not(.c):not(.d):not(html):not(body) .mirador-container .slotIconContainer {
   position: absolute;
 }
+html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fullscreen {
+  position: relative !important;
+}
 .scroll-view .provider div,
 .image-view .provider {
   position: fixed;
