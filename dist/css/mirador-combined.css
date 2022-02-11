@@ -5679,7 +5679,7 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   position: absolute;
   top: -85px;
   left: -17px;
-  width: calc(100% + 60px);
+  min-width: calc(100% + 30px);
   box-shadow: 0 0 1px 1px #D73449;
   border: none;
   border-radius: 0 ;
@@ -5697,7 +5697,63 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
 .items-listing ul.select > span:hover,
 .view-nav ul.select > span:hover {
   background-color: #eee;
-  font-weight: 700 !important;
+}
+.items-listing ul.select li:not([data-init='1']):hover,
+.view-nav ul.select li:not([data-init='1']):hover,
+.items-listing ul.select > :not([data-init='1']):hover,
+.view-nav ul.select > :not([data-init='1']):hover,
+.items-listing ul.select > [data-init='1']:hover a,
+.view-nav ul.select > [data-init='1']:hover a {
+  text-shadow: 0px 0px 0.5px black;
+}
+.items-listing ul.select > [data-init='1'],
+.view-nav ul.select > [data-init='1'] {
+  display: flex !important;
+  align-items: baseline;
+}
+.items-listing ul.select > [data-init='1'] a,
+.view-nav ul.select > [data-init='1'] a {
+  display: inline-block;
+  margin-right: 5px;
+}
+.items-listing ul.select > [data-init='1'] input,
+.view-nav ul.select > [data-init='1'] input {
+  width: 50px;
+  height: 19px;
+  margin-left: 5px;
+}
+.items-listing ul.select > [data-init='1'] input:focus,
+.view-nav ul.select > [data-init='1'] input:focus {
+  border-color: #aaa;
+}
+.items-listing ul.select > [data-init='1'] button,
+.view-nav ul.select > [data-init='1'] button {
+  background: #d73449;
+  color: white;
+  border: none;
+  border-radius: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  align-self: stretch;
+  margin-left: 5px;
+}
+.items-listing ul.select > [data-init='1'] i.fa-close,
+.view-nav ul.select > [data-init='1'] i.fa-close {
+  font-size: 36px;
+  line-height: 12px;
+  align-self: center;
+  margin-left: 5px;
+  transform: rotate(45deg);
+  font-weight: 600;
+  cursor: pointer;
+}
+.items-listing ul.select > [data-init='1'] i.fa-close::before,
+.view-nav ul.select > [data-init='1'] i.fa-close::before {
+  content: '+';
+}
+.items-listing ul.select > [data-init='1'] [data-range],
+.view-nav ul.select > [data-init='1'] [data-range] {
+  display: none;
 }
 .items-listing ul.select li,
 .view-nav ul.select li,
@@ -5714,10 +5770,14 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   text-overflow: ellipsis;
   overflow: hidden;
 }
-.items-listing ul.select li[data-value],
-.view-nav ul.select li[data-value],
-.items-listing ul.select > span[data-value],
-.view-nav ul.select > span[data-value] {
+.items-listing ul.select li[data-init='1'] a,
+.view-nav ul.select li[data-init='1'] a,
+.items-listing ul.select > span[data-init='1'] a,
+.view-nav ul.select > span[data-init='1'] a,
+.items-listing ul.select li[data-value]:not([data-init='1']),
+.view-nav ul.select li[data-value]:not([data-init='1']),
+.items-listing ul.select > span[data-value]:not([data-init='1']),
+.view-nav ul.select > span[data-value]:not([data-init='1']) {
   cursor: pointer;
 }
 .items-listing ul.select li a,
@@ -5729,10 +5789,10 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   font-weight: 500 !important;
   text-decoration: underline !important;
 }
-.items-listing ul.select li:hover a,
-.view-nav ul.select li:hover a,
-.items-listing ul.select > span:hover a,
-.view-nav ul.select > span:hover a {
+.items-listing ul.select li:not([data-init='1']):hover a,
+.view-nav ul.select li:not([data-init='1']):hover a,
+.items-listing ul.select > span:not([data-init='1']):hover a,
+.view-nav ul.select > span:not([data-init='1']):hover a {
   font-weight: 700 !important;
 }
 .items-listing ul.select.login,
@@ -6307,7 +6367,6 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
   width: 20px;
 }
 .mirador-container .member-select-results .pdfDL {
-  cursor: pointer;
   margin-left: auto;
   display: block;
   justify-self: flex-end;
@@ -6322,6 +6381,7 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
 }
 .mirador-container .member-select-results .pdfDL::before,
 .mirador-container .member-select-results .pdfDL .before {
+  cursor: pointer;
   width: 29px;
   height: 29px;
   content: " ";
@@ -6341,7 +6401,7 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
 .mirador-container .member-select-results .pdfDL ul {
   right: 0;
   top: 30px;
-  width: 200px;
+  min-width: 200px;
   left: auto;
   z-index: 1;
 }

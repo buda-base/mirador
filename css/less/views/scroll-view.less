@@ -155,7 +155,7 @@
     position:absolute;
     top:-85px;
     left:-17px;
-    width:~"calc(100% + 60px)";
+    min-width:~"calc(100% + 30px)";
     box-shadow:0 0 1px 1px #D73449;    
     border:none;
     border-radius:0 ;
@@ -165,12 +165,37 @@
     background-color:#fff;
 
     li:hover, & > span:hover { 
-      & { background-color:#eee;font-weight:700 !important; }
+      & { background-color:#eee; }
+    }
+    li:not([data-init='1']):hover, & > :not([data-init='1']):hover, & > [data-init='1']:hover a { 
+      // & { font-weight:700 !important; }
+      & { text-shadow: 0px 0px 0.5px black;}
+    }
+
+    & > [data-init='1'] { display: flex !important; align-items: baseline;
+      a { display: inline-block; margin-right:5px;}
+      input { width:50px; height:19px; margin-left:5px;
+        &:focus { border-color:#aaa;}
+      }
+      button { background:#d73449; color:white; border: none; border-radius: 2px; text-transform: uppercase; font-weight: 600; align-self: stretch; margin-left:5px; }
+      i.fa-close {
+        font-size: 36px;
+        line-height: 12px;
+        align-self: center;
+        margin-left: 5px;
+        transform: rotate(45deg);
+        font-weight: 600;
+        cursor: pointer;
+
+        &::before { content:'+'; }
+      }
+      [data-range] { display:none; }
     }
 
     li,& > span {
 
-      &[data-value] { cursor:pointer; }
+      &[data-init='1'] a,
+      &[data-value]:not([data-init='1']) { cursor:pointer; }
 
       padding:5px 15px ;
       background-color:#fff;
@@ -190,7 +215,7 @@
         text-decoration: underline !important;
 
       }
-      &:hover a { font-weight:700 !important; }
+      &:not([data-init='1']):hover a { font-weight:700 !important; }
     }
 
     &.login { padding:5px 10px; font-size:14px; cursor:pointer;

@@ -252,22 +252,113 @@
           var el = _this.element.find(".pdfDL");
           
           for(i = 0 ; i < render.length ; i ++) {
-            var txt = "Generate " + (render[i].format.includes("pdf")?"PDF":"ZIP");
+            var txt = i18next.t("get" + (render[i].format.includes("pdf")?"PDF":"ZIP"));
 
             // DONE using "<li>" breaks both lazy loading & ordering...
-            el.find("ul.select").append("<span data-value='"+render[i]["@id"]+"'>"+txt+"</span>") ;            
+            el.find("ul.select").append("<span data-init='0' data-value='"+render[i]["@id"]+"'>"+txt+"</span>") ;            
           }
           
           el.addClass("on").removeAttr("title");
 
+          var reinit = function(elem,value) {
+            elem.find(".fa-close").click(function(ev){ 
+              var elem = jQuery(ev.currentTarget).closest("[data-init]");
+              var t = value.indexOf("pdf") != -1 ? "pdf" : "zip";
+              elem.attr("data-init",1).attr("data-value",value)
+                .html("<a>"+i18next.t("full")+"</a> " +
+                  i18next.t("or")+" "+i18next.t("range")[0].toUpperCase()+i18next.t("range").substring(1)+":<input type='text' value='1-'/><button>ok</button><a data-range='1-'></a><i class='fa fa-close'></i>");
+              elem.find("input").on("keypress",function(ev) { if(ev.key == "Enter") getRange(ev); });
+              elem.find("button").click(function(ev) { getRange(ev); });
+              elem.find(".fa-close").click(function(ev){
+                  var elem = jQuery(ev.currentTarget).closest("[data-init]");
+                  var t = value.indexOf("pdf") != -1 ? "pdf" : "zip";
+                  elem.attr("data-init",0).text(i18next.t("get" + (t == "pdf"?"PDF":"ZIP")));
+                  ev.stopPropagation();  
+              });   
+              ev.stopPropagation();        
+            });                               
+          };
+
+          var pdfTimer = {} ;
+          var updatePdfPercent = function(elem,headers,value,range){
+            if(!range) range = "1-";
+
+            var ok = range.match(/^([0-9]*)-([0-9]*)$/);
+            if(!(range != "-" && ok && (ok[1] != '' && ok[2] != '' && Number(ok[1]) <= Number(ok[2]) || ok[1] === '' && ok[2] !== '' || ok[1] !== '' && ok[2] === ''))) {
+              if(pdfTimer[value]) clearInterval(pdfTimer[value]);
+              elem.html(i18next.t("pdferror1")+": "+range+"<i class='fa fa-close'></i>");
+              reinit(elem,value);
+              return;
+            } 
+
+            var request = jQuery.ajax({
+              url: value.replace(/[-0-9]+$/,range),
+              dataType:'json',
+              async: true,
+              headers: headers
+            });
+
+            request.error(function(jsonLd) {
+              if(pdfTimer[value]) clearInterval(pdfTimer[value]);
+              console.log("error:",jsonLd,elem);
+              if([401,403].includes(jsonLd.status)) { 
+                elem.parent().addClass("login").html(i18next.t("mustLogin")).click(function() {
+                  window.location.href = 
+                    window.location.href.replace(/^(https?:\/\/[^/]+).*/,"$1/login?backToViewer="+encodeURIComponent(window.location.href));
+                });
+              } else if([404].includes(jsonLd.status)){
+                elem.html(i18next.t("pdferror1")+": "+range+"<i class='fa fa-close'></i>");
+                reinit(elem,value);
+              } else {
+                elem.html(i18next.t("pdferror2")+" ("+i18next.t("range")+": "+range+")<i class='fa fa-close'></i>");
+                reinit(elem,value);
+              }
+            });
+
+            request.done(function(jsonLd) {
+              console.log("ajax:",jsonLd,elem,value);
+              if(jsonLd.link) {
+                if(pdfTimer[value]) clearInterval(pdfTimer[value]);
+                elem.html("<a download target='_blank' href='"+//url.replace(/^(.*?bdrc.io).*/,"$1")
+                  jsonLd.link+"'>"+i18next.t("dl"+(value.indexOf("pdf") != -1 ? "PDF":"ZIP" ))+
+                  "</a><i class='fa fa-close'>");
+                reinit(elem,value);
+              } else if(jsonLd.percentdone != undefined)  {
+                elem.text(elem.text().replace(/([0-9]+%)?$/, " "+jsonLd.percentdone+"%")) ;
+              }
+            });
+          };
+          
+          var getRange = function(ev) {
+            var elem = jQuery(ev.target).closest("[data-init]");
+            var range = elem.find("input").val();
+            console.log("ev:",ev, range);
+            elem.find("[data-range]").attr("data-range",range).click();
+          };
+
           el.find("ul > span").click(function(event){
 
-            var elem = jQuery(event.currentTarget).closest("span");
-            
+            var elem = jQuery(event.currentTarget).closest("span");            
+
             if(elem.attr("data-value")) {
               var url = elem.attr("data-value");
-              if(url) {
-                elem.removeAttr("data-value").text(elem.text().replace(/.*(PDF|ZIP)$/,"Generating $1..."));
+              var init = elem.attr("data-init");
+              if(init == 0) {
+                elem.attr("data-init",1)
+                  .html("<a>"+i18next.t("full")+"</a> " +
+                    i18next.t("or")+" "+i18next.t("range")[0].toUpperCase()+i18next.t("range").substring(1)+":<input type='text' value='1-'/><button>ok</button><a data-range='1-'></a><i class='fa fa-close'></i>");
+                elem.find("input").on("keypress",function(ev) { if(ev.key == "Enter") getRange(ev); });
+                elem.find("button").click(function(ev) { getRange(ev); });
+                elem.find(".fa-close").click(function(ev){
+                  var elem = jQuery(ev.currentTarget).closest("[data-init]");
+                  var t = elem.attr("data-value").includes("pdf") ? "pdf" : "zip";
+                  console.log("fa:",elem,t);
+                  elem.attr("data-init",0).text(i18next.t("get" + (t == "pdf"?"PDF":"ZIP")));
+                  ev.stopPropagation();
+                });                  
+              } else if(url && event.target.tagName == "A") {
+                var value = elem.attr("data-value");
+                elem.removeAttr("data-value").text(i18next.t("gen"+(value.indexOf("pdf") != -1 ? "PDF":"ZIP" )));
 
                 var headers = {};
                 var id_token = localStorage.getItem('id_token');
@@ -278,40 +369,11 @@
                 }
 
                 console.log("header:",headers);
-                var pdfTimer = 0 ;
 
-                var updatePdfPercent = function(){
-
-                  var request = jQuery.ajax({
-                    url: url,
-                    dataType:'json',
-                    async: true,
-                    headers: headers
-                  });
-
-                  request.error(function(jsonLd) {
-                    if(pdfTimer) clearInterval(pdfTimer);
-                    console.log("error:",jsonLd,elem);
-                    elem.parent().addClass("login").html(i18next.t("mustLogin")).click(function() {
-                      window.location.href = 
-                        window.location.href.replace(/^(https?:\/\/[^/]+).*/,"$1/login?backToViewer="+encodeURIComponent(window.location.href));
-                    });
-                  });
-
-                  request.done(function(jsonLd) {
-                    console.log("ajax:",jsonLd,elem);
-                    if(jsonLd.link) {
-                      if(pdfTimer) clearInterval(pdfTimer);
-                      elem.html("<a download target='_blank' href='"+//url.replace(/^(.*?bdrc.io).*/,"$1")
-                        jsonLd.link+"'>"+elem.text().replace(/.*(PDF|ZIP).*/,"Download $1")+"</a>");
-                    } else if(jsonLd.percentdone != undefined)  {
-                      elem.text(elem.text().replace(/([0-9]+%)?$/, " "+jsonLd.percentdone+"%")) ;
-                    }
-                  });
-                };
-
-                updatePdfPercent();
-                pdfTimer = setInterval(updatePdfPercent, 3000);
+                var range = "1-";
+                if(!(range = jQuery(event.target).attr("data-range"))) range = "1-";
+                pdfTimer[value] = setInterval(function() { updatePdfPercent(elem, headers, value, range); }, 3000);
+                updatePdfPercent(elem, headers, value, range);
 
               }
               event.stopPropagation();

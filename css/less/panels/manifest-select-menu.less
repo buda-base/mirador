@@ -304,12 +304,13 @@
     width: 20px;
   }
 
-  .member-select-results .pdfDL { cursor:pointer;
+  .member-select-results .pdfDL { 
     margin-left:auto;
     display:block;
     justify-self:flex-end;
     
     &::before,.before {
+      cursor:pointer;
       width:29px;height:29px;content:" ";display:block;
       background:url("../images/DLw.png");
 
@@ -317,7 +318,7 @@
     .before { position:absolute; right:0;top:0; background:none;}
     &::before { pointer-events: none; margin-left:0;}
 
-    ul {  right:0; top:30px; width:200px; left:auto;z-index:1;
+    ul {  right:0; top:30px; min-width:200px; left:auto;z-index:1;
       & > span, & > li { padding:5px 15px !important; display:block;
       
         @media(max-height:480px){
