@@ -83,6 +83,8 @@
   "objectMetadata": "Object Metadata",
   "opacityLabel": "opacity",
   "or":"or",
+  "pdferror1":"Incorrect image range",
+  "pdferror2":"Server error",
   "pinTooltip": "Pin annotation",
   "pointerTooltip": "Pointer",
   "polygonTooltip": "Polygon annotation",

@@ -65,6 +65,8 @@
     "no": "否",
     "objectMetadata": "物件元数据",
     "or":"or",
+    "pdferror1":"Incorrect image range",
+    "pdferror2":"Server error",
     "pinTooltip": "点注释",
     "polygonTooltip": "多边形注释",
     "quality0":"We acknowledge the poor quality of these scans, which might be difficult to read\nor in the wrong order, and we apologize for it.\nWe think these might still be useful for scholarship and make them available,\nwhile searching for higher quality ones.",

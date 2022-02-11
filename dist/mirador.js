@@ -36604,7 +36604,7 @@ this.event.unbindAll(),e(this.scrollbarX),e(this.scrollbarY),e(this.scrollbarXRa
             var ok = range.match(/^([0-9]*)-([0-9]*)$/);
             if(!(range != "-" && ok && (ok[1] != '' && ok[2] != '' && Number(ok[1]) <= Number(ok[2]) || ok[1] === '' && ok[2] !== '' || ok[1] !== '' && ok[2] === ''))) {
               if(pdfTimer[value]) clearInterval(pdfTimer[value]);
-              elem.html("Incorrect image range: "+range+"<i class='fa fa-close'></i>");
+              elem.html(i18next.t("pdferror1")+": "+range+"<i class='fa fa-close'></i>");
               reinit(elem,value);
               return;
             } 
@@ -36625,10 +36625,10 @@ this.event.unbindAll(),e(this.scrollbarX),e(this.scrollbarY),e(this.scrollbarXRa
                     window.location.href.replace(/^(https?:\/\/[^/]+).*/,"$1/login?backToViewer="+encodeURIComponent(window.location.href));
                 });
               } else if([404].includes(jsonLd.status)){
-                elem.html("Incorrect image range: "+range+"<i class='fa fa-close'></i>");
+                elem.html(i18next.t("pdferror1")+": "+range+"<i class='fa fa-close'></i>");
                 reinit(elem,value);
               } else {
-                elem.html("Server error (range: "+range+")<i class='fa fa-close'></i>");
+                elem.html(i18next.t("pdferror2")+" ("+i18next.t("range")+": "+range+")<i class='fa fa-close'></i>");
                 reinit(elem,value);
               }
             });
