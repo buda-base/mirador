@@ -5150,6 +5150,7 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   font-weight: 700;
   font-size: 11px;
   padding: 0 !important;
+  line-height: 12px;
 }
 .image-num {
   display: inline-block;

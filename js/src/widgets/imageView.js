@@ -203,7 +203,7 @@
       _this.eventEmitter.subscribe('GOTO_IMAGE_NUM.' + _this.windowId, function(event, imageNum) {
 
 
-        var n = imageNum, m = Number(imageNum), found = false ;
+        var n = imageNum, m = Number(imageNum), found = false, img ;
         if(!m && n.match(/^[༠-༩]+$/)) m = n ;
         // if(n == Number(n)) n-- ;        
           
@@ -211,6 +211,7 @@
 
         if(imageNum.startsWith("#")) {
           n = Number(imageNum.replace(/^#/,""));
+          img = _this.getImageLabel(n);
           found = true;
         }
         else for(var i = 0 ; i <  _this.imagesList.length ; i ++) {
@@ -239,6 +240,7 @@
               
               n = i ;
               found = true ;
+              img = _this.getImageLabel(i);
               break ;
             }
           }
@@ -246,12 +248,13 @@
         }
         if(!found && n == m) {
           found = true ;
+          img = _this.getImageLabel(n-1);
           n = n - 1;
         }
         console.log("GOTO",found,n,m);
         if(found && n >= 0 && n < _this.imagesList.length) {          
             _this.eventEmitter.publish('SET_CURRENT_CANVAS_ID.' + _this.windowId, _this.imagesList[n]['@id']);
-            _this.eventEmitter.publish('SET_PAGINATION.' + _this.windowId, (n+1) + " / " + _this.imagesList.length);
+            _this.eventEmitter.publish('SET_PAGINATION.' + _this.windowId, img ? img : (n+1)  /*+ " / " + _this.imagesList.length*/ );
         } 
       });
 
@@ -1125,6 +1128,25 @@
       _this.eventEmitter.publish('UPDATE_FOCUS_IMAGES.' + _this.windowId, {array: [canvasID]});
     },
 
+    getImageLabel: function(i) {
+      var dash = i18next.t("_dash");
+      var label = this.imagesList[i].label ;
+      if(!label) label = next+1;
+      if(!Array.isArray(label)) {
+        if(label["@value"]) label = [ label ] ;
+        else label = [ { "@value": label } ] ;
+      }
+      label = this.labelToString(label,null,true,true);
+      if(label.values) { 
+        if(label.values.join) label = label.values.join(dash);
+        else { 
+          console.warn("cant join",label.values);
+          label = label.values ;
+        }
+      }
+      return label;
+    },
+    
     next: function() {
       var _this = this;
       //if(_this.freeze) return ;
@@ -1135,7 +1157,7 @@
       }
       if (next < this.imagesList.length) {
         _this.eventEmitter.publish('SET_CURRENT_CANVAS_ID.' + this.windowId, this.imagesList[next]['@id']);
-        _this.eventEmitter.publish('SET_PAGINATION.' + this.windowId, (next+1) + " / " + this.imagesList.length);
+        _this.eventEmitter.publish('SET_PAGINATION.' + this.windowId, _this.getImageLabel(next));
         //setTimeout(function() { _this.freeze = false ; }, 1000);
       }
     },
@@ -1150,7 +1172,7 @@
       }
       if (prev >= 0) {
         _this.eventEmitter.publish('SET_CURRENT_CANVAS_ID.' + this.windowId, this.imagesList[prev]['@id']);
-        _this.eventEmitter.publish('SET_PAGINATION.' + this.windowId, (prev+1) + " / " + this.imagesList.length);
+        _this.eventEmitter.publish('SET_PAGINATION.' + this.windowId, _this.getImageLabel(prev));
         //setTimeout(function() { _this.freeze = false ; }, 1000);
       }
     }

@@ -257,7 +257,7 @@
                                  '<a class="mirador-osd-previous hud-control" role="button" title="{{t "PreviousImageTooltip"}}" aria-label="{{t "PreviousImageTooltip"}}">',
                                  '<span></span>',
                                  '</a>',
-                                 '<span class="image-num">… / …</span>',
+                                 '<span class="image-num">…</span>',
                                  '<a class="mirador-osd-next hud-control" role="button" title="{{t "NextImageTooltip"}}" aria-label="{{t "NextImageTooltip"}}">',
                                  '<span></span>',
                                  '</a>',

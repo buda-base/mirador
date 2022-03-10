@@ -56,7 +56,7 @@
   "getZIP":"Get image files",
   "genPDF":"Generating PDF...",
   "genZIP":"Generating image files...",
-  "goto":"Go to p.",
+  "goto":"Go to img.",
   "grayscaleTooltip": "Toggle grayscale",
   "imageManipulationTooltip": "Toggle image manipulation",
   "imagesFor": "Images for",
