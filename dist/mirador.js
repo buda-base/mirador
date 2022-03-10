@@ -36578,13 +36578,15 @@ this.event.unbindAll(),e(this.scrollbarX),e(this.scrollbarY),e(this.scrollbarXRa
           
           el.addClass("on").removeAttr("title");
 
+          var defaultRange = render[0]["@id"].replace(/^.*?([-0-9]+)$/,"$1");
+
           var reinit = function(elem,value) {
             elem.find(".fa-close").click(function(ev){ 
               var elem = jQuery(ev.currentTarget).closest("[data-init]");
               var t = value.indexOf("pdf") != -1 ? "pdf" : "zip";
               elem.attr("data-init",1).attr("data-value",value)
                 .html("<a>"+i18next.t("full")+"</a> " +
-                  i18next.t("or")+" "+i18next.t("range")[0].toUpperCase()+i18next.t("range").substring(1)+":<input type='text' value='1-'/><button>ok</button><a data-range='1-'></a><i class='fa fa-close'></i>");
+                  i18next.t("or")+" "+i18next.t("range")[0].toUpperCase()+i18next.t("range").substring(1)+":<input type='text' value='"+defaultRange+"'/><button>ok</button><a data-range='"+defaultRange+"'></a><i class='fa fa-close'></i>");
               elem.find("input").on("keypress",function(ev) { if(ev.key == "Enter") getRange(ev); });
               elem.find("button").click(function(ev) { getRange(ev); });
               elem.find(".fa-close").click(function(ev){
@@ -36599,7 +36601,7 @@ this.event.unbindAll(),e(this.scrollbarX),e(this.scrollbarY),e(this.scrollbarXRa
 
           var pdfTimer = {} ;
           var updatePdfPercent = function(elem,headers,value,range){
-            if(!range) range = "1-";
+            if(!range) range = defaultRange;
 
             var ok = range.match(/^([0-9]*)-([0-9]*)$/);
             if(!(range != "-" && ok && (ok[1] != '' && ok[2] != '' && Number(ok[1]) <= Number(ok[2]) || ok[1] === '' && ok[2] !== '' || ok[1] !== '' && ok[2] === ''))) {
@@ -36664,7 +36666,7 @@ this.event.unbindAll(),e(this.scrollbarX),e(this.scrollbarY),e(this.scrollbarXRa
               if(init == 0) {
                 elem.attr("data-init",1)
                   .html("<a>"+i18next.t("full")+"</a> " +
-                    i18next.t("or")+" "+i18next.t("range")[0].toUpperCase()+i18next.t("range").substring(1)+":<input type='text' value='1-'/><button>ok</button><a data-range='1-'></a><i class='fa fa-close'></i>");
+                    i18next.t("or")+" "+i18next.t("range")[0].toUpperCase()+i18next.t("range").substring(1)+":<input type='text' value='"+defaultRange+"'/><button>ok</button><a data-range='"+defaultRange+"'></a><i class='fa fa-close'></i>");
                 elem.find("input").on("keypress",function(ev) { if(ev.key == "Enter") getRange(ev); });
                 elem.find("button").click(function(ev) { getRange(ev); });
                 elem.find(".fa-close").click(function(ev){
@@ -36688,8 +36690,8 @@ this.event.unbindAll(),e(this.scrollbarX),e(this.scrollbarY),e(this.scrollbarXRa
 
                 console.log("header:",headers);
 
-                var range = "1-";
-                if(!(range = jQuery(event.target).attr("data-range"))) range = "1-";
+                var range = defaultRange;
+                if(!(range = jQuery(event.target).attr("data-range"))) range = defaultRange;
                 pdfTimer[value] = setInterval(function() { updatePdfPercent(elem, headers, value, range); }, 3000);
                 updatePdfPercent(elem, headers, value, range);
 
@@ -43495,13 +43497,15 @@ var Z = 0 ;
           
           jQuery(".view-nav .DL").addClass("on").removeAttr("title");
 
+          var defaultRange = render[0]["@id"].replace(/^.*?([-0-9]+)$/,"$1");
+
           var reinit = function(elem,value) {
             elem.find(".fa-close").click(function(ev){ 
               var elem = jQuery(ev.currentTarget).closest("[data-init]");
               var t = value.indexOf("pdf") != -1 ? "pdf" : "zip";
               elem.attr("data-init",1).attr("data-value",value)
                 .html("<a>"+i18next.t("full")+"</a> " +
-                  i18next.t("or")+" "+i18next.t("range")[0].toUpperCase()+i18next.t("range").substring(1)+":<input type='text' value='1-'/><button>ok</button><a data-range='1-'></a><i class='fa fa-close'></i>");
+                  i18next.t("or")+" "+i18next.t("range")[0].toUpperCase()+i18next.t("range").substring(1)+":<input type='text' value='"+defaultRange+"'/><button>ok</button><a data-range='"+defaultRange+"'></a><i class='fa fa-close'></i>");
               elem.find("input").on("keypress",function(ev) { if(ev.key == "Enter") getRange(ev); });
               elem.find("button").click(function(ev) { getRange(ev); });
               elem.find(".fa-close").click(function(ev){
@@ -43516,7 +43520,7 @@ var Z = 0 ;
 
           var pdfTimer = {} ;
           var updatePdfPercent = function(elem,headers,value,range){
-            if(!range) range = "1-";
+            if(!range) range = defaultRange;
 
             var ok = range.match(/^([0-9]*)-([0-9]*)$/);
             if(!(range != "-" && ok && (ok[1] != '' && ok[2] != '' && Number(ok[1]) <= Number(ok[2]) || ok[1] === '' && ok[2] !== '' || ok[1] !== '' && ok[2] === ''))) {
@@ -43581,7 +43585,7 @@ var Z = 0 ;
               if(init == 0) {
                 elem.attr("data-init",1)
                   .html("<a>"+i18next.t("full")+"</a> " +
-                    i18next.t("or")+" "+i18next.t("range")[0].toUpperCase()+i18next.t("range").substring(1)+":<input type='text' value='1-'/><button>ok</button><a data-range='1-'></a><i class='fa fa-close'></i>");
+                    i18next.t("or")+" "+i18next.t("range")[0].toUpperCase()+i18next.t("range").substring(1)+":<input type='text' value='"+defaultRange+"'/><button>ok</button><a data-range='"+defaultRange+"'></a><i class='fa fa-close'></i>");
                 elem.find("input").on("keypress",function(ev) { if(ev.key == "Enter") getRange(ev); });
                 elem.find("button").click(function(ev) { getRange(ev); });
                 elem.find(".fa-close").click(function(ev){
@@ -43605,8 +43609,8 @@ var Z = 0 ;
 
                 console.log("header:",headers);
 
-                var range = "1-";
-                if(!(range = jQuery(event.target).attr("data-range"))) range = "1-";
+                var range = defaultRange;
+                if(!(range = jQuery(event.target).attr("data-range"))) range = defaultRange;
                 pdfTimer[value] = setInterval(function() { updatePdfPercent(elem, headers, value, range); }, 3000);
                 updatePdfPercent(elem, headers, value, range);
               }
