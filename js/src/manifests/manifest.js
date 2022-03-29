@@ -110,8 +110,13 @@ function getService(resource) {
 
       this.request.error(function(jsonLd) {
         console.error("manifest:",manifestUri,jsonLd);
+        var val = "dlError1m";
+        if(jsonLd.status == 404) val = "dlError404" ;
+        else if(jsonLd.status == 403) val = "dlError403" ;
+        else if(jsonLd.status == 401) val = "dlError401" ;
+        val = i18next.t(val);
         _this.jsonLd = {
-          label:{"@language":"en","@value":jsonLd.status == 404 ? "images not available" : "problem fetching manifest"},
+          label:{"@language":"en","@value":val},
           sequences:[{canvases:[]}],
           error:jsonLd.status
         } ;

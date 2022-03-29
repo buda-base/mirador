@@ -303,11 +303,14 @@
             request.error(function(jsonLd) {
               if(pdfTimer[value]) clearInterval(pdfTimer[value]);
               console.log("error:",jsonLd,elem);
-              if([401,403].includes(jsonLd.status)) { 
+              if([401].includes(jsonLd.status)) { 
                 elem.parent().addClass("login").html(i18next.t("mustLogin")).click(function() {
                   window.location.href = 
                     window.location.href.replace(/^(https?:\/\/[^/]+).*/,"$1/login?backToViewer="+encodeURIComponent(window.location.href));
                 });
+              } else if([403].includes(jsonLd.status)){
+                elem.html(i18next.t("dlError403")+"<i class='fa fa-close'></i>");
+                reinit(elem,value);
               } else if([404].includes(jsonLd.status)){
                 elem.html(i18next.t("pdferror1")+": "+range+"<i class='fa fa-close'></i>");
                 reinit(elem,value);
