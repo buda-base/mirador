@@ -61,7 +61,7 @@
 
 
       var manifest = _this.manifest;
-      console.log("render?mv",manifest);      
+      //console.log("render?mv",manifest);      
       if(manifest && manifest.rendering) {
         var render = manifest.rendering ;
         if(!Array.isArray(render)) render = [ render ] ;

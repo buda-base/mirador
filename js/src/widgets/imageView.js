@@ -58,7 +58,7 @@
     else if(window.providerAttr) { jQuery(".image-view .provider").prepend("<span>"+this.labelToString(window.providerAttr)+"</span>"); }
 
     var manifest = this.manifest.jsonLd;    
-    console.log("render?iv",manifest);                
+    //console.log("render?iv",manifest);                
     if(manifest && manifest.rendering) {
       var render = manifest.rendering ;
       if(!Array.isArray(render)) render = [ render ] ;
