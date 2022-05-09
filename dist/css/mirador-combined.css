@@ -4684,6 +4684,22 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   width: 100%;
   height: 100%;
 }
+.mirador-container .mirador-viewer .mirador-hud .view-nav {
+  display: flex !important;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  padding: 0 !important;
+  z-index: -1;
+}
+.mirador-container .mirador-viewer .mirador-hud .view-nav > div {
+  width: 1222px;
+  max-width: 100%;
+  padding: 0 !important;
+}
 .mirador-container .mirador-hud {
   position: absolute;
   left: 0;
@@ -4696,6 +4712,9 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.mirador-container .mirador-hud .X {
+  display: none;
 }
 .mirador-container .mirador-hud > .break {
   display: none;
@@ -5020,6 +5039,10 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   padding: 0;
   margin-right: 0;
   text-align: center;
+}
+.mirador-container .mirador-viewer .mirador-hud a.mirador-icon-metadata-view {
+  padding: 0 !important;
+  margin: 0 0 0 10px;
 }
 .mirador-container .mirador-manipulation-controls > div {
   position: absolute;
@@ -5565,8 +5588,7 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   align-items: center;
 }
 .view-nav #control {
-  margin-left: auto;
-  margin-right: 65px;
+  /*margin-left:auto; margin-right:65px;*/
   display: flex;
 }
 .view-nav #control img {

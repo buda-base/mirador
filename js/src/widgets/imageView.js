@@ -56,6 +56,39 @@
       }
     }
     else if(window.providerAttr) { jQuery(".image-view .provider").prepend("<span>"+this.labelToString(window.providerAttr)+"</span>"); }
+
+
+    var manifest = this.manifest.jsonLd;    
+    if(manifest && manifest.rendering) {
+      var render = manifest.rendering ;
+      if(!Array.isArray(render)) render = [ render ] ;
+      if(render.length) {
+
+        for(i = 0 ; i < render.length ; i ++) {
+          var txt = i18next.t("get" + (render[i].format.includes("pdf")?"PDF":"ZIP"));
+          jQuery(".mirador-hud .view-nav .DL ul.select").append("<li data-init='0' data-value='"+render[i]["@id"]+"'>"+txt+"</li>") ;            
+        }        
+        
+        jQuery(".mirador-hud .view-nav .DL").addClass("on").removeAttr("title");
+
+        var clickable = jQuery(".mirador-hud .view-nav .DL ul li");
+        $.handlePDFdownload(render, clickable, "li");
+
+        jQuery(".mirador-hud .view-nav #DL").click(function(event) {                        
+          jQuery(".mirador-hud .view-nav .DL ul.select").toggleClass("on");
+          event.stopPropagation();
+          event.preventDefault();
+          return false;          
+        });
+      
+        jQuery(document).click(function(event) {
+          jQuery(".mirador-hud .view-nav .DL ul.on").removeClass("on");
+        });
+      } else {
+        var val = i18next.t("cannotDL", { interpolation: { escapeValue: false } });
+        jQuery(".DL").attr("title",jQuery("<div/>").html(val).text());
+      }
+    }
   };
 
   $.ImageView.prototype = {

@@ -344,4 +344,138 @@ function getService(resource) {
     });
   };
 
+  $.handlePDFdownload = function(render, clickable, elemSelec) {
+
+    var defaultRange = render[0]["@id"].replace(/^.*?([-0-9]+)$/,"$1");
+
+    var reinit = function(elem,value) {
+      elem.find(".fa-close").click(function(ev){ 
+        var elem = jQuery(ev.currentTarget).closest("[data-init]");
+        var t = value.indexOf("pdf") != -1 ? "pdf" : "zip";
+        elem.attr("data-init",1).attr("data-value",value)
+          .html("<a>"+i18next.t("full")+"</a> " +
+            i18next.t("or")+" "+i18next.t("range")[0].toUpperCase()+i18next.t("range").substring(1)+":<input type='text' value='"+defaultRange+"'/><button>ok</button><a data-range='"+defaultRange+"'></a><i class='fa fa-close'></i>");
+        elem.find("input").on("keypress",function(ev) { if(ev.key == "Enter") getRange(ev); });
+        elem.find("button").click(function(ev) { getRange(ev); });
+        elem.find(".fa-close").click(function(ev){
+            var elem = jQuery(ev.currentTarget).closest("[data-init]");
+            var t = value.indexOf("pdf") != -1 ? "pdf" : "zip";
+            elem.attr("data-init",0).text(i18next.t("get" + (t == "pdf"?"PDF":"ZIP")));
+            ev.stopPropagation();  
+        });   
+        ev.stopPropagation();        
+      });                               
+    };
+
+    var pdfTimer = {} ;
+    var updatePdfPercent = function(elem,headers,value,range){
+      if(!range) range = defaultRange;
+
+      var ok = range.match(/^([0-9]*)-([0-9]*)$/);
+      if(!(range != "-" && ok && (ok[1] != '' && ok[2] != '' && Number(ok[1]) <= Number(ok[2]) || ok[1] === '' && ok[2] !== '' || ok[1] !== '' && ok[2] === ''))) {
+        if(pdfTimer[value]) clearInterval(pdfTimer[value]);
+        elem.html("Incorrect image range: "+range+"<i class='fa fa-close'></i>");
+        reinit(elem,value);
+        return;
+      } 
+
+      var request = jQuery.ajax({
+        url: value.replace(/[-0-9]+$/,range),
+        dataType:'json',
+        async: true,
+        headers: headers
+      });
+
+      request.error(function(jsonLd) {
+        if(pdfTimer[value]) clearInterval(pdfTimer[value]);
+        console.log("error:",jsonLd,elem);
+        if([401].includes(jsonLd.status)) { 
+          elem.parent().addClass("login").html(i18next.t("mustLogin")).click(function() {
+            window.location.href = 
+              window.location.href.replace(/^(https?:\/\/[^/]+).*/,"$1/login?backToViewer="+encodeURIComponent(window.location.href));
+          });
+        } else if([403].includes(jsonLd.status)){
+          elem.html(i18next.t("dlError403")+"<i class='fa fa-close'></i>");
+          reinit(elem,value);
+        } else if([404].includes(jsonLd.status)){
+          elem.html("Incorrect image range: "+range+"<i class='fa fa-close'></i>");
+          reinit(elem,value);
+        } else {
+          elem.html("Server error (range: "+range+")<i class='fa fa-close'></i>");
+          reinit(elem,value);
+        }
+      });
+
+      request.done(function(jsonLd) {
+        console.log("ajax:",jsonLd,elem,value);
+        if(jsonLd.link) {
+          if(pdfTimer[value]) clearInterval(pdfTimer[value]);
+          elem.html("<a download target='_blank' href='"+//url.replace(/^(.*?bdrc.io).*/,"$1")
+            jsonLd.link+"'>"+i18next.t("dl"+(value.indexOf("pdf") != -1 ? "PDF":"ZIP" ))+
+            "</a><i class='fa fa-close'>");
+          reinit(elem,value);
+        } else if(jsonLd.percentdone != undefined)  {
+          elem.text(elem.text().replace(/([0-9]+%)?$/, " "+jsonLd.percentdone+"%")) ;
+        }
+      });
+    };
+              
+    var getRange = function(ev) {
+      var elem = jQuery(ev.target).closest("[data-init]");
+      var range = elem.find("input").val();
+      console.log("ev:",ev, range);
+      elem.find("[data-range]").attr("data-range",range).click();
+    };
+
+    clickable.click(function(event){
+
+      var elem = jQuery(event.currentTarget).closest(elemSelec);            
+
+      if(elem.attr("data-value")) {
+        var url = elem.attr("data-value");
+        var init = elem.attr("data-init");
+        if(init == 0) {
+          elem.attr("data-init",1)
+            .html("<a>"+i18next.t("full")+"</a> " +
+              i18next.t("or")+" "+i18next.t("range")[0].toUpperCase()+i18next.t("range").substring(1)+":<input type='text' value='"+defaultRange+"'/><button>ok</button><a data-range='"+defaultRange+"'></a><i class='fa fa-close'></i>");
+          elem.find("input").on("keypress",function(ev) { if(ev.key == "Enter") getRange(ev); });
+          elem.find("button").click(function(ev) { getRange(ev); });
+          elem.find(".fa-close").click(function(ev){
+            var elem = jQuery(ev.currentTarget).closest("[data-init]");
+            var t = elem.attr("data-value").includes("pdf") ? "pdf" : "zip";
+            console.log("fa:",elem,t);
+            elem.attr("data-init",0).text(i18next.t("get" + (t == "pdf"?"PDF":"ZIP")));
+            ev.stopPropagation();
+          });                  
+        } else if(url && event.target.tagName == "A") {
+          var value = elem.attr("data-value");
+          elem.removeAttr("data-value").text(i18next.t("gen"+(value.indexOf("pdf") != -1 ? "PDF":"ZIP" )));
+
+          var headers = {};
+          var id_token = localStorage.getItem('id_token');
+          if(id_token && url && url.match(/[^?&]+[.]bdrc[.]io[/]/)) {
+            var jwt = parseJwt(id_token);
+            if(jwt.exp && jwt.exp > Date.now() / 1000)
+              headers = { "Authorization": "Bearer " + id_token } ; // TODO no need if manifest not from BDRC x is token valid ?
+          }
+
+          console.log("header:",headers);
+
+          var range = defaultRange;
+          if(!(range = jQuery(event.target).attr("data-range"))) range = defaultRange;
+          pdfTimer[value] = setInterval(function() { updatePdfPercent(elem, headers, value, range); }, 3000);
+          updatePdfPercent(elem, headers, value, range);
+        }
+        event.stopPropagation();
+        event.preventDefault();
+        return false;
+      }
+      else if(!elem.find("a").length) {
+        event.stopPropagation();
+        event.preventDefault();
+        return false;
+      }
+    });
+  };
+
 }(Mirador));

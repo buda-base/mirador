@@ -11,6 +11,23 @@
     width: 100%;
     height: 100%;
   }
+  .mirador-viewer  .mirador-hud .view-nav {
+    display:flex !important;
+    position:absolute;
+    width:100%;
+    height:100%;
+    justify-content: center;
+    align-items: center;
+    background:none;
+    padding:0 !important;
+    z-index:-1;
+    
+    & > div { 
+      width:1222px; 
+      max-width:100%;
+      padding:0 !important;
+    }
+  }
 
   /* Canvas HUD
   ----------------------- */
@@ -27,6 +44,9 @@
     display:flex; 
     align-items:center;
     justify-content:center;
+
+    .X { display:none; }
+
 
     & > .break { display:none;}
    
@@ -395,6 +415,7 @@
   text-align: center;
 }
 
+.mirador-container .mirador-viewer .mirador-hud a.mirador-icon-metadata-view { padding:0 !important; margin:0 0 0 10px;}
 
 .mirador-container .mirador-manipulation-controls > div {
   position: absolute;

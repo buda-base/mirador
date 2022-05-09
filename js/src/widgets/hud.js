@@ -239,7 +239,10 @@
     },
 
     template: $.Handlebars.compile([       
-                                 '<div class="mirador-hud">',                                 
+                                 '<div class="mirador-hud">',                
+
+                                 '<div class="view-nav"><div><span class="DL"><ul class="select"></ul><a id="DL">{{t "downloadI"}}<img src="/icons/DLw.png"></a>{{#if quality0}}<a title="{{u "quality0" }}" class="lowQ"><img src="/icons/lowrate.png"/></a>{{/if}}</span></div></div>',
+
                                  '{{#if showNextPrev}}',
                                  '<div class="mirador-hud-nav">',                                 
                                  '<a class="mirador-osd-previous hud-control" role="button" title="{{t "PreviousImageTooltip"}}" aria-label="{{t "PreviousImageTooltip"}}">',
