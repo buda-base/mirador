@@ -61,6 +61,7 @@
 
 
       var manifest = _this.manifest;
+      console.log("render?mv",manifest);      
       if(manifest && manifest.rendering) {
         var render = manifest.rendering ;
         if(!Array.isArray(render)) render = [ render ] ;
@@ -84,10 +85,11 @@
           jQuery(document).click(function(event) {
             jQuery(".metadata-item.DL ul.on").removeClass("on");
           });
-        } else {
-          var val = i18next.t("cannotDL", { interpolation: { escapeValue: false } });
-          jQuery(".metadata-item.DL .metadata-value").text(val);
-        }
+        } 
+      }
+      else {
+        var val = i18next.t("cannotDL", { interpolation: { escapeValue: false } });
+        jQuery(".metadata-item.DL .metadata-value").text(val);
       }
     },
 

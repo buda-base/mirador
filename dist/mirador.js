@@ -43436,7 +43436,7 @@ var Z = 0 ;
         }
       } else {
         var val = i18next.t("cannotDL", { interpolation: { escapeValue: false } });
-        jQuery(".DL").attr("title",jQuery("<div/>").html(val).text());
+        jQuery(".view-container > .view-nav .DL").attr("title",jQuery("<div/>").html(val).text());
       }
 
       /*
@@ -46135,8 +46135,8 @@ var Z = 0 ;
     }
     else if(window.providerAttr) { jQuery(".image-view .provider").prepend("<span>"+this.labelToString(window.providerAttr)+"</span>"); }
 
-
     var manifest = this.manifest.jsonLd;    
+    console.log("render?iv",manifest);                
     if(manifest && manifest.rendering) {
       var render = manifest.rendering ;
       if(!Array.isArray(render)) render = [ render ] ;
@@ -46162,10 +46162,11 @@ var Z = 0 ;
         jQuery(document).click(function(event) {
           jQuery(".mirador-hud .view-nav .DL ul.on").removeClass("on");
         });
-      } else {
-        var val = i18next.t("cannotDL", { interpolation: { escapeValue: false } });
-        jQuery(".DL").attr("title",jQuery("<div/>").html(val).text());
       }
+    }
+    else {
+      var val = i18next.t("cannotDL", { interpolation: { escapeValue: false } });
+      jQuery(".mirador-hud .view-nav .DL").attr("title",jQuery("<div/>").html(val).text());
     }
   };
 
@@ -47587,6 +47588,7 @@ var Z = 0 ;
 
 
       var manifest = _this.manifest;
+      console.log("render?mv",manifest);      
       if(manifest && manifest.rendering) {
         var render = manifest.rendering ;
         if(!Array.isArray(render)) render = [ render ] ;
@@ -47610,10 +47612,11 @@ var Z = 0 ;
           jQuery(document).click(function(event) {
             jQuery(".metadata-item.DL ul.on").removeClass("on");
           });
-        } else {
-          var val = i18next.t("cannotDL", { interpolation: { escapeValue: false } });
-          jQuery(".metadata-item.DL .metadata-value").text(val);
-        }
+        } 
+      }
+      else {
+        var val = i18next.t("cannotDL", { interpolation: { escapeValue: false } });
+        jQuery(".metadata-item.DL .metadata-value").text(val);
       }
     },
 

@@ -57,8 +57,8 @@
     }
     else if(window.providerAttr) { jQuery(".image-view .provider").prepend("<span>"+this.labelToString(window.providerAttr)+"</span>"); }
 
-
     var manifest = this.manifest.jsonLd;    
+    console.log("render?iv",manifest);                
     if(manifest && manifest.rendering) {
       var render = manifest.rendering ;
       if(!Array.isArray(render)) render = [ render ] ;
@@ -84,10 +84,11 @@
         jQuery(document).click(function(event) {
           jQuery(".mirador-hud .view-nav .DL ul.on").removeClass("on");
         });
-      } else {
-        var val = i18next.t("cannotDL", { interpolation: { escapeValue: false } });
-        jQuery(".DL").attr("title",jQuery("<div/>").html(val).text());
       }
+    }
+    else {
+      var val = i18next.t("cannotDL", { interpolation: { escapeValue: false } });
+      jQuery(".mirador-hud .view-nav .DL").attr("title",jQuery("<div/>").html(val).text());
     }
   };
 

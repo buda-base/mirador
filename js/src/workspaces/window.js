@@ -411,7 +411,7 @@ var Z = 0 ;
         }
       } else {
         var val = i18next.t("cannotDL", { interpolation: { escapeValue: false } });
-        jQuery(".DL").attr("title",jQuery("<div/>").html(val).text());
+        jQuery(".view-container > .view-nav .DL").attr("title",jQuery("<div/>").html(val).text());
       }
 
       /*
