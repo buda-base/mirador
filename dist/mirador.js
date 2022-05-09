@@ -47584,6 +47584,37 @@ var Z = 0 ;
 
       this.element = jQuery(this.template(tplData)).appendTo(this.appendTo);
       this.bindEvents();
+
+
+      var manifest = _this.manifest;
+      if(manifest && manifest.rendering) {
+        var render = manifest.rendering ;
+        if(!Array.isArray(render)) render = [ render ] ;
+        if(render.length) {
+
+          for(i = 0 ; i < render.length ; i ++) {
+            var txt = i18next.t("get" + (render[i].format.includes("pdf")?"PDF":"ZIP"));
+            jQuery(".metadata-item.DL ul.select").append("<li data-init='0' data-value='"+render[i]["@id"]+"'>"+txt+"</li>") ;            
+          }        
+          
+          var clickable = jQuery(".metadata-item.DL ul li");
+          $.handlePDFdownload(render, clickable, "li");
+
+          jQuery(".metadata-item .metadata-value").click(function(event) {                        
+            jQuery(".metadata-item.DL ul.select").toggleClass("on");
+            event.stopPropagation();
+            event.preventDefault();
+            return false;          
+          });
+        
+          jQuery(document).click(function(event) {
+            jQuery(".metadata-item.DL ul.on").removeClass("on");
+          });
+        } else {
+          var val = i18next.t("cannotDL", { interpolation: { escapeValue: false } });
+          jQuery(".metadata-item.DL .metadata-value").text(val);
+        }
+      }
     },
 
   // Base code from https://github.com/padolsey/prettyprint.js. Modified to fit Mirador needs
@@ -47703,11 +47734,11 @@ var Z = 0 ;
         identifier: 'manifest',
         label: i18next.t('manifest'),
         value: this.stringifyRelated(jsonLd['@id'] || '')
-      }, {
+      }, /*{
         identifier: 'download',
         label: i18next.t('download'),
         value: this.stringifyRelated(jsonLd.rendering || '')
-      }, {
+      },*/ {
         identifier: 'within',
         label: i18next.t('within'),
         value: this.getWithin(jsonLd.within || '')
@@ -47820,6 +47851,7 @@ var Z = 0 ;
         // '{{#if relatedLinks}}',
         //   '<dt>{{label}}:</dt><dd>{{{value}}}</dd>',
         // '{{/if}}',
+          '<div class="metadata-item DL"><div class="metadata-label">{{t "images"}}:</div><div class="metadata-value"><a href="#">{{t "downloadI"}}</a></div><ul class="select"></ul></div>',
         '</dl>',
         '{{/if}}'
 
