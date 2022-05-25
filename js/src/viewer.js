@@ -121,6 +121,31 @@
       .addClass('mirador-viewer')
       .appendTo(this.element);
 
+      var urlParams = new URLSearchParams(window.location.search), origin = urlParams.get("origin"), work = urlParams.get("work");
+      console.log("origin:",origin,jQuery("#viewer").hasClass("withIAlink"));
+      if(origin && origin.startsWith("BDRCLibApp") && jQuery("#viewer").hasClass("withIAlink")) {
+        var id = work.replace(/^(bdr:M?)|(_[A-Z0-9]+)$/g,"");
+        var IAlink = "https://archive.org/details/bdrc-"+id+"/";
+        this.canvas.append("<div id='popupIA'><div>"+ 
+          i18next.t("fairUseIA", { interpolation: { escapeValue: false } } )+"<br/>"+
+            "<a href='"+IAlink+"' target='_blank' rel='noopener noreferrer' >"+i18next.t("fairUseIA1")+"</a><br/>"+
+            "<a href='#' id='closePopupIA'>"+i18next.t("fairUseIA2")+"</a><br/>"+
+            "<a href='#' id='returnToApp'>"+i18next.t("fairUseIA3")+"</a><br/>"+
+          "</div></div>"
+        );
+        this.canvas.find("#closePopupIA").click(function(event){
+          event.preventDefault();
+          event.stopPropagation();
+          jQuery("#popupIA").remove();
+        });
+        this.canvas.find("#returnToApp").click(function(event){
+          // TODO
+          event.preventDefault();
+          event.stopPropagation();
+          jQuery("#popupIA").remove();
+        });
+      }
+
       if (!showMainMenu) {
         this.canvas.css("top", "0px");
       }

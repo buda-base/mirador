@@ -1,4 +1,27 @@
 .mirador-container {
+
+  .mirador-viewer > #popupIA {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    z-index: 100000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding:30px;
+    box-sizing: border-box;
+
+
+    & > div { background:white; border:1px solid #d73449;padding:20px;
+      color:#343434;
+      font-weight:600;
+      text-align: center;
+
+      a { display:inline-block ; margin-top:15px; font-weight:600; color:#d73449; }
+    }
+  }
+
   .window {
     position:absolute;
     width:100%;

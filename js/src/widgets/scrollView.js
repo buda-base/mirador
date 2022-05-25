@@ -176,10 +176,12 @@
           height = canvas.height,
           isErrorImg = canvas["@id"] && canvas["@id"].indexOf("static::error-copyright") != -1  && window.screen.width < 800 /*&& window.innerWidth < window.innerHeight*/ ;
 
+        /* // better if copyright image is full width
         if(prevW && isErrorImg) {
           width = prevW ;
           height =  width * aspectRatio;
-        }        
+        } 
+        */       
 
         var img = canvas.images ;
         if(img && img.length && img[0] && !isErrorImg) {
