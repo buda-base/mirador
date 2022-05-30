@@ -130,7 +130,7 @@
           i18next.t("fairUseIA", { interpolation: { escapeValue: false } } )+"<br/>"+
             "<a href='"+IAlink+"' target='_blank' rel='noopener noreferrer' >"+i18next.t("fairUseIA1")+"</a><br/>"+
             "<a href='#' id='closePopupIA'>"+i18next.t("fairUseIA2")+"</a><br/>"+
-            "<a href='#' id='returnToApp'>"+i18next.t("fairUseIA3")+"</a><br/>"+
+            "<a href='#' id='returnToApp' onClick='javascript:history.back();'>"+i18next.t("fairUseIA3")+"</a><br/>"+
           "</div></div>"
         );
         this.canvas.find("#closePopupIA").click(function(event){
