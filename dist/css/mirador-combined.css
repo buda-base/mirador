@@ -4594,6 +4594,11 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   font-weight: 600;
   color: #d73449;
 }
+.mirador-container .mirador-viewer > #popupIA > div a#returnToApp {
+  color: #343434;
+  pointer-events: none;
+  font-size: 12px;
+}
 .mirador-container .window {
   position: absolute;
   width: 100%;
