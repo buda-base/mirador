@@ -719,7 +719,7 @@ var Z = 0 ;
         if(selec.length) {
           selec.removeAttr("data-selected");
           selec = selec.prev();
-          selec = selec.prev();
+          if(selec.index() > 0) selec = selec.prev();
           selec.attr("data-selected","true");
           Z = Number(selec.attr("data-value"));
 
@@ -728,7 +728,7 @@ var Z = 0 ;
           jQuery("#Zmenu span").text(selec.text());
 
           jQuery("#Zo").addClass("on");
-          if(selec.index() === 0) jQuery("#Zi").removeClass("on");
+          if(selec.index() == 0) jQuery("#Zi").removeClass("on");
         }
 
         if(window.currentZoom) { 
@@ -750,7 +750,7 @@ var Z = 0 ;
         if(selec.length) {
           selec.removeAttr("data-selected");
           selec = selec.next();
-          selec = selec.next();
+          if(!selec.hasClass("zoom0")) selec = selec.next();
           selec.attr("data-selected","true");
           Z = Number(selec.attr("data-value"));
 
