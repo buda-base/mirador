@@ -52,7 +52,7 @@
       // i18next options
       var i18nextOptions = {
         fallbackLng: 'en',
-        whitelist: [ 'bo', 'en', 'zh'],
+        whitelist: [ 'bo', 'en', 'zh', 'fr', 'km'],
         //load: 'unspecific',
         debug: true,
         backend: {
