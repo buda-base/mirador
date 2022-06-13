@@ -234,23 +234,28 @@
               var w = jQuery(".mirador-container #manifest-select-menu").width();
               var mw = 240 ;
               if(w > 1600) mw = 350 ;
+              var coef = 0.75 ;
+              if(w <= 800) { 
+                coef = 1 ;
+                mw = w ;
+              }
 
               if(!elem.resizable("instance")) elem.resizable({
-                minWidth: Math.min(mw,w*0.25),
-                maxWidth: w*0.75,
+                minWidth: Math.min(mw,w*(1-coef)),
+                maxWidth: w*coef,
                 handles: "e"
               });
               else {
-                elem.resizable("option","minWidth", Math.min(mw,w*0.25));
-                elem.resizable("option","maxWidth", w*0.75);
+                elem.resizable("option","minWidth", Math.min(mw,w*(1-coef)));
+                elem.resizable("option","maxWidth", w*coef);
               }
               
 
               var ew = elem.width() ; 
               if(ew) {
-                console.log("W:"+w+":",ew,mw,w*0.25);
-                if(ew && ew > w*0.75) elem.width(w * 0.75);
-                else if(ew && ew < Math.min(mw,w*0.25)) elem.width(Math.min(mw,w*0.25));
+                console.log("W:"+w+":",ew,mw,w*(1-coef));
+                if(ew && ew > w*coef) elem.width(w * coef);
+                else if(ew && ew < Math.min(mw,w*(1-coef))) elem.width(Math.min(mw,w*(1-coef)));
               }
 
               /*
@@ -770,8 +775,13 @@
 
           var elem = jQuery('#collection-tree-resizer');
           var w = jQuery(".mirador-container #manifest-select-menu").width();
-          if(elem.width() > w*0.75) elem.width(w * 0.75);
-          else if(elem.width() < Math.min(240,w*0.25)) elem.width(Math.min(240,w*0.25));
+          var coef = 0.75, mw = 240;
+          if(w <= 800) {
+            coef = 1 ;
+            mw = 800 ;
+          }
+          if(elem.width() > w*coef) elem.width(w * coef);
+          else if(elem.width() < Math.min(240,w*(1-coef))) elem.width(Math.min(mw,w*(1-coef)));
         },
 
         template: $.Handlebars.compile([

@@ -273,7 +273,8 @@
 
     // template should be based on workspace type
     template: $.Handlebars.compile([
-                                 '<div id="{{slotID}}" class="{{workspaceSlotCls}}">',
+                                '<div id="{{slotID}}" class="{{workspaceSlotCls}}">',
+                                /*
                                  '<a class="remove-slot-option"><i class="fa fa-times fa-lg fa-fw"></i> {{t "close"}}</a>',
                                  '<div class="slotIconContainer">',
                                  // '<a href="javascript:;" class="mirador-btn mirador-icon-window-menu" title="Replace object"><i class="fa fa-table fa-lg fa-fw"></i>',
@@ -300,6 +301,7 @@
                                  '</div>',
                                  '<a class="addItemLink" role="button" aria-label="Add item"></a>',
                                  '<a class="dropMask"></a>',
+                                 */
                                  '</div>'
     ].join(''))
   };

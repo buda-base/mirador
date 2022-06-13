@@ -7510,6 +7510,12 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
   width: calc(50% + 13px);
   box-sizing: border-box;
 }
+@media (max-width: 800px) {
+  #viewer.inApp #collection-tree-resizer,
+  #viewer.inApp .collection-tree-resizer {
+    width: 100%;
+  }
+}
 #viewer.inApp #collection-tree-resizer.closed + .member-select-results,
 #viewer.inApp .collection-tree-resizer.closed + .member-select-results {
   max-width: calc(100% - 25px);
