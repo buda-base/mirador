@@ -188,7 +188,10 @@
 
             // toggle node on simple click
             jQuery('#collection-tree').on('click', '.jstree-anchor', function (e) {
-                jQuery(this).jstree(true).toggle_node(e.target);
+                jQuery(this).jstree(true).toggle_node(e.target);                
+                if(window.innerWidth <= 800 && jQuery(this).parent().hasClass("jstree-leaf")) {
+                  jQuery(".collec-tree-open-close").click();
+                }                
             }).jstree();
 
             jQuery('.collec-tree-open-close').on('click', function(event) {
