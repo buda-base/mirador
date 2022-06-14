@@ -33901,6 +33901,10 @@ this.negativeScrollAdjustment=this.isNegativeScroll?this.element.scrollWidth-thi
 this.event.unbindAll(),e(this.scrollbarX),e(this.scrollbarY),e(this.scrollbarXRail),e(this.scrollbarYRail),this.removePsClasses(),this.element=null,this.scrollbarX=null,this.scrollbarY=null,this.scrollbarXRail=null,this.scrollbarYRail=null,this.isAlive=!1)},H.prototype.removePsClasses=function(){this.element.className=this.element.className.split(" ").filter(function(a){return!a.match(/^ps([-_].+|)$/)}).join(" ")},H});
 //# sourceMappingURL=perfect-scrollbar.min.js.map
 
+/*! jQuery Mobile v1.4.5 | Copyright 2010, 2014 jQuery Foundation, Inc. | jquery.org/license */
+
+!function(e,t,n){"function"==typeof define&&define.amd?define(["jquery"],function(o){return n(o,e,t),o.mobile}):n(e.jQuery,e,t)}(this,document,function(e,t,n,o){!function(e,t,n,o){function i(e){for(;e&&void 0!==e.originalEvent;)e=e.originalEvent;return e}function s(t,n){var s,a,r,c,u,l,p,h,v,d=t.type;if(t=e.Event(t),t.type=n,s=t.originalEvent,a=e.event.props,d.search(/^(mouse|click)/)>-1&&(a=I),s)for(p=a.length,c;p;)c=a[--p],t[c]=s[c];if(d.search(/mouse(down|up)|click/)>-1&&!t.which&&(t.which=1),-1!==d.search(/^touch/)&&(r=i(s),d=r.touches,u=r.changedTouches,l=d&&d.length?d[0]:u&&u.length?u[0]:o))for(h=0,v=k.length;h<v;h++)c=k[h],t[c]=l[c];return t}function a(t){for(var n,o,i={};t;){n=e.data(t,P);for(o in n)n[o]&&(i[o]=i.hasVirtualBinding=!0);t=t.parentNode}return i}function r(t,n){for(var o;t;){if((o=e.data(t,P))&&(!n||o[n]))return t;t=t.parentNode}return null}function c(){z=!1}function u(){z=!0}function l(){q=0,N.length=0,j=!1,u()}function p(){c()}function h(){v(),S=setTimeout(function(){S=0,l()},e.vmouse.resetTimerDuration)}function v(){S&&(clearTimeout(S),S=0)}function d(t,n,o){var i;return(o&&o[t]||!o&&r(n.target,t))&&(i=s(n,t),e(n.target).trigger(i)),i}function f(t){var n,o=e.data(t.target,X);j||q&&q===o||(n=d("v"+t.type,t))&&(n.isDefaultPrevented()&&t.preventDefault(),n.isPropagationStopped()&&t.stopPropagation(),n.isImmediatePropagationStopped()&&t.stopImmediatePropagation())}function m(t){var n,o,s,r=i(t).touches;r&&1===r.length&&(n=t.target,o=a(n),o.hasVirtualBinding&&(q=V++,e.data(n,X,q),v(),p(),B=!1,s=i(t).touches[0],L=s.pageX,O=s.pageY,d("vmouseover",t,o),d("vmousedown",t,o)))}function g(e){z||(B||d("vmousecancel",e,a(e.target)),B=!0,h())}function w(t){if(!z){var n=i(t).touches[0],o=B,s=e.vmouse.moveDistanceThreshold,r=a(t.target);B=B||Math.abs(n.pageX-L)>s||Math.abs(n.pageY-O)>s,B&&!o&&d("vmousecancel",t,r),d("vmousemove",t,r),h()}}function b(e){if(!z){u();var t,n,o=a(e.target);d("vmouseup",e,o),B||(t=d("vclick",e,o))&&t.isDefaultPrevented()&&(n=i(e).changedTouches[0],N.push({touchID:q,x:n.clientX,y:n.clientY}),j=!0),d("vmouseout",e,o),B=!1,h()}}function T(t){var n,o=e.data(t,P);if(o)for(n in o)if(o[n])return!0;return!1}function D(){}var y,E,P="virtualMouseBindings",X="virtualTouchID",Y="vmouseover vmousedown vmousemove vmouseup vclick vmouseout vmousecancel".split(" "),k="clientX clientY pageX pageY screenX screenY".split(" "),M=e.event.mouseHooks?e.event.mouseHooks.props:[],I=e.event.props.concat(M),x={},S=0,L=0,O=0,B=!1,N=[],j=!1,z=!1,F="addEventListener"in n,H=e(n),V=1,q=0;for(e.vmouse={moveDistanceThreshold:10,clickDistanceThreshold:10,resetTimerDuration:1500},E=0;E<Y.length;E++)e.event.special[Y[E]]=function(t){var n=t.substr(1);return{setup:function(){T(this)||e.data(this,P,{}),e.data(this,P)[t]=!0,x[t]=(x[t]||0)+1,1===x[t]&&H.bind(n,f),e(this).bind(n,D),F&&(x.touchstart=(x.touchstart||0)+1,1===x.touchstart&&H.bind("touchstart",m).bind("touchend",b).bind("touchmove",w).bind("scroll",g))},teardown:function(){--x[t],x[t]||H.unbind(n,f),F&&(--x.touchstart||H.unbind("touchstart",m).unbind("touchmove",w).unbind("touchend",b).unbind("scroll",g));var o=e(this),i=e.data(this,P);i&&(i[t]=!1),o.unbind(n,D),T(this)||o.removeData(P)}}}(Y[E]);F&&n.addEventListener("click",function(t){var n,o,i,s,a,r=N.length,c=t.target;if(r)for(n=t.clientX,o=t.clientY,y=e.vmouse.clickDistanceThreshold,i=c;i;){for(s=0;s<r;s++)if(a=N[s],0,i===c&&Math.abs(a.x-n)<y&&Math.abs(a.y-o)<y||e.data(i,X)===a.touchID)return t.preventDefault(),void t.stopPropagation();i=i.parentNode}},!0)}(e,0,n),function(e){e.mobile={}}(e),function(e,t){var o={touch:"ontouchend"in n};e.mobile.support=e.mobile.support||{},e.extend(e.support,o),e.extend(e.mobile.support,o)}(e),function(e,t,o){function i(t,n,i,s){var a=i.type;i.type=n,s?e.event.trigger(i,o,t):e.event.dispatch.call(t,i),i.type=a}var s=e(n),a=e.mobile.support.touch,r=a?"touchstart":"mousedown",c=a?"touchend":"mouseup",u=a?"touchmove":"mousemove";e.each("touchstart touchmove touchend tap taphold swipe swipeleft swiperight scrollstart scrollstop".split(" "),function(t,n){e.fn[n]=function(e){return e?this.bind(n,e):this.trigger(n)},e.attrFn&&(e.attrFn[n]=!0)}),e.event.special.scrollstart={enabled:!0,setup:function(){function t(e,t){n=t,i(s,n?"scrollstart":"scrollstop",e)}var n,o,s=this,a=e(s);a.bind("touchmove scroll",function(i){e.event.special.scrollstart.enabled&&(n||t(i,!0),clearTimeout(o),o=setTimeout(function(){t(i,!1)},50))})},teardown:function(){e(this).unbind("touchmove scroll")}},e.event.special.tap={tapholdThreshold:750,emitTapOnTaphold:!0,setup:function(){var t=this,n=e(t),o=!1;n.bind("vmousedown",function(a){function r(){clearTimeout(l)}function c(){r(),n.unbind("vclick",u).unbind("vmouseup",r),s.unbind("vmousecancel",c)}function u(e){c(),o||p!==e.target?o&&e.preventDefault():i(t,"tap",e)}if(o=!1,a.which&&1!==a.which)return!1;var l,p=a.target;n.bind("vmouseup",r).bind("vclick",u),s.bind("vmousecancel",c),l=setTimeout(function(){e.event.special.tap.emitTapOnTaphold||(o=!0),i(t,"taphold",e.Event("taphold",{target:p}))},e.event.special.tap.tapholdThreshold)})},teardown:function(){e(this).unbind("vmousedown").unbind("vclick").unbind("vmouseup"),s.unbind("vmousecancel")}},e.event.special.swipe={scrollSupressionThreshold:30,durationThreshold:1e3,horizontalDistanceThreshold:30,verticalDistanceThreshold:30,getLocation:function(e){var n=t.pageXOffset,o=t.pageYOffset,i=e.clientX,s=e.clientY;return 0===e.pageY&&Math.floor(s)>Math.floor(e.pageY)||0===e.pageX&&Math.floor(i)>Math.floor(e.pageX)?(i-=n,s-=o):(s<e.pageY-o||i<e.pageX-n)&&(i=e.pageX-n,s=e.pageY-o),{x:i,y:s}},start:function(t){var n=t.originalEvent.touches?t.originalEvent.touches[0]:t,o=e.event.special.swipe.getLocation(n);return{time:(new Date).getTime(),coords:[o.x,o.y],origin:e(t.target)}},stop:function(t){var n=t.originalEvent.touches?t.originalEvent.touches[0]:t,o=e.event.special.swipe.getLocation(n);return{time:(new Date).getTime(),coords:[o.x,o.y]}},handleSwipe:function(t,n,o,s){if(n.time-t.time<e.event.special.swipe.durationThreshold&&Math.abs(t.coords[0]-n.coords[0])>e.event.special.swipe.horizontalDistanceThreshold&&Math.abs(t.coords[1]-n.coords[1])<e.event.special.swipe.verticalDistanceThreshold){var a=t.coords[0]>n.coords[0]?"swipeleft":"swiperight";return i(o,"swipe",e.Event("swipe",{target:s,swipestart:t,swipestop:n}),!0),i(o,a,e.Event(a,{target:s,swipestart:t,swipestop:n}),!0),!0}return!1},eventInProgress:!1,setup:function(){var t,n=this,o=e(n),i={};t=e.data(this,"mobile-events"),t||(t={length:0},e.data(this,"mobile-events",t)),t.length++,t.swipe=i,i.start=function(t){if(!e.event.special.swipe.eventInProgress){e.event.special.swipe.eventInProgress=!0;var o,a=e.event.special.swipe.start(t),r=t.target,l=!1;i.move=function(t){a&&!t.isDefaultPrevented()&&(o=e.event.special.swipe.stop(t),l||(l=e.event.special.swipe.handleSwipe(a,o,n,r))&&(e.event.special.swipe.eventInProgress=!1),Math.abs(a.coords[0]-o.coords[0])>e.event.special.swipe.scrollSupressionThreshold&&t.preventDefault())},i.stop=function(){l=!0,e.event.special.swipe.eventInProgress=!1,s.off(u,i.move),i.move=null},s.on(u,i.move).one(c,i.stop)}},o.on(r,i.start)},teardown:function(){var t,n;t=e.data(this,"mobile-events"),t&&(n=t.swipe,delete t.swipe,0===--t.length&&e.removeData(this,"mobile-events")),n&&(n.start&&e(this).off(r,n.start),n.move&&s.off(u,n.move),n.stop&&s.off(c,n.stop))}},e.each({scrollstop:"scrollstart",taphold:"tap",swipeleft:"swipe.left",swiperight:"swipe.right"},function(t,n){e.event.special[t]={setup:function(){e(this).bind(n,e.noop)},teardown:function(){e(this).unbind(n)}}})}(e,this)});
+
 // This file defines the global Mirador constructor function.
 // This is the entry point to Mirador and is intentionally sparse.
 (function(global) {
@@ -35379,7 +35383,7 @@ this.event.unbindAll(),e(this.scrollbarX),e(this.scrollbarY),e(this.scrollbarXRa
             // toggle node on simple click
             jQuery('#collection-tree').on('click', '.jstree-anchor', function (e) {
                 jQuery(this).jstree(true).toggle_node(e.target);                
-                if(window.innerWidth <= 800 && jQuery(this).parent().hasClass("jstree-leaf")) {
+                if(window.innerWidth < window.innerHeight && window.innerWidth <= 800 && jQuery(this).parent().hasClass("jstree-leaf")) {
                   jQuery(".collec-tree-open-close").click();
                 }                
             }).jstree();
@@ -35390,15 +35394,15 @@ this.event.unbindAll(),e(this.scrollbarX),e(this.scrollbarY),e(this.scrollbarXRa
               else elem.removeClass("closed").animate({"margin-left":0},400);    
             });
 
-            jQuery("#manifest-select-menu,#collection-tree").on('swiperight', function(e) {              
-              var tree = jQuery("#collection-tree-resizer:not(.disabled) .collec-tree-open-close");
-              console.log("L:",tree);
+            jQuery("#viewer.inApp").on('swiperight', function(e) {              
+              var tree = jQuery("#collection-tree-resizer:not(.disabled):visible .collec-tree-open-close");
+              //console.log("L:",tree);
               if(tree.parent().hasClass("closed")) tree.click();
             });
 
-            jQuery("#manifest-select-menu,#collection-tree").on('swipeleft', function(e) {              
-              var tree = jQuery("#collection-tree-resizer:not(.disabled) .collec-tree-open-close");
-              console.log("R:",tree);
+            jQuery("#viewer.inApp").on('swipeleft', function(e) {              
+              var tree = jQuery("#collection-tree-resizer:not(.disabled):visible .collec-tree-open-close");
+              //console.log("R:",tree);
               if(!tree.parent().hasClass("closed")) tree.click();
             });
 
@@ -35421,7 +35425,7 @@ this.event.unbindAll(),e(this.scrollbarX),e(this.scrollbarY),e(this.scrollbarXRa
               event.preventDefault();
             });
 
-            jQuery(window).resize($.throttle(function() {
+            var resizePanel = function(ev) {
 
               var elem = jQuery('#collection-tree-resizer');
               var w = jQuery(".mirador-container #manifest-select-menu").width();
@@ -35429,8 +35433,13 @@ this.event.unbindAll(),e(this.scrollbarX),e(this.scrollbarY),e(this.scrollbarXRa
               if(w > 1600) mw = 350 ;
               var coef = 0.75 ;
               if(w <= 800) { 
-                coef = 1 ;
-                mw = w ;
+                if(window.innerWidth < window.innerHeight) { 
+                  coef = 1 ;
+                  mw = w ;
+                } else {
+                  coef = 0.5 + 13/w;
+                  mw = w ;                  
+                }
               }
 
               if(!elem.resizable("instance")) elem.resizable({
@@ -35446,8 +35455,11 @@ this.event.unbindAll(),e(this.scrollbarX),e(this.scrollbarY),e(this.scrollbarXRa
 
               var ew = elem.width() ; 
               if(ew) {
-                console.log("W:"+w+":",ew,mw,w*(1-coef));
-                if(ew && ew > w*coef) elem.width(w * coef);
+                console.log("W:"+w+":",ew,mw,w*(1-coef),w * coef, Math.min(mw,w*(1-coef)), ev.type);
+                if(w <= 800)  { 
+                  elem.width(w * coef);
+                  if(elem.hasClass("closed")) elem.css({"margin-left":-(w*coef - 25)+"px"});
+                } else if(ew && ew > w*coef) elem.width(w * coef);
                 else if(ew && ew < Math.min(mw,w*(1-coef))) elem.width(Math.min(mw,w*(1-coef)));
               }
 
@@ -35467,7 +35479,10 @@ this.event.unbindAll(),e(this.scrollbarX),e(this.scrollbarY),e(this.scrollbarXRa
               }
               */
 
-            }, 100, true));
+            };
+
+            // jQuery(window).on("orientationchange", resizePanel); // no need (resize already triggered in that case)
+            jQuery(window).resize($.throttle(resizePanel, 100, true));
 
             setTimeout(function(){ jQuery(window).resize(); },650);  
 
@@ -35970,11 +35985,16 @@ this.event.unbindAll(),e(this.scrollbarX),e(this.scrollbarY),e(this.scrollbarXRa
           var w = jQuery(".mirador-container #manifest-select-menu").width();
           var coef = 0.75, mw = 240;
           if(w <= 800) {
-            coef = 1 ;
-            mw = 800 ;
+            if(window.innerWidth < window.innerHeight) {
+              coef = 1 ;
+              mw = w ;
+            } else {
+              coef = 0.5 + 13/w ;
+              mw = w ;
+            }
           }
           if(elem.width() > w*coef) elem.width(w * coef);
-          else if(elem.width() < Math.min(240,w*(1-coef))) elem.width(Math.min(mw,w*(1-coef)));
+          else if(elem.width() < Math.min(mw,w*(1-coef))) elem.width(Math.min(mw,w*(1-coef)));
         },
 
         template: $.Handlebars.compile([
@@ -36151,7 +36171,16 @@ this.event.unbindAll(),e(this.scrollbarX),e(this.scrollbarY),e(this.scrollbarXRa
                 jQuery(this).addClass("on");
                 _this.eventEmitter.publish('manifestsPanelVisible.set',true);
                 jQuery(".nav-bar-top #breadcrumbs #vol,.nav-bar-top #breadcrumbs #image").removeClass("active on");
-                if(inApp) setTimeout(function() { jQuery(window).scrollTop(0); }, 150);
+                if(inApp) { 
+                  if(window.innerWidth <= 800 && window.innerWidth <= window.innerHeight) {
+                    if(jQuery("#manifest-select-menu .member-select-results ul li").length == 1) {
+                      if(jQuery("#collection-tree-resizer").hasClass("closed")){
+                        jQuery("#collection-tree-resizer .collec-tree-open-close").click();
+                      }
+                    }
+                  }
+                  setTimeout(function() { jQuery(window).scrollTop(0); }, 150);
+                }
               }
             });
 
@@ -36714,7 +36743,7 @@ this.event.unbindAll(),e(this.scrollbarX),e(this.scrollbarY),e(this.scrollbarXRa
         };
         _this.eventEmitter.publish('ADD_WINDOW', windowConfig);
         _this.eventEmitter.publish('UPDATE_MAIN_MENU_MANIFEST.'+_this.manifest.jsonLd["@id"]);
-        if(jQuery(_this.element).closest("ul").find("li").length > 1) jQuery(".mobile-button.top.off").removeClass("off");
+        if(jQuery(_this.element).closest("ul").find("li").length >= 1) jQuery(".mobile-button.top.off").removeClass("off");
         e.preventDefault();
       });
     },

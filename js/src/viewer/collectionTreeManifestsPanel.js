@@ -189,7 +189,7 @@
             // toggle node on simple click
             jQuery('#collection-tree').on('click', '.jstree-anchor', function (e) {
                 jQuery(this).jstree(true).toggle_node(e.target);                
-                if(window.innerWidth <= 800 && jQuery(this).parent().hasClass("jstree-leaf")) {
+                if(window.innerWidth < window.innerHeight && window.innerWidth <= 800 && jQuery(this).parent().hasClass("jstree-leaf")) {
                   jQuery(".collec-tree-open-close").click();
                 }                
             }).jstree();
@@ -200,15 +200,15 @@
               else elem.removeClass("closed").animate({"margin-left":0},400);    
             });
 
-            jQuery("#manifest-select-menu,#collection-tree").on('swiperight', function(e) {              
-              var tree = jQuery("#collection-tree-resizer:not(.disabled) .collec-tree-open-close");
-              console.log("L:",tree);
+            jQuery("#viewer.inApp").on('swiperight', function(e) {              
+              var tree = jQuery("#collection-tree-resizer:not(.disabled):visible .collec-tree-open-close");
+              //console.log("L:",tree);
               if(tree.parent().hasClass("closed")) tree.click();
             });
 
-            jQuery("#manifest-select-menu,#collection-tree").on('swipeleft', function(e) {              
-              var tree = jQuery("#collection-tree-resizer:not(.disabled) .collec-tree-open-close");
-              console.log("R:",tree);
+            jQuery("#viewer.inApp").on('swipeleft', function(e) {              
+              var tree = jQuery("#collection-tree-resizer:not(.disabled):visible .collec-tree-open-close");
+              //console.log("R:",tree);
               if(!tree.parent().hasClass("closed")) tree.click();
             });
 
@@ -231,7 +231,7 @@
               event.preventDefault();
             });
 
-            jQuery(window).resize($.throttle(function() {
+            var resizePanel = function(ev) {
 
               var elem = jQuery('#collection-tree-resizer');
               var w = jQuery(".mirador-container #manifest-select-menu").width();
@@ -239,8 +239,13 @@
               if(w > 1600) mw = 350 ;
               var coef = 0.75 ;
               if(w <= 800) { 
-                coef = 1 ;
-                mw = w ;
+                if(window.innerWidth < window.innerHeight) { 
+                  coef = 1 ;
+                  mw = w ;
+                } else {
+                  coef = 0.5 + 13/w;
+                  mw = w ;                  
+                }
               }
 
               if(!elem.resizable("instance")) elem.resizable({
@@ -256,8 +261,11 @@
 
               var ew = elem.width() ; 
               if(ew) {
-                console.log("W:"+w+":",ew,mw,w*(1-coef));
-                if(ew && ew > w*coef) elem.width(w * coef);
+                console.log("W:"+w+":",ew,mw,w*(1-coef),w * coef, Math.min(mw,w*(1-coef)), ev.type);
+                if(w <= 800)  { 
+                  elem.width(w * coef);
+                  if(elem.hasClass("closed")) elem.css({"margin-left":-(w*coef - 25)+"px"});
+                } else if(ew && ew > w*coef) elem.width(w * coef);
                 else if(ew && ew < Math.min(mw,w*(1-coef))) elem.width(Math.min(mw,w*(1-coef)));
               }
 
@@ -277,7 +285,10 @@
               }
               */
 
-            }, 100, true));
+            };
+
+            // jQuery(window).on("orientationchange", resizePanel); // no need (resize already triggered in that case)
+            jQuery(window).resize($.throttle(resizePanel, 100, true));
 
             setTimeout(function(){ jQuery(window).resize(); },650);  
 
@@ -780,11 +791,16 @@
           var w = jQuery(".mirador-container #manifest-select-menu").width();
           var coef = 0.75, mw = 240;
           if(w <= 800) {
-            coef = 1 ;
-            mw = 800 ;
+            if(window.innerWidth < window.innerHeight) {
+              coef = 1 ;
+              mw = w ;
+            } else {
+              coef = 0.5 + 13/w ;
+              mw = w ;
+            }
           }
           if(elem.width() > w*coef) elem.width(w * coef);
-          else if(elem.width() < Math.min(240,w*(1-coef))) elem.width(Math.min(mw,w*(1-coef)));
+          else if(elem.width() < Math.min(mw,w*(1-coef))) elem.width(Math.min(mw,w*(1-coef)));
         },
 
         template: $.Handlebars.compile([

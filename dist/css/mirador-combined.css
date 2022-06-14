@@ -4379,6 +4379,7 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   }
 }
 @media (max-width: 800px) {
+  .inApp.embed.mirador-container .nav-bar-top #logo #buda + a ~ *,
   .inApp:not(.embed).mirador-container .nav-bar-top #logo #buda + a ~ * {
     display: none;
   }
@@ -4395,6 +4396,12 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
 @media (max-width: 800px) and (orientation: landscape) {
   .mirador-container .X {
     margin-left: 24px;
+  }
+}
+@media (max-width: 480px) {
+  .inApp.embed.mirador-container .nav-bar-top #logo #buda ~ *,
+  .inApp:not(.embed).mirador-container .nav-bar-top #logo #buda ~ * {
+    display: none;
   }
 }
 /*

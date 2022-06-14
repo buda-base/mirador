@@ -386,6 +386,7 @@
 
 @media(max-width:800px) {
   
+  .inApp.embed.mirador-container,
   .inApp:not(.embed).mirador-container {
     .nav-bar-top #logo #buda {
       & + a ~ * { display:none; }
@@ -406,6 +407,16 @@
       a {
         max-width: calc(35%);
       }
+    }
+  }
+}
+
+@media(max-width:480px) {
+  
+  .inApp.embed.mirador-container,
+  .inApp:not(.embed).mirador-container {
+    .nav-bar-top #logo #buda {
+      & ~ * { display:none; }
     }
   }
 }

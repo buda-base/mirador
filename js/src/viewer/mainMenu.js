@@ -133,7 +133,16 @@
                 jQuery(this).addClass("on");
                 _this.eventEmitter.publish('manifestsPanelVisible.set',true);
                 jQuery(".nav-bar-top #breadcrumbs #vol,.nav-bar-top #breadcrumbs #image").removeClass("active on");
-                if(inApp) setTimeout(function() { jQuery(window).scrollTop(0); }, 150);
+                if(inApp) { 
+                  if(window.innerWidth <= 800 && window.innerWidth <= window.innerHeight) {
+                    if(jQuery("#manifest-select-menu .member-select-results ul li").length == 1) {
+                      if(jQuery("#collection-tree-resizer").hasClass("closed")){
+                        jQuery("#collection-tree-resizer .collec-tree-open-close").click();
+                      }
+                    }
+                  }
+                  setTimeout(function() { jQuery(window).scrollTop(0); }, 150);
+                }
               }
             });
 
