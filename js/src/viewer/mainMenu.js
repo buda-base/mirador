@@ -36,9 +36,14 @@
 
             // TODO use "responsive" flag to work in library as well
             var urlParams = new URLSearchParams(window.location.search), origin = urlParams.get("origin"), inApp;
-            if(window.innerWidth < 800 || origin && origin.startsWith("BDRCLibApp")) {
-              inApp = true ;
-              jQuery('<div class="mobile-button top '+(origin && origin.startsWith("BDRCLibApp")?"off":"")+'"><img src="/icons/burger.svg"/><i class="fa fa-arrow-left" aria-hidden="true"></i></div>')
+            var force = "";
+            if(window.innerWidth < 800 || origin) {
+              if(window.innerWidth < 800 || origin.startsWith("BDRCLibApp")) inApp = true ;
+              if(origin) { 
+                if(origin.startsWith("BDRCLibApp")) force = "off" ;
+                else force = "forced" ;
+              }
+              jQuery('<div class="mobile-button top '+force+'"><img src="/icons/burger.svg"/><i class="fa fa-arrow-left" aria-hidden="true"></i></div>')
               .appendTo(this.appendTo);
             }
 
@@ -61,6 +66,7 @@
                 userButtons: this.state.getStateProperty('mainMenuSettings').userButtons,
                 userLogo:    this.state.getStateProperty('mainMenuSettings').userLogo,
                 useClose:    window.closeViewer?true:false,
+                useTarget:   force=="forced"?true:false
             }));
 
             this.element.find('.mainmenu-button').each(function() {
@@ -188,7 +194,7 @@
         template: $.Handlebars.compile([
 
       //'<div class="nav-bar-top"><div><a href="https://www.tbrc.org" target="_blank" id="bdrc"><img src="/BDRC-Logo.png"/></a><a href="/" id="buda"><img src="/LIBRARY.svg"/></a></div>',
-      '<div class="nav-bar-top"><div id="logo"><a href="/" id="buda"><img src="/icons/BUDA-small.svg"/></a><a href="/"><span>BUDA</span></a><a><span>by</span></a><a href="https://bdrc.io/" target="_blank"  id="bdrc"><span>BDRC</span></a><a href="https://bdrc.io" target="_blank"><img src="/BDRC-Logo_.png"/></a></div>',
+      '<div class="nav-bar-top"><div id="logo"><a {{#if useTarget}}href="https://library.bdrc.io/" target="_blank"{{else}}href="/"{{/if}} id="buda" ><img src="/icons/BUDA-small.svg"/></a><a href="/"><span>BUDA</span></a><a><span>by</span></a><a href="https://bdrc.io/" target="_blank"  id="bdrc"><span>BDRC</span></a><a href="https://bdrc.io" target="_blank"><img src="/BDRC-Logo_.png"/></a></div>',
         
       '<div id="breadcrumbs">',
       '{{#if useClose}}',

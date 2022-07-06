@@ -4229,7 +4229,8 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
 .mobile-button.off {
   display: none;
 }
-.mobile-button.on {
+.mobile-button.on,
+.mobile-button.forced {
   opacity: 0;
   pointer-events: none;
 }
@@ -4240,6 +4241,9 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
 }
 .mobile-button.top:not(.on) + .mirador-main-menu-bar {
   top: -60px;
+}
+.mobile-button.top.forced + .mirador-main-menu-bar {
+  top: 0px;
 }
 .mobile-button.top.collec + .mirador-main-menu-bar {
   z-index: -100;
@@ -4378,6 +4382,9 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
     height: calc(100% - 60px);
   }
 }
+.mirador-container .X {
+  margin-left: 24px;
+}
 @media (max-width: 800px) {
   .inApp.embed.mirador-container .nav-bar-top #logo #buda + a ~ *,
   .inApp:not(.embed).mirador-container .nav-bar-top #logo #buda + a ~ * {
@@ -4393,9 +4400,9 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
     max-width: calc(35%);
   }
 }
-@media (max-width: 800px) and (orientation: landscape) {
+@media (max-width: 800px) and (orientation: portrait) {
   .mirador-container .X {
-    margin-left: 24px;
+    margin-left: 0px;
   }
 }
 @media (max-width: 480px) {
@@ -4422,6 +4429,8 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   font-weight: 700;
   line-height: 20px;
   max-width: 930px;
+  text-align: right;
+  margin-left: auto;
 }
 .nav-bar-top #breadcrumbs #return {
   text-transform: uppercase;
@@ -4552,6 +4561,34 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
 }
 .nav-bar-top #breadcrumbs #vol {
   flex-shrink: 2;
+}
+.embed.mirador-container:not(.inApp) .mirador-viewer:not(#a) {
+  top: 0px;
+}
+.embed.mirador-container:not(.inApp) .mirador-viewer .scroll-view,
+.embed.mirador-container:not(.inApp) .mirador-viewer .bottomPanel,
+.embed.mirador-container:not(.inApp) .mirador-viewer .mirador-osd {
+  height: calc(100% - 60px * 2);
+  top: 60px;
+}
+.embed.mirador-container:not(.inApp) .nav-bar-top #breadcrumbs {
+  order: 0;
+  text-align: left;
+  max-width: 100%;
+  width: calc(100% - 80px);
+  margin-left: 0;
+}
+.embed.mirador-container:not(.inApp) .nav-bar-top #breadcrumbs #collec {
+  padding-left: 0;
+}
+.embed.mirador-container:not(.inApp) .nav-bar-top #logo {
+  order: 1;
+}
+.embed.mirador-container:not(.inApp) .nav-bar-top #logo > :not(:first-child) {
+  display: none;
+}
+.embed.mirador-container:not(.inApp) .nav-bar-top #logo > :first-child img {
+  margin-right: 0 !important;
 }
 .mirador-container .mirador-status-bar {
   background-color: #ccc;
@@ -4737,6 +4774,12 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   width: 1222px;
   max-width: 100%;
   padding: 0 !important;
+  box-sizing: border-box;
+}
+@media (max-width: 1240px) {
+  .mirador-container .mirador-viewer .mirador-hud .view-nav > div {
+    padding: 0 10px !important;
+  }
 }
 .mirador-container .mirador-hud {
   position: absolute;
@@ -5949,6 +5992,7 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   max-height: 80px;
   max-width: 40px;
   padding: 0 4px;
+  border: none !important;
 }
 .provider img[src$="bdrc.io/static::logo.png/full/max/0/default.png"] {
   filter: invert(100%);
@@ -5974,7 +6018,8 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
 .scroll-view .provider div,
 .image-view .provider {
   position: fixed;
-  top: 5px /*~"calc(100vh - 120px - 70px)"*/;
+  top: 5px;
+  /*~"calc(100vh - 120px - 70px)"*/
   min-width: 40px;
   min-height: 80px;
   background: #2d3b46;
@@ -5983,6 +6028,7 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
   justify-content: center;
   z-index: 1;
   top: 0;
+  border: none !important;
 }
 .scroll-view .provider div span,
 .image-view .provider span {
