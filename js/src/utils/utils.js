@@ -519,8 +519,7 @@ function getService(resource) {
         });
 
         request.error(function(jsonLd) {
-          if([401].includes(jsonLd.status)) {                                          
-            jQuery(".mirador-hud .view-nav .DL ul.select").toggleClass("on");
+          if([401].includes(jsonLd.status)) {                                
             elem.parent().addClass("login").html(i18next.t("mustLogin")).click(function() {
               window.location.href = 
               window.location.href.replace(/^(https?:\/\/[^/]+).*/,"$1/login?backToViewer="+encodeURIComponent(window.location.href));

@@ -51899,16 +51899,15 @@ function getService(resource) {
         });
 
         request.error(function(jsonLd) {
-          //elem.find("a").text(sav);
-          if([401].includes(jsonLd.status)) {                                          
-            jQuery(".mirador-hud .view-nav .DL ul.select").toggleClass("on");
+          if([401].includes(jsonLd.status)) {                                
             elem.parent().addClass("login").html(i18next.t("mustLogin")).click(function() {
               window.location.href = 
-                window.location.href.replace(/^(https?:\/\/[^/]+).*/,"$1/login?backToViewer="+encodeURIComponent(window.location.href));
+              window.location.href.replace(/^(https?:\/\/[^/]+).*/,"$1/login?backToViewer="+encodeURIComponent(window.location.href));
             });
           } else {
             elem.find("a").text("Server error ("+jsonLd.status+")");
           }
+          //elem.find("a").text(sav);
         });
 
         return false;
