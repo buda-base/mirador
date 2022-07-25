@@ -524,13 +524,13 @@ function getService(resource) {
             }
           }
           
-          var temp = window.URL.createObjectURL(new Blob([response.data]));
+          var temp = window.URL.createObjectURL(response);
           var link = document.createElement("a");
           link.href = temp;
           link.setAttribute("download", filename);    
           link.click();
           window.URL.revokeObjectURL(link);          
-          
+
           jQuery(".mirador-hud .view-nav .DL ul.select").toggleClass("on");
           elem.find("a").text(sav);
           elem.removeClass("already");
