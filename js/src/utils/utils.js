@@ -496,12 +496,13 @@ function getService(resource) {
             headers = { "Authorization": "Bearer " + id_token } ; // TODO no need if manifest not from BDRC x is token valid ?
         }
 
+        var xhr ;
         request = jQuery.ajax({
           url: url,
           async: true,
           headers: headers,
           xhr:function(){
-            var xhr = new XMLHttpRequest();
+            xhr = new XMLHttpRequest();
             xhr.responseType= 'blob';
             return xhr;
           },
@@ -511,13 +512,25 @@ function getService(resource) {
         elem.find("a").text(i18next.t("downloading"));
 
         request.done(function (response) {
+          console.log("response:",response);
+
+          var filename = url.split(/[\\\/]/).pop().replace(/[.]jpe?g$/i, ".tif"); // default
+          var disposition = xhr.getResponseHeader('Content-Disposition');
+          if (disposition && disposition.indexOf('attachment') !== -1) {
+            var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+            var matches = filenameRegex.exec(disposition);
+            if (matches != null && matches[1]) { 
+              filename = matches[1].replace(/['"]/g, '');
+            }
+          }
+          
           var temp = window.URL.createObjectURL(new Blob([response.data]));
           var link = document.createElement("a");
           link.href = temp;
-          var filename = url.split(/[\\\/]/).pop();
-          link.setAttribute("download", filename);
+          link.setAttribute("download", filename);    
           link.click();
           window.URL.revokeObjectURL(link);          
+          
           jQuery(".mirador-hud .view-nav .DL ul.select").toggleClass("on");
           elem.find("a").text(sav);
           elem.removeClass("already");
