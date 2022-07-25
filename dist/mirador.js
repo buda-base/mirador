@@ -51867,6 +51867,12 @@ function getService(resource) {
         return false;
       } else if(elem.attr("data-source")){
 
+        console.log("click",elem);
+
+        if(elem.hasClass("checked")) {
+          elem.removeClass("checked already error");
+          return true;
+        }
 
         event.stopPropagation();
         event.preventDefault();
@@ -51885,8 +51891,7 @@ function getService(resource) {
             headers = { "Authorization": "Bearer " + id_token } ; // TODO no need if manifest not from BDRC x is token valid ?
         }
 
-        var xhr ;
-        request = jQuery.ajax({
+        var xhr, request = jQuery.ajax({
           url: url,
           async: true,
           headers: headers,
@@ -51894,12 +51899,22 @@ function getService(resource) {
             xhr = new XMLHttpRequest();
             xhr.responseType= 'blob';
             return xhr;
-          },
+          }
         });
+
+        xhr.addEventListener("progress", function(val) {
+          elem.addClass("checked");
+          setTimeout(function() { 
+            jQuery(".mirador-hud .view-nav .DL ul.select").toggleClass("on");
+            elem.find("a").text(sav).get(0).click(); 
+          }, 10); 
+          request.abort();
+        }, false);
 
         var sav = elem.text();
         elem.find("a").text(i18next.t("downloading"));
 
+        /*
         request.done(function (response) {
           console.log("response:",response);
 
@@ -51919,11 +51934,12 @@ function getService(resource) {
           link.setAttribute("download", filename);    
           link.click();
           window.URL.revokeObjectURL(link);          
-
+          
           jQuery(".mirador-hud .view-nav .DL ul.select").toggleClass("on");
           elem.find("a").text(sav);
-          elem.removeClass("already");
+          elem.removeClass("already error");
         });
+        */
 
         request.error(function(jsonLd) {
           if([401].includes(jsonLd.status)) {                                
@@ -51934,7 +51950,7 @@ function getService(resource) {
           } else {
             elem.find("a").text("Server error ("+jsonLd.status+")");
           }
-          elem.removeClass("already");
+          elem.addClass("error").removeClass("already");
         });
 
         return false;
