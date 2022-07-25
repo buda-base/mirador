@@ -51942,6 +51942,7 @@ function getService(resource) {
         */
 
         request.error(function(jsonLd) {
+          if(jsonLd.status == 0) return ; // case of abort
           if([401].includes(jsonLd.status)) {                                
             elem.parent().addClass("login").html(i18next.t("mustLogin")).click(function() {
               window.location.href = 
