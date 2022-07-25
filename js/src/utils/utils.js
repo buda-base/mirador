@@ -478,8 +478,12 @@ function getService(resource) {
         return false;
       } else if(elem.attr("data-source")){
 
+
         event.stopPropagation();
         event.preventDefault();
+
+        if(elem.hasClass("already")) return ;
+        elem.addClass("already");
 
         //url = "https://iiif.bdrc.io/bdr:I0GN010020001::I0GN010020001002.jpg/full/1065,/0/default.jpg";  // test
         url = elem.attr("data-source");
@@ -516,6 +520,7 @@ function getService(resource) {
           window.URL.revokeObjectURL(link);          
           jQuery(".mirador-hud .view-nav .DL ul.select").toggleClass("on");
           elem.find("a").text(sav);
+          elem.removeClass("already");
         });
 
         request.error(function(jsonLd) {
@@ -527,7 +532,7 @@ function getService(resource) {
           } else {
             elem.find("a").text("Server error ("+jsonLd.status+")");
           }
-          //elem.find("a").text(sav);
+          elem.removeClass("already");
         });
 
         return false;
