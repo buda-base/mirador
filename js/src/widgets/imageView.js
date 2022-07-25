@@ -56,51 +56,9 @@
       }
     }
     else if(window.providerAttr) { jQuery(".image-view .provider").prepend("<span>"+this.labelToString(window.providerAttr)+"</span>"); }
-
-    var manifest = this.manifest.jsonLd;    
-    //console.log("render?iv",manifest);                
-    if(manifest && manifest.rendering) {
-      var render = manifest.rendering ;
-      if(!Array.isArray(render)) render = [ render ] ;
-      if(render.length) {
-
-        var txt ;
-        for(i = 0 ; i < render.length ; i ++) {
-          txt = i18next.t("get" + (render[i].format.includes("pdf")?"PDF":"ZIP"));
-          jQuery(".mirador-hud .view-nav .DL ul.select").append("<li data-init='0' data-value='"+render[i]["@id"]+"'>"+txt+"</li>") ;            
-        }   
-        // buda-base/public-digital-library#735     
-        var seeAlso = this.currentImg.images[0];
-        if(seeAlso) seeAlso = seeAlso.resource.seeAlso ; 
-        //console.log("seeAlso:",this,seeAlso);
-        if(seeAlso && seeAlso["@type"] == "Image") {
-          var url = seeAlso["@id"] ;
-          txt = i18next.t("getRAW");
-          jQuery(".mirador-hud .view-nav .DL ul.select").addClass("threefold").append("<li data-source='"+url+"' data-init='1' style='padding:0'><a style='padding:5px 15px;font-weight:400 !important;text-decoration:none !important;' download href='"+url+"'>"+txt+"</a></li>") ;            
-        }
-        
-        jQuery(".mirador-hud .view-nav .DL").addClass("on").removeAttr("title");
-
-        var clickable = jQuery(".mirador-hud .view-nav .DL ul li");
-        $.handlePDFdownload(render, clickable, "li");
-
-        jQuery(".mirador-hud .view-nav #DL").click(function(event) {                        
-          jQuery(".mirador-hud .view-nav .DL ul.select").toggleClass("on");
-          event.stopPropagation();
-          event.preventDefault();
-          return false;          
-        });
-      
-        jQuery(document).click(function(event) {
-          jQuery(".mirador-hud .view-nav .DL ul.on").removeClass("on");
-        });
-      }
-    }
-    else {
-      var val = i18next.t("cannotDL", { interpolation: { escapeValue: false } });
-      jQuery(".mirador-hud .view-nav .DL").attr("title",jQuery("<div/>").html(val).text());
-    }
   };
+
+
 
   $.ImageView.prototype = {
 
@@ -169,6 +127,8 @@
         _this.eventEmitter.publish('SET_BOTTOM_PANEL_VISIBILITY.' + this.windowId, null);
       }
 
+      _this.setDL.bind(_this);
+      _this.setDL();
     },
 
     template: $.Handlebars.compile([
@@ -177,6 +137,55 @@
        '</div>'
 
     ].join('')),
+
+    setDL: function() {      
+      var _this = this; 
+      var manifest = _this.manifest.jsonLd;    
+      //console.log("render?iv",manifest);                
+      if(manifest && manifest.rendering) {
+        var render = manifest.rendering ;
+        if(!Array.isArray(render)) render = [ render ] ;
+        if(render.length) {
+
+          jQuery(".mirador-hud .view-nav .DL ul.select *").remove();
+
+          var txt ;
+          for(i = 0 ; i < render.length ; i ++) {
+            txt = i18next.t("get" + (render[i].format.includes("pdf")?"PDF":"ZIP"));
+            jQuery(".mirador-hud .view-nav .DL ul.select").append("<li data-init='0' data-value='"+render[i]["@id"]+"'>"+txt+"</li>") ;            
+          }   
+          // buda-base/public-digital-library#735             
+          var seeAlso = _this.imagesList[this.currentImgIndex].images[0];
+          if(seeAlso) seeAlso = seeAlso.resource.seeAlso ; 
+          //console.log("seeAlso:",_this,seeAlso);
+          if(seeAlso && seeAlso["@type"] == "Image") {
+            var url = seeAlso["@id"] ;
+            txt = i18next.t("getRAW");
+            jQuery(".mirador-hud .view-nav .DL ul.select").addClass("threefold").append("<li data-source='"+url+"' data-init='1' style='padding:0'><a style='padding:5px 15px;font-weight:400 !important;text-decoration:none !important;' download href='"+url+"'>"+txt+"</a></li>") ;            
+          }
+          
+          jQuery(".mirador-hud .view-nav .DL").addClass("on").removeAttr("title");
+            
+          var clickable = jQuery(".mirador-hud .view-nav .DL ul li");
+          $.handlePDFdownload(render, clickable, "li");
+
+          jQuery(".mirador-hud .view-nav #DL").off("click").click(function(event) {                        
+            jQuery(".mirador-hud .view-nav .DL ul.select").toggleClass("on");
+            event.stopPropagation();
+            event.preventDefault();
+            return false;          
+          });
+        
+          jQuery(document).off("click").click(function(event) {
+            jQuery(".mirador-hud .view-nav .DL ul.on").removeClass("on");
+          });
+        }
+      }
+      else {
+        var val = i18next.t("cannotDL", { interpolation: { escapeValue: false } });
+        jQuery(".mirador-hud .view-nav .DL").attr("title",jQuery("<div/>").html(val).text());
+      }
+    }, 
 
     listenForActions: function() {
       var _this = this;
@@ -245,8 +254,6 @@
 
 
       _this.eventEmitter.subscribe('GOTO_IMAGE_NUM.' + _this.windowId, function(event, imageNum) {
-
-
         var n = imageNum, m = Number(imageNum), found = false, img ;
         if(!m && n.match(/^[༠-༩]+$/)) m = n ;
         // if(n == Number(n)) n-- ;        
@@ -1165,7 +1172,9 @@
             }
           }
 
-          this._osdTimer = 0 ;
+          _this._osdTimer = 0 ;
+
+          _this.setDL();
           
         }, 650) ;
       }
