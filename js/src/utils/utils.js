@@ -431,8 +431,10 @@ function getService(resource) {
 
       var elem = jQuery(event.currentTarget).closest(elemSelec);            
 
+      var headers, id_token, jwt, url ;
+
       if(elem.attr("data-value")) {
-        var url = elem.attr("data-value");
+        url = elem.attr("data-value");
         var init = elem.attr("data-init");
         if(init == 0) {
           elem.attr("data-init",1)
@@ -451,10 +453,10 @@ function getService(resource) {
           var value = elem.attr("data-value");
           elem.removeAttr("data-value").text(i18next.t("gen"+(value.indexOf("pdf") != -1 ? "PDF":"ZIP" )));
 
-          var headers = {};
-          var id_token = localStorage.getItem('id_token');
+          headers = {};
+          id_token = localStorage.getItem('id_token');
           if(id_token && url && url.match(/[^?&]+[.]bdrc[.]io[/]/)) {
-            var jwt = parseJwt(id_token);
+            jwt = parseJwt(id_token);
             if(jwt.exp && jwt.exp > Date.now() / 1000)
               headers = { "Authorization": "Bearer " + id_token } ; // TODO no need if manifest not from BDRC x is token valid ?
           }
@@ -473,6 +475,62 @@ function getService(resource) {
       else if(!elem.find("a").length) {
         event.stopPropagation();
         event.preventDefault();
+        return false;
+      } else if(elem.attr("data-source")){
+
+        event.stopPropagation();
+        event.preventDefault();
+
+        //url = "https://iiif.bdrc.io/bdr:I0GN010020001::I0GN010020001002.jpg/full/1065,/0/default.jpg";  // test
+        url = elem.attr("data-source");
+
+        headers = {};
+        id_token = localStorage.getItem('id_token');
+        if(id_token && url && url.match(/[^?&]+[.]bdrc[.]io[/]/)) {
+         jwt = parseJwt(id_token);
+          if(jwt.exp && jwt.exp > Date.now() / 1000)
+            headers = { "Authorization": "Bearer " + id_token } ; // TODO no need if manifest not from BDRC x is token valid ?
+        }
+
+        request = jQuery.ajax({
+          url: url,
+          async: true,
+          headers: headers,
+          xhr:function(){
+            var xhr = new XMLHttpRequest();
+            xhr.responseType= 'blob';
+            return xhr;
+          },
+        });
+
+        var sav = elem.text();
+        elem.find("a").text(i18next.t("downloading"));
+
+        request.done(function (response) {
+          var temp = window.URL.createObjectURL(new Blob([response.data]));
+          var link = document.createElement("a");
+          link.href = temp;
+          var filename = url.split(/[\\\/]/).pop();
+          link.setAttribute("download", filename);
+          link.click();
+          window.URL.revokeObjectURL(link);          
+          jQuery(".mirador-hud .view-nav .DL ul.select").toggleClass("on");
+          elem.find("a").text(sav);
+        });
+
+        request.error(function(jsonLd) {
+          if([401].includes(jsonLd.status)) {                                          
+            jQuery(".mirador-hud .view-nav .DL ul.select").toggleClass("on");
+            elem.parent().addClass("login").html(i18next.t("mustLogin")).click(function() {
+              window.location.href = 
+              window.location.href.replace(/^(https?:\/\/[^/]+).*/,"$1/login?backToViewer="+encodeURIComponent(window.location.href));
+            });
+          } else {
+            elem.find("a").text("Server error ("+jsonLd.status+")");
+          }
+          //elem.find("a").text(sav);
+        });
+
         return false;
       }
     });

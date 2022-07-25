@@ -5802,6 +5802,11 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
 .view-nav ul.select:not(.on) {
   display: none;
 }
+.metadata-listing ul.select.threefold:not(.login),
+.items-listing ul.select.threefold:not(.login),
+.view-nav ul.select.threefold:not(.login) {
+  top: -120px;
+}
 .metadata-listing ul.select li:hover,
 .items-listing ul.select li:hover,
 .view-nav ul.select li:hover,
@@ -5931,9 +5936,10 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
 .metadata-listing ul.select.login,
 .items-listing ul.select.login,
 .view-nav ul.select.login {
-  padding: 5px 10px;
+  padding: 5px 15px;
   font-size: 14px;
   cursor: pointer;
+  top: -75px;
 }
 .metadata-listing ul.select.login:hover,
 .items-listing ul.select.login:hover,

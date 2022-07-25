@@ -64,10 +64,20 @@
       if(!Array.isArray(render)) render = [ render ] ;
       if(render.length) {
 
+        var txt ;
         for(i = 0 ; i < render.length ; i ++) {
-          var txt = i18next.t("get" + (render[i].format.includes("pdf")?"PDF":"ZIP"));
+          txt = i18next.t("get" + (render[i].format.includes("pdf")?"PDF":"ZIP"));
           jQuery(".mirador-hud .view-nav .DL ul.select").append("<li data-init='0' data-value='"+render[i]["@id"]+"'>"+txt+"</li>") ;            
-        }        
+        }   
+        // buda-base/public-digital-library#735     
+        var seeAlso = this.currentImg.images[0];
+        if(seeAlso) seeAlso = seeAlso.resource.seeAlso ; 
+        //console.log("seeAlso:",this,seeAlso);
+        if(seeAlso && seeAlso["@type"] == "Image") {
+          var url = seeAlso["@id"] ;
+          txt = i18next.t("getRAW");
+          jQuery(".mirador-hud .view-nav .DL ul.select").addClass("threefold").append("<li data-source='"+url+"' data-init='1' style='padding:0'><a style='padding:5px 15px;font-weight:400 !important;text-decoration:none !important;' download href='"+url+"'>"+txt+"</a></li>") ;            
+        }
         
         jQuery(".mirador-hud .view-nav .DL").addClass("on").removeAttr("title");
 

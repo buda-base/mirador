@@ -165,6 +165,8 @@
     padding:0 2px;
     background-color:#fff;
 
+    &.threefold:not(.login) { top:-120px; }
+
     li:hover, & > span:hover { 
       & { background-color:#eee; }
     }
@@ -219,7 +221,7 @@
       &:not([data-init='1']):hover a { font-weight:700 !important; }
     }
 
-    &.login { padding:5px 10px; font-size:14px; cursor:pointer;
+    &.login { padding:5px 15px; font-size:14px; cursor:pointer; top:-75px; 
       &:hover { text-decoration: underline; }
     }
   }
