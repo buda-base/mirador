@@ -145,6 +145,19 @@
   .X { display:none; }
 }
 
+#root {
+  & > div:not(#viewer) .mirador-main-menu-bar { 
+
+    .X { position:relative; font-size:40px; color:black;font-family: sans-serif; display:inline-block; cursor:pointer; }
+    .X { transform:rotate(45deg);  margin-top:-1px;
+      &::before { content:'+'; }
+    }
+  }
+
+  .mirador-main-menu-bar {   
+    .nav-bar-top #breadcrumbs a#collec:first-child::before { content:none; }
+  }
+}
 
 .inApp {   
 
@@ -194,7 +207,7 @@
     }
   }
   .mirador-main-menu-bar { top:0px;right:0; position:fixed;
-    .X { transform:rotate(45deg); 
+    .X { transform:rotate(45deg);  margin-top:-1px;
       &::before { content:'+'; }
     }
   }

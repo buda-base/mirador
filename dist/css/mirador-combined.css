@@ -4079,6 +4079,24 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
 .mirador-hud .X {
   display: none;
 }
+#root > div:not(#viewer) .mirador-main-menu-bar .X {
+  position: relative;
+  font-size: 40px;
+  color: black;
+  font-family: sans-serif;
+  display: inline-block;
+  cursor: pointer;
+}
+#root > div:not(#viewer) .mirador-main-menu-bar .X {
+  transform: rotate(45deg);
+  margin-top: -1px;
+}
+#root > div:not(#viewer) .mirador-main-menu-bar .X::before {
+  content: '+';
+}
+#root .mirador-main-menu-bar .nav-bar-top #breadcrumbs a#collec:first-child::before {
+  content: none;
+}
 .inApp .nav-bar-top #breadcrumbs a#collec:not(.active) {
   display: none !important;
 }
@@ -4153,6 +4171,7 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
 }
 .inApp .mirador-main-menu-bar .X {
   transform: rotate(45deg);
+  margin-top: -1px;
 }
 .inApp .mirador-main-menu-bar .X::before {
   content: '+';
