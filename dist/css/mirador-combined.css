@@ -4177,7 +4177,7 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   content: '+';
 }
 .inApp .nav-bar-top {
-  width: calc(100% - 20px) !important;
+  width: calc(100% - 10px - 55px) !important;
 }
 .inApp .nav-bar-top #breadcrumbs {
   width: calc(100% - 20px - 10px);
@@ -4200,7 +4200,7 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   text-overflow: ellipsis;
 }
 .inApp:not(.embed) .nav-bar-top #breadcrumbs a {
-  max-width: calc((100% - 75px)/3);
+  max-width: calc((100% - 95px)/3);
 }
 .inApp:not(.embed) .nav-bar-top #breadcrumbs a#return {
   display: inline;
@@ -4218,7 +4218,7 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   display: inline-block;
 }
 .inApp:not(.embed) .mobile-button:not(.image) + .mirador-main-menu-bar .nav-bar-top #breadcrumbs a {
-  max-width: calc((100% - 75px) / 2);
+  max-width: calc((100% - 95px) / 2);
 }
 @media only screen and (orientation: portrait) and (max-device-width: 767px) and (max-width: 480px) {
   .inApp .view-nav a#DL {
@@ -4231,6 +4231,12 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   .inApp .view-nav ul.select {
     min-width: 130px;
   }
+}
+#root > div > .resource:not([data-searchurl]) .inApp:not(.embed) .nav-bar-top #breadcrumbs a {
+  max-width: calc((100%) / 3);
+}
+#root > div > .resource:not([data-searchurl]) .inApp:not(.embed) .mobile-button:not(.image) + .mirador-main-menu-bar .nav-bar-top #breadcrumbs a {
+  max-width: calc((100%) / 2);
 }
 .mobile-button {
   position: fixed;
@@ -4253,11 +4259,19 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   opacity: 0;
   pointer-events: none;
 }
+@media (max-width: 800px) {
+  .mobile-button.on:not(.collec).on,
+  .mobile-button.forced:not(.collec).on {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
 .mobile-button.top {
   top: 5px;
   left: 5px;
   background-color: white;
 }
+.mobile-button.top.image + .mirador-main-menu-bar,
 .mobile-button.top:not(.on) + .mirador-main-menu-bar {
   top: -60px;
 }
@@ -4297,6 +4311,18 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   font-size: 26px;
   -webkit-text-stroke: 2px white;
   display: none;
+}
+:not(#viewer) > .mobile-button.image {
+  display: none;
+}
+#viewer > .mobile-button.image {
+  transform: none;
+  transition: none;
+}
+@media (min-width: 801px) and (max-width: 1024px) {
+  #root > .H100vh.OF0 .mobile-button.top {
+    display: none;
+  }
 }
 .inApp .mobile-button.image .fa-arrow-left {
   display: block;
@@ -4350,6 +4376,11 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
 }
 #viewer.inApp .nav-bar-top {
   padding: 0 10px;
+}
+@media (max-width: 800px) {
+  #viewer.inApp .nav-bar-top {
+    padding-left: 55px;
+  }
 }
 #viewer.inApp .nav-bar-top a#collec {
   padding-left: 0;
@@ -4580,6 +4611,28 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
 }
 .nav-bar-top #breadcrumbs #vol {
   flex-shrink: 2;
+}
+.nav-bar-top #breadcrumbs #return span:first-child {
+  padding-left: 0;
+  display: inline;
+}
+.nav-bar-top #breadcrumbs #return span:first-child::before {
+  content: none;
+}
+.nav-bar-top #breadcrumbs #return span:last-child {
+  padding-left: 0;
+  display: none;
+}
+.nav-bar-top #breadcrumbs #return span:last-child::before {
+  content: none;
+}
+@media (max-width: 800px) {
+  .nav-bar-top #breadcrumbs #return span:first-child {
+    display: none;
+  }
+  .nav-bar-top #breadcrumbs #return span:last-child {
+    display: inline;
+  }
 }
 .embed.mirador-container:not(.inApp) .mirador-viewer:not(#a) {
   top: 0px;

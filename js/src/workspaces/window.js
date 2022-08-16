@@ -610,9 +610,11 @@ var Z = 0 ;
       var _this = this;
       var inApp = window.innerWidth < 800 ; //jQuery("body > #viewer.inApp").length > 0 ;
 
+      /*
       if(inApp) {
         jQuery("#breadcrumbs #return").text("BUDA");
       }
+      */
 
       //this event should trigger from layout
       jQuery(window).resize($.debounce(function(){

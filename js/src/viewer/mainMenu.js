@@ -198,7 +198,7 @@
         
       '<div id="breadcrumbs">',
       '{{#if useClose}}',
-      '<a onClick="javascript:window.closeViewer(arguments[0], true)" id="return" class="active">{{t "results"}}</a>',
+      '<a onClick="javascript:window.closeViewer(arguments[0], true)" id="return" class="active"><span>{{t "results"}}</span><span>{{t "resultsMob"}}</span></a>',
       //'{{else}}',
       //'<a href="/show/{{resID}}" id="return" class="active">{{t "return"}}</a>',
       '{{/if}}',
