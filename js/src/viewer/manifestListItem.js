@@ -40,7 +40,7 @@
       this.maxPreviewImagesWidth = this.maxPreviewImagesWidth * 0.95;
 
       $.Handlebars.registerHelper('pluralize', function(count, singular, plural) {
-        if (count === 1) {
+        if (count <= 1) {
           return singular;
         } else {
           return plural;
@@ -110,8 +110,11 @@
         }
       }
 
+      var label = _this.labelToString(manifest.label, [], true) ;
+      if(label.startsWith("volume ")) label = "V"+label.substring(1) ;
+
       this.tplData = {
-        label: _this.labelToString(manifest.label) ,// $.JsonLd.getTextValue(manifest.label),
+        label: label ,// $.JsonLd.getTextValue(manifest.label),
         repository: location,
         canvasCount: (manifest.sequences[0].canvases?manifest.sequences[0].canvases.length:0),
         images: [],
@@ -290,7 +293,10 @@
       _this.eventEmitter.subscribe('UPDATE_MAIN_MENU_MANIFEST.'+_this.manifest.jsonLd["@id"], function(e){
         console.log("UMMM",_this,e);
 
-        jQuery(".nav-bar-top #breadcrumbs #vol span").text(_this.labelToString(_this.manifest.jsonLd.label))
+        var label = _this.labelToString(manifest.label, [], true) ;
+        if(label.startsWith("volume ")) label = "V"+label.substring(1) ;
+        
+        jQuery(".nav-bar-top #breadcrumbs #vol span").text(label)
         .parent().addClass("active").attr("data-reading-view-id",_this.allImages[0].id);
         
         jQuery(".nav-bar-top #breadcrumbs #image").removeClass("active on");

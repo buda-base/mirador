@@ -70,6 +70,7 @@
       "goto":"Go to img.",
       "grayscaleTooltip": "Toggle grayscale",
       "imageManipulationTooltip": "Toggle image manipulation",
+      "image": "Image",
       "images": "Images",
       "imagesFor": "Images for",
       "imageView": "Image View",
