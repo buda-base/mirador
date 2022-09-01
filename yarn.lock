@@ -6296,9 +6296,9 @@ opener@~1.4.1, opener@~1.4.2:
   resolved "https://registry.yarnpkg.com/opener/-/opener-1.4.3.tgz#5c6da2c5d7e5831e8ffa3964950f8d6674ac90b8"
   integrity sha1-XG2ixdflgx6P+jlklQ+NZnSskLg=
 
-"openseadragon@https://github.com/openseadragon/openseadragon#master":
-  version "2.4.0"
-  resolved "https://github.com/openseadragon/openseadragon#e7108f23602575fc6eb152d4b82a8b44b2ca698e"
+"openseadragon@https://github.com/buda-base/openseadragon":
+  version "3.1.0"
+  resolved "https://github.com/buda-base/openseadragon#3585445cc7a5e6537ebc10fe689b18598e1c556e"
 
 opn@^5.3.0:
   version "5.5.0"
