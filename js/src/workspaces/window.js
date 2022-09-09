@@ -652,7 +652,7 @@ var Z = 0 ;
 
         if(event) window.miradorNoScroll = true ;
 
-        console.log("the orientation of the device is now " + (event?event.target.screen.orientation.angle:"--"));
+        //console.log("the orientation of the device is now " + (event?event.target.screen.orientation.angle:"--"));
 
         if(window.screen.width < 800 && window.innerWidth < window.innerHeight) {
           jQuery("body").height(window.innerHeight);
