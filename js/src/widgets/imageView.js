@@ -1108,6 +1108,7 @@
       }, 500));
 
       _this.osd.addHandler('pan', $.debounce(function(){
+        console.log("paned:");
         _this.setBounds();
       }, 500));
     },
@@ -1165,11 +1166,15 @@
           var z = null;
           if(_this.manifest && _this.manifest.jsonLd && _this.manifest.jsonLd["@id"] && window.OSDzoom){
             z = window.OSDzoom[_this.manifest.jsonLd["@id"]];
+            
             if(z != undefined) {
               _this.osd.viewport.zoomTo(z,{},true);
-              _this.osd.viewport.panTo({x:0, y:0}, true);
-              _this.osd.viewport.applyConstraints();
+              if(z > 0.001) {
+                _this.osd.viewport.panTo({x:0, y:0}, true);
+                _this.osd.viewport.applyConstraints( true ); 
+              }
             }
+            
           }
 
           _this._osdTimer = 0 ;
@@ -1184,7 +1189,7 @@
     getImageLabel: function(i) {
       var dash = i18next.t("_dash");
       var label = this.imagesList[i].label ;
-      if(!label) label = next+1;
+      if(!label) label = i+1;
       if(!Array.isArray(label)) {
         if(label["@value"]) label = [ label ] ;
         else label = [ { "@value": label } ] ;
