@@ -1169,10 +1169,10 @@
             
             if(z != undefined) {
               _this.osd.viewport.zoomTo(z,{},true);
-              if(z > 0.001) {
+              //if(z > 0.001) { // see #467
                 _this.osd.viewport.panTo({x:0, y:0}, true);
-                _this.osd.viewport.applyConstraints( true ); 
-              }
+                _this.osd.viewport.applyConstraints( true ); // #752 breaks after OSD#7d643 
+              //}
             }
             
           }
