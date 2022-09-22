@@ -1029,7 +1029,10 @@
         canvasControls: this.canvasControls,
         ajaxWithCredentials: withCredentials,
         maxZoomPixelRatio:4,
-        degrees:degrees
+        degrees:degrees,
+        // fix for #752!
+        visibilityRatio: 1.0,
+        constrainDuringPan: true
       });
 
       var canvasBounds = canvasModel.getBounds();

@@ -79,7 +79,7 @@
     "jquery.scrollto": "^1.4.12",
     "material-design-icons": "^3.0.1",
     "mousetrap": "^1.4.6",
-    "openseadragon": "https://github.com/buda-base/openseadragon#no-uglify",
+    "openseadragon": "https://github.com/buda-base/openseadragon",
     "paper": "^0.11.2",
     "perfect-scrollbar": "^1.5.0",
     "qtip2": "^3.0.3",
