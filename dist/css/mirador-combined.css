@@ -6231,6 +6231,16 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
   padding-top: 0;
   padding-bottom: 0;
 }
+.mirador-container .etext-content .monlam-popup {
+  cursor: pointer;
+}
+.mirador-container .etext-content .monlam-popup:hover {
+  background-color: #eee;
+}
+.mirador-container .etext-content .monlam-popup img {
+  display: inline-block;
+  background: transparent;
+}
 .mirador-container .panel-thumbnail-view .etext-content {
   display: none;
 }

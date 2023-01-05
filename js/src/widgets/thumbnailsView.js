@@ -415,6 +415,19 @@ var prevDiff = -1;
         _this.eventEmitter.publish('SET_PAGINATION.' + _this.windowId, jQuery(this).parent().find(".thumb-label").text());
       });
 
+      jQuery(document).off("mouseup").on('mouseup',function() {
+        //if(window.getSelection().toString().length) {
+
+          console.log("docup:",_this,_this.element);
+          jQuery(".scroll-listing-thumbs .monlam-popup").each( function(i,e) {
+            console.log("i,e",i,e);
+            var je = jQuery(e);
+            if(je.hasClass("init")) je.removeClass("init");
+            else je.remove();
+          });
+
+        //}
+      });
       
       jQuery(window).resize(function() {        
         if(window.screen.width > 767 || window.currentZoom === undefined) {
@@ -423,6 +436,21 @@ var prevDiff = -1;
           window.setZoom(Z/100);
         }
       });
+
+
+      jQuery(document).on("keydown", function (myEvent) {
+   
+        // function that verifies the detection
+        myEvent = myEvent || window.event; // 'myEvent' is event object
+        var key = myEvent.which || myEvent.keyCode; // this is to detect keyCode         
+        // Detecting Ctrl
+        var ctrl = myEvent.ctrlKey ? myEvent.ctrlKey : ((key === 17) ? true : false);
+        
+        if (key == 67 && ctrl && window.monlamAPI && window.monlamAPI.selection) {         
+           navigator.clipboard.writeText(window.monlamAPI.selection);
+           console.log("copied:",window.monlamAPI.selection);
+        }
+     });
       
     },
 
@@ -602,7 +630,7 @@ var prevDiff = -1;
               imelem.addClass("etext-pending");
               if(window.currentZoom) {
                 var h0 = etc.height();
-                var p = etc.attr("data-h0",h0).find("div:not(.pad)");
+                var p = etc.attr("data-h0",h0).find("div:not(.pad,.monlam-popup,.monlam-hilight)");
                 var h = p.innerHeight();
                 p.attr("data-h",h).css({"transform":"scale("+1/window.currentZoom+")"});
                 etc.find(".pad").height(30 / window.currentZoom + 0.5 * (h / window.currentZoom - h0));
@@ -639,15 +667,50 @@ var prevDiff = -1;
                     if(!txt.match(/[\n\r]/)) 
                       css += "unformated " ;                  
 
-                    jQuery(imageElement).next('.etext-content').addClass(css).html("<div class='pad'></div><div>"+txt+"</div><div class='pad'></div>") ; 
-
+                    jQuery(imageElement).next('.etext-content').addClass(css).html("<div class='pad'></div><div class='monlam-selec'>"+txt+"</div><div class='pad'></div>")
+                    .find(".monlam-selec").on("mouseup", function(ev){
+                      var selection = window.getSelection();
+                      //console.log("up:",selection.toString(),selection,ev);
+                      var el = jQuery(ev.currentTarget);
+                      var decalH = ev.currentTarget.closest(".monlam-selec").getBoundingClientRect();
+                      var decalP = ev.currentTarget.closest(".etext-content").getBoundingClientRect();
+                      jQuery(document).find(".monlam-hilight,.monlam-popup").remove();
+                      setTimeout(function() {
+                        var selection = window.getSelection();                        
+                        if (!selection.rangeCount) return ;
+                        var range = selection.getRangeAt(0);
+                        if(range) {
+                          if(selection.toString().length) {
+                            var MIN_CONTEXT_LENGTH = 40;
+                            var start = Math.min(selection.anchorOffset,selection.focusOffset);
+                            var end = Math.max(selection.anchorOffset,selection.focusOffset);
+                            var startOff = Math.max(0, start - MIN_CONTEXT_LENGTH);
+                            var endOff = Math.min(el.text().length, end + MIN_CONTEXT_LENGTH);
+                            var chunk = el.text().substring(startOff, endOff);
+                            start = chunk.indexOf(selection.toString());
+                            window.monlamAPI = { chunk: chunk, start_cursor: start, end_cursor:start+selection.toString().length, selection: selection.toString() };
+                            var coords = Array.from(range.getClientRects());
+                            console.log("coords:",coords,window.monlamAPI);
+                            el.parent().append("<div class='monlam-popup init' style='line-height:"+22*(1/window.currentZoom)+"px;padding:"+15*(1/window.currentZoom)+"px;position:absolute;font-family:Noto Sans, Noto Sans TC, Noto Sans Tibetan;font-size:"+16*(1/window.currentZoom)+"px;margin-left:"+((1/window.currentZoom) * 13.25)+"px;top:"+((1/window.currentZoom)*(coords[0].top-decalP.top-62))+"px;left:"+((1/window.currentZoom)*(coords[0].left-decalP.left-13))+"px'><img style='vertical-align:"+(-10*(1/window.currentZoom))+"px;width:"+32*(1/window.currentZoom)+"px;padding-right:"+15*(1/window.currentZoom)+"px;' src='/icons/monlam.png'/>"+i18next.t("find")+"</div>")                            
+                              .parent().find(".monlam-popup").on("click", function(){
+                                console.log("go:");
+                              });
+                            coords.map(function(c){ el.append("<div class='monlam-hilight' style='width:"+c.width+"px;height:"+c.height+"px;top:"+(c.top-decalH.top)+"px;left:"+(c.left-decalH.left)+"px;position:absolute;background:rgba(0,100,255,0.25);padding:0;margin:0;box-shadow:none;'></div>"); });
+                            selection.removeAllRanges();
+                          }
+                        }                        
+                      }, 150);
+                    }).on("mousedown", function(ev){
+                      var el = jQuery(ev.currentTarget);
+                      el.parent().find(".monlam-hilight,.monlam-popup").remove();
+                    }) ;                       
                   } 
                   else { 
                     jQuery(imageElement).next('.etext-content').addClass(css).html("<div class='pad'></div><div>--</div><div class='pad'></div>"); 
                   }
                   if(window.currentZoom) {
                     var h0 = etc.height();
-                    var p = etc.attr("data-h0",h0).find("div:not(.pad)");
+                    var p = etc.attr("data-h0",h0).find("div:not(.pad,.monlam-popup,.monlam-hilight)");
                     var h = p.innerHeight();
                     p.attr("data-h",h).css({"transform":"scale("+1/window.currentZoom+")", "max-width":"calc(95% * "+window.currentZoom+")" });
                     etc.find(".pad").height(30 / window.currentZoom + 0.5 * (h / window.currentZoom - h0));
