@@ -153,6 +153,7 @@
             });
 
             this.element.find("#breadcrumbs #vol").on('click', function() { 
+              jQuery(".scroll-view.withMonlam").removeClass("withMonlam").parent().find(".monlam-results").remove();
               jQuery(".mobile-button.top").removeClass("image");
               var the = jQuery(this);
               if(!the.hasClass("on")) {

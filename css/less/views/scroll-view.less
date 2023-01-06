@@ -326,6 +326,26 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
     list-style: none;
     padding: 0;
     white-space: nowrap;
+
+  }
+
+  .image-view { z-index:1; }
+
+  .scroll-view { border:none !important;
+    &.withMonlam { width:~"calc(100% - 400px)"; }
+
+
+    &~.monlam-results { 
+      z-index:0;
+      position:absolute;
+      display:block;
+      right:0;
+      top:0;
+      width:400px;
+      height:~"calc(100% - 80px)";
+      background:white;    
+      box-shadow: -2px 0 3px rgba(0,0,0,0.15);
+    }
   }
 
   ul.scroll-listing-thumbs li {
@@ -412,12 +432,20 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
     &:empty { height:0 !important; transition: all 1s ease-in-out; padding-top:0;padding-bottom:0;}
    
     .monlam-popup {
+      margin-right:0 !important;width:max-content;display:flex !important;align-items:center;position:absolute;font-family:"Noto Sans", "Noto Sans TC", "Noto Sans Tibetan"; 
       cursor:pointer;
       &:hover {
         background-color:#eee;
       }
       img { display:inline-block;background:transparent;}
+      span { border:none !important; }
     }
+
+    .monlam-selec { position:relative;
+      span { border:none !important; display:block; }
+    }
+
+
   }
 }
 

@@ -415,19 +415,22 @@ var prevDiff = -1;
         _this.eventEmitter.publish('SET_PAGINATION.' + _this.windowId, jQuery(this).parent().find(".thumb-label").text());
       });
 
+      /*
       jQuery(document).off("mouseup").on('mouseup',function() {
         //if(window.getSelection().toString().length) {
 
           console.log("docup:",_this,_this.element);
-          jQuery(".scroll-listing-thumbs .monlam-popup").each( function(i,e) {
+          jQuery(".scroll-view:not(.withMonlam) .scroll-listing-thumbs").find(".monlam-popup,.monlam-hilight").each( function(i,e) {
             console.log("i,e",i,e);
             var je = jQuery(e);
-            if(je.hasClass("init")) je.removeClass("init");
-            else je.remove();
+            //if(je.hasClass("init")) je.removeClass("init");
+            //else 
+            je.remove();
           });
 
         //}
       });
+      */
       
       jQuery(window).resize(function() {        
         if(window.screen.width > 767 || window.currentZoom === undefined) {
@@ -661,23 +664,32 @@ var prevDiff = -1;
                     }
 
                     //if(labelArray[0] && labelArray[0]["@language"] === "bo") 
-                    if(val[0] && val[0]["@language"] === "bo" && $.guessTibtFromRange(txt))  //!txt.match(/[a-z]/)) 
+                    var lang = "bo-x-ewts" ;
+                    if(val.filter(function(v){return v["@language"]=='bo';}).length && $.guessTibtFromRange(txt)) { //!txt.match(/[a-z]/)) 
                       css += "loaded-bo " ;
+                      lang = "bo" ;
+                    }
 
                     if(!txt.match(/[\n\r]/)) 
                       css += "unformated " ;                  
 
-                    jQuery(imageElement).next('.etext-content').addClass(css).html("<div class='pad'></div><div class='monlam-selec'>"+txt+"</div><div class='pad'></div>")
-                    .find(".monlam-selec").on("mouseup", function(ev){
+                    jQuery(imageElement).next('.etext-content').addClass(css).html("<div class='pad'></div><div class='monlam-selec'><span>"+txt+"</span></div><div class='pad'></div>")
+                    .find(".monlam-selec span").on("mouseup", function(ev){
                       var selection = window.getSelection();
                       //console.log("up:",selection.toString(),selection,ev);
                       var el = jQuery(ev.currentTarget);
-                      var decalH = ev.currentTarget.closest(".monlam-selec").getBoundingClientRect();
+                      var scrollElem = ev.currentTarget.closest(".monlam-selec");
+                      var decalH = scrollElem.getBoundingClientRect();
                       var decalP = ev.currentTarget.closest(".etext-content").getBoundingClientRect();
                       jQuery(document).find(".monlam-hilight,.monlam-popup").remove();
                       setTimeout(function() {
                         var selection = window.getSelection();                        
-                        if (!selection.rangeCount) return ;
+                        console.log("sel:",selection.rangeCount,selection.anchorOffset,selection.focusOffset);
+                        if (!selection.rangeCount || selection.anchorOffset == selection.focusOffset) { 
+                          jQuery(".scroll-view").removeClass("withMonlam");
+                          jQuery(".scroll-view+.monlam-results").remove();
+                          return ;
+                        }
                         var range = selection.getRangeAt(0);
                         if(range) {
                           if(selection.toString().length) {
@@ -688,22 +700,61 @@ var prevDiff = -1;
                             var endOff = Math.min(el.text().length, end + MIN_CONTEXT_LENGTH);
                             var chunk = el.text().substring(startOff, endOff);
                             start = chunk.indexOf(selection.toString());
-                            window.monlamAPI = { chunk: chunk, start_cursor: start, end_cursor:start+selection.toString().length, selection: selection.toString() };
+                            window.monlamAPI = { chunk: chunk, cursor_start: start, cursor_end:start+selection.toString().length, selection: selection.toString(), lang: lang };
                             var coords = Array.from(range.getClientRects());
                             console.log("coords:",coords,window.monlamAPI);
-                            el.parent().append("<div class='monlam-popup init' style='line-height:"+22*(1/window.currentZoom)+"px;padding:"+15*(1/window.currentZoom)+"px;position:absolute;font-family:Noto Sans, Noto Sans TC, Noto Sans Tibetan;font-size:"+16*(1/window.currentZoom)+"px;margin-left:"+((1/window.currentZoom) * 13.25)+"px;top:"+((1/window.currentZoom)*(coords[0].top-decalP.top-62))+"px;left:"+((1/window.currentZoom)*(coords[0].left-decalP.left-13))+"px'><img style='vertical-align:"+(-10*(1/window.currentZoom))+"px;width:"+32*(1/window.currentZoom)+"px;padding-right:"+15*(1/window.currentZoom)+"px;' src='/icons/monlam.png'/>"+i18next.t("find")+"</div>")                            
-                              .parent().find(".monlam-popup").on("click", function(){
+
+                            el.parent().parent().append("<div class='monlam-popup init' style='border-radius:"+4*(1/window.currentZoom)+"px;line-height:"+18*(1/window.currentZoom)+"px;padding:"+12*(1/window.currentZoom)+"px;font-size:"+15.5*(1/window.currentZoom)+"px;margin-left:"+((1/window.currentZoom) * 13.25)+"px;top:"+((1/window.currentZoom)*(coords[0].top-decalP.top-55))+"px;left:"+((1/window.currentZoom)*(coords[0].left-decalP.left-13))+"px'><img style='width:"+32*(1/window.currentZoom)+"px;padding-right:"+10*(1/window.currentZoom)+"px;' src='/icons/monlam.png'/><span>"+i18next.t("find")+"&nbsp;</span></div>")                          
+
+                              .parent().find(".monlam-popup").on("mousedown", function(ev){
                                 console.log("go:");
+                                jQuery(".scroll-view").addClass("withMonlam");
+                                ev.preventDefault();
+                                ev.stopPropagation();
+                                
+                                setTimeout(function(){
+                                  var hi = el.find(".monlam-hilight")[0];
+                                  if(hi) hi.scrollIntoView({behavior:"smooth",block:"nearest",inline:"start"});
+                                  ev.currentTarget.remove();
+                                  if(!jQuery(".scroll-view+.monlam-results").length) jQuery(".scroll-view").parent().append("<div class='monlam-results'></div>");
+
+                                  jQuery.ajax({
+                                    url: 'https://ldspdi.bdrc.io/lexicography/entriesForChunk?chunk="'+encodeURIComponent(window.monlamAPI.chunk)+
+                                      '"&cursor_start='+window.monlamAPI.cursor_start+
+                                      '&cursor_end='+window.monlamAPI.cursor_end+
+                                      '&lang='+window.monlamAPI.lang,
+                                    type: 'GET',
+                                    dataType: 'json',
+                                    success: function(val){
+                                      console.log("monlam val:",val);
+                                    },
+                                    error: function(err){
+                                      console.error("monlam err:",err);
+                                    }
+                                  });
+
+                                }, 150);
+                                
+
                               });
-                            coords.map(function(c){ el.append("<div class='monlam-hilight' style='width:"+c.width+"px;height:"+c.height+"px;top:"+(c.top-decalH.top)+"px;left:"+(c.left-decalH.left)+"px;position:absolute;background:rgba(0,100,255,0.25);padding:0;margin:0;box-shadow:none;'></div>"); });
+                            coords.map(function(c){ 
+                              el.append("<div class='monlam-hilight' style='scroll-margin:35vh 35vw;width:"+c.width+"px;height:"+c.height+"px;top:"+(c.top-decalH.top+scrollElem.scrollTop)+"px;left:"+(c.left-decalH.left+scrollElem.scrollLeft)+"px;position:absolute;background:rgba(0,153,255,0.35);padding:0;margin:0;box-shadow:none;'></div>"); 
+                              //el.parent().parent().append("<div class='monlam-hilight' style='scroll-margin:50px;width:"+(1/window.currentZoom)*c.width+"px;height:"+(1/window.currentZoom)*c.height+"px;top:"+(1/window.currentZoom)*(c.top-decalP.top)+"px;left:"+(1/window.currentZoom)*(c.left-decalP.left)+"px;position:absolute;background:rgba(0,153,255,0.35);padding:0;margin:0;box-shadow:none;'></div>"); 
+                            });
                             selection.removeAllRanges();
+
+                            console.log("decal:",decalH,decalP,scrollElem.scrollLeft);
                           }
                         }                        
                       }, 150);
-                    }).on("mousedown", function(ev){
+                    });
+                    /*
+                    .on("mousedown", function(ev){
+                      console.log("down:",ev);
                       var el = jQuery(ev.currentTarget);
                       el.parent().find(".monlam-hilight,.monlam-popup").remove();
                     }) ;                       
+                    */
                   } 
                   else { 
                     jQuery(imageElement).next('.etext-content').addClass(css).html("<div class='pad'></div><div>--</div><div class='pad'></div>"); 
