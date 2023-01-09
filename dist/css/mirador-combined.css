@@ -6166,7 +6166,7 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
 .mirador-container .scroll-view.withMonlam {
   width: calc(100% - 400px);
 }
-.mirador-container .scroll-view ~ .monlam-results {
+.mirador-container .scroll-view ~ .monlamResults {
   z-index: 0;
   position: absolute;
   display: block;
@@ -6176,6 +6176,74 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
   height: calc(100% - 80px);
   background: white;
   box-shadow: -2px 0 3px rgba(0, 0, 0, 0.15);
+  font-family: "Noto Sans Tibetan", "Noto Sans", "Roboto", "Helvetica", "Arial", sans-serif !important;
+}
+.mirador-container .scroll-view ~ .monlamResults > div {
+  width: 400px;
+  height: calc(100% - 2 * 80px);
+  position: fixed;
+  right: 0;
+  top: 80px;
+  background: white;
+  overflow: auto;
+}
+.mirador-container .scroll-view ~ .monlamResults > div > * {
+  padding: 15px;
+  font-size: 15px;
+}
+.mirador-container .scroll-view ~ .monlamResults div .def {
+  margin-bottom: 0px;
+  line-height: 24px;
+  padding-bottom: 15px;
+  -webkit-user-select: none;
+  /* Safari */
+  -ms-user-select: none;
+  /* IE 10+ */
+  user-select: none;
+}
+.mirador-container .scroll-view ~ .monlamResults div .def > b {
+  color: #09b;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+}
+.mirador-container .scroll-view ~ .monlamResults div .def > b > i {
+  transform: rotate(0deg);
+  margin: -5px 5px 0 5px;
+  text-decoration: none;
+  font-size: 13px;
+}
+.mirador-container .scroll-view ~ .monlamResults div .def > b.on > i {
+  transform: rotate(90deg);
+}
+.mirador-container .scroll-view ~ .monlamResults div .def > b > span > .kw {
+  background: rgba(0, 128, 255, 0.2);
+}
+.mirador-container .scroll-view ~ .monlamResults div .def > b > span {
+  font-size: 115%;
+  text-decoration: underline;
+}
+.mirador-container .scroll-view ~ .monlamResults div .def > b[lang='bo'] > span {
+  font-size: 135%;
+}
+.mirador-container .scroll-view ~ .monlamResults div .def span.content {
+  padding-left: 15px;
+  display: block;
+  padding-top: 12px;
+}
+.mirador-container .scroll-view ~ .monlamResults div .def:first-child {
+  padding-top: 30px;
+}
+.mirador-container .scroll-view ~ .monlamResults div .def:last-child {
+  padding-bottom: 30px;
+}
+.mirador-container .scroll-view ~ .monlamResults div .def b ~ div {
+  overflow: hidden;
+  max-height: 0;
+}
+.mirador-container .scroll-view ~ .monlamResults div .def b.on ~ div {
+  max-height: 10000px;
 }
 .mirador-container ul.scroll-listing-thumbs li {
   box-sizing: border-box;

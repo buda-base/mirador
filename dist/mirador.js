@@ -37502,7 +37502,7 @@ this.event.unbindAll(),e(this.scrollbarX),e(this.scrollbarY),e(this.scrollbarXRa
             });
 
             this.element.find("#breadcrumbs #vol").on('click', function() { 
-              jQuery(".scroll-view.withMonlam").removeClass("withMonlam").parent().find(".monlam-results").remove();
+              jQuery(".scroll-view.withMonlam").removeClass("withMonlam").parent().find(".monlamResults").remove();
               jQuery(".mobile-button.top").removeClass("image");
               var the = jQuery(this);
               if(!the.hasClass("on")) {
@@ -51313,7 +51313,7 @@ var prevDiff = -1;
                         console.log("sel:",selection.rangeCount,selection.anchorOffset,selection.focusOffset);
                         if (!selection.rangeCount || selection.anchorOffset == selection.focusOffset) { 
                           jQuery(".scroll-view").removeClass("withMonlam");
-                          jQuery(".scroll-view+.monlam-results").remove();
+                          jQuery(".scroll-view+.monlamResults").remove();
                           return ;
                         }
                         var range = selection.getRangeAt(0);
@@ -51342,7 +51342,7 @@ var prevDiff = -1;
                                   var hi = el.find(".monlam-hilight")[0];
                                   if(hi) hi.scrollIntoView({behavior:"smooth",block:"nearest",inline:"start"});
                                   ev.currentTarget.remove();
-                                  if(!jQuery(".scroll-view~.monlam-results").length) jQuery(".scroll-view").parent().append("<div class='monlam-results'></div>");
+                                  if(!jQuery(".scroll-view~.monlamResults").length) jQuery(".scroll-view").parent().append("<div class='monlamResults'></div>");
 
                                   jQuery.ajax({
                                     url: 'https://ldspdi.bdrc.io/lexicography/entriesForChunk?chunk="'+encodeURIComponent(window.monlamAPI.chunk)+
@@ -51373,20 +51373,23 @@ var prevDiff = -1;
                                           }
                                         }
                                         if(defs && defs.length && defs[0].value) {
-                                          def = defs[0].value.split(/[\r\n]+/).map(function(d){return "<span>"+d+"</span>";}).join("");
+                                          def = defs[0].value.split(/[\r\n]+/).map(function(d){return "<span class='content'>"+d+"</span>";}).join("");
                                         }
                                         res += '<div class="def">'+
-                                            '<b lang="'+lang+'">'+
-                                              '<span>'+kwLayout+'</span>'+
+                                            '<b lang="'+lang+'"'+(val.length == 1 ? 'class="on"':'')+'>'+
+                                              '<span>'+kwLayout+'</span><i class="fa fa-chevron-right" aria-hidden="true"></i>'+
                                             '</b>'+
-                                            def +
+                                            '<div>'+ def + '</div>'+
                                         '</div>';
 
                                       } else {
                                         res = "<div>Nothing found for \""+window.monlamAPI.selection+"\".</div>";
                                       }
                                       if(res) {
-                                        jQuery(".scroll-view~.monlam-results").html(res);
+                                        jQuery(".scroll-view~.monlamResults").html("<div>"+res+"</div>").find(".def b").click(function(ev){
+                                          var el = jQuery(ev.currentTarget);
+                                          el.toggleClass("on");
+                                        });
                                       }
                                       /*
                                         this.props.monlamResults.map( (w,i) => { 
