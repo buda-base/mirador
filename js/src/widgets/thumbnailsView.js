@@ -716,7 +716,7 @@ var prevDiff = -1;
                                   var hi = el.find(".monlam-hilight")[0];
                                   if(hi) hi.scrollIntoView({behavior:"smooth",block:"nearest",inline:"start"});
                                   ev.currentTarget.remove();
-                                  if(!jQuery(".scroll-view+.monlam-results").length) jQuery(".scroll-view").parent().append("<div class='monlam-results'></div>");
+                                  if(!jQuery(".scroll-view~.monlam-results").length) jQuery(".scroll-view").parent().append("<div class='monlam-results'></div>");
 
                                   jQuery.ajax({
                                     url: 'https://ldspdi.bdrc.io/lexicography/entriesForChunk?chunk="'+encodeURIComponent(window.monlamAPI.chunk)+
@@ -727,6 +727,63 @@ var prevDiff = -1;
                                     dataType: 'json',
                                     success: function(val){
                                       console.log("monlam val:",val);
+                                      var res = "" ;
+                                      if(val && val.length) for(var i in val) {
+                                        var w = val[i], words = [], defs = [], kws = [] ;
+                                        var word = _this.labelToString([ w.word ], words);
+                                        var def = _this.labelToString([ w.def ], defs);
+                                        var kw = _this.labelToString([{ value:window.monlamAPI.selection, lang: window.monlamAPI.lang }], kws);                                        
+                                        console.log("w:",i,w,words,defs,kws);                                        
+                                        if(kws && kws.length && kws[0].value) kw = kws[0].value ;
+                                        else kw = window.monlamAPI.selection ;
+                                        var kwLayout = "", lang ;
+                                        if(words && words.length && words[0].value) { 
+                                          lang = words[0].lang ;
+                                          var arr = words[0].value.split(kw);
+                                          for(var j in arr) {
+                                            var v = arr[j] ; 
+                                            if(j > 0) kwLayout += '<span class="kw">'+kw+'</span>';
+                                            kwLayout += '<span>'+v+'</span>';
+                                          }
+                                        }
+                                        if(defs && defs.length && defs[0].value) {
+                                          def = defs[0].value.split(/[\r\n]+/).map(function(d){return "<span>"+d+"</span>";}).join("");
+                                        }
+                                        res += '<div class="def">'+
+                                            '<b lang="'+lang+'">'+
+                                              '<span>'+kwLayout+'</span>'+
+                                            '</b>'+
+                                            def +
+                                        '</div>';
+
+                                      } else {
+                                        res = "<div>Nothing found for \""+window.monlamAPI.selection+"\".</div>";
+                                      }
+                                      if(res) {
+                                        jQuery(".scroll-view~.monlam-results").html(res);
+                                      }
+                                      /*
+                                        this.props.monlamResults.map( (w,i) => { 
+                                          let word = //w.word
+                                                getLangLabel(this,"",[w.word]) 
+                                          let def = //w.def 
+                                                getLangLabel(this, "", [w.def])
+                                          let open = this.state.collapse["monlam-def-"+i] || this.props.monlamResults.length === 1 && this.state.collapse["monlam-def-"+i] === undefined
+                                          let kw = getLangLabel(this,"",[ { value:this.props.monlamKeyword, lang: this.props.etextLang }])
+                                          if(kw?.value) kw = kw.value 
+                                          else kw = this.props.monlamKeyword
+                                          return <div class="def">
+                                            <b lang={word.lang} onClick={() => this.setState({collapse:{...this.state.collapse, ["monlam-def-"+i]:!open}})}>
+                                                <span>{word?.value.split(kw).map((v,j) => <>{j > 0 ? <span className="kw">{kw}</span>:null}<span>{v}</span></>)}</span>
+                                                <ExpandMore className={open?"on":""}/>
+                                            </b>
+                                            <Collapse in={open}>{def?.value?.split(/[\r\n]+/).map(d => <span>{d}</span>)}</Collapse>
+                                          </div>
+                                      })
+                                    //}</pre>
+                                } else if(this.props.monlamResults && this.props.monlamResults != true) {
+                                    monlamResults = <div>Nothing found for "{this.props.monlamKeyword}".</div>
+                                    */
                                     },
                                     error: function(err){
                                       console.error("monlam err:",err);
