@@ -383,8 +383,32 @@ var Z = 0 ;
 
               clearInterval(timer);
 
+              nav.before('<a class="monlam on"><span id="check"><img src="/icons/check.svg"></span>'+i18next.t("monlam")+'<img width="42" src="/icons/monlam.png"></a>');            
+              var monlam = nav.parent().find(".monlam");
+              monlam.mousedown(function(){
+                monlam.find("#check").toggleClass("on");                
+                if(monlam.find("#check").hasClass("on")) {
+                  if(window.monlamRange) {                                       
+                    setTimeout(function() {
+                      var selection = window.getSelection();
+                      selection.removeAllRanges();
+                      selection.addRange(window.monlamRange);
+                      jQuery(window.monlamRange.startContainer).closest("span").trigger("mouseup");
+                      //delete window.monlamRange;
+                    }, 150);
+                  }
+                } else {
+                  var selection = window.getSelection();
+                  selection.removeAllRanges();
+                  jQuery(document).find(".monlam-hilight,.monlam-popup").remove();
+                  jQuery(".scroll-view").removeClass("withMonlam");
+                  jQuery(".scroll-view+.monlamResults").remove();
+                  delete window.monlamRange;
+                }
+              });
+
               var check = nav.find("#check");            
-              nav.addClass("on");              
+              nav.addClass("on");  
               if(window.MiradorUseEtext == "open") check.addClass("on");                          
 
               nav.click(function() {
@@ -392,6 +416,7 @@ var Z = 0 ;
                 if(check.hasClass("on")) { 
                   window.MiradorUseEtext = "open" ;
                   jQuery(".etext-content").removeClass("hide"); 
+                  nav.parent().find(".monlam").removeClass("off");
                   jQuery(window).resize();
                   setTimeout(function() {
                     jQuery(window).resize();
@@ -400,6 +425,7 @@ var Z = 0 ;
                 else {
                   window.MiradorUseEtext = true ;
                   jQuery(".etext-content").addClass("hide"); 
+                  nav.parent().find(".monlam").addClass("off");                  
                 }
               });
 

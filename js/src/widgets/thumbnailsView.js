@@ -676,7 +676,11 @@ var prevDiff = -1;
                     jQuery(imageElement).next('.etext-content').addClass(css).html("<div class='pad'></div><div class='monlam-selec'><span>"+txt+"</span></div><div class='pad'></div>")
                     .find(".monlam-selec span").on("mouseup", function(ev){
                       var selection = window.getSelection();
-                      //console.log("up:",selection.toString(),selection,ev);
+                      if(selection.rangeCount) {
+                        window.monlamRange = selection.getRangeAt(0);                        
+                        console.log("range:",window.monlamRange);
+                      }
+                      console.log("up:",selection.toString(),selection,ev);
                       var el = jQuery(ev.currentTarget);
                       var scrollElem = ev.currentTarget.closest(".monlam-selec");
                       var decalH = scrollElem.getBoundingClientRect();
@@ -685,9 +689,10 @@ var prevDiff = -1;
                       setTimeout(function() {
                         var selection = window.getSelection();                        
                         console.log("sel:",selection.rangeCount,selection.anchorOffset,selection.focusOffset);
-                        if (!selection.rangeCount || selection.anchorOffset == selection.focusOffset) { 
+                        if (!selection.rangeCount || selection.anchorOffset == selection.focusOffset || !jQuery(".view-nav .monlam #check.on").length) { 
                           jQuery(".scroll-view").removeClass("withMonlam");
                           jQuery(".scroll-view+.monlamResults").remove();
+                          //if(window.monlamRange) delete window.monlamRange ;
                           return ;
                         }
                         var range = selection.getRangeAt(0);
@@ -704,7 +709,7 @@ var prevDiff = -1;
                             var coords = Array.from(range.getClientRects());
                             console.log("coords:",coords,window.monlamAPI);
 
-                            el.parent().parent().append("<div class='monlam-popup init' style='border-radius:"+4*(1/window.currentZoom)+"px;line-height:"+18*(1/window.currentZoom)+"px;padding:"+12*(1/window.currentZoom)+"px;font-size:"+15.5*(1/window.currentZoom)+"px;margin-left:"+((1/window.currentZoom) * 13.25)+"px;top:"+((1/window.currentZoom)*(coords[0].top-decalP.top-55))+"px;left:"+((1/window.currentZoom)*(coords[0].left-decalP.left-13))+"px'><img style='width:"+32*(1/window.currentZoom)+"px;padding-right:"+10*(1/window.currentZoom)+"px;' src='/icons/monlam.png'/><span>"+i18next.t("find")+"&nbsp;</span></div>")                          
+                            el.parent().parent().append("<div class='monlam-popup init' style='border-radius:"+4*(1/window.currentZoom)+"px;line-height:"+18*(1/window.currentZoom)+"px;padding:"+12*(1/window.currentZoom)+"px;font-size:"+15.5*(1/window.currentZoom)+"px;margin-left:"+((1/window.currentZoom) * 13.25)+"px;top:"+((1/window.currentZoom)*(coords[0].top-decalP.top-57))+"px;left:"+((1/window.currentZoom)*(coords[0].left-decalP.left-13))+"px'><img style='width:"+32*(1/window.currentZoom)+"px;padding-right:"+10*(1/window.currentZoom)+"px;' src='/icons/monlam.png'/><span>"+i18next.t("find")+"&nbsp;</span></div>")                          
 
                               .parent().find(".monlam-popup").on("mousedown", function(ev){
                                 console.log("go:");
@@ -717,6 +722,7 @@ var prevDiff = -1;
                                   if(hi) hi.scrollIntoView({behavior:"smooth",block:"nearest",inline:"start"});
                                   ev.currentTarget.remove();
                                   if(!jQuery(".scroll-view~.monlamResults").length) jQuery(".scroll-view").parent().append("<div class='monlamResults'></div>");
+                                  jQuery(".scroll-view~.monlamResults").html("<div class='loading'><img src='/scripts/mirador/images/spinner.gif'/></div>");
 
                                   jQuery.ajax({
                                     url: 'https://ldspdi.bdrc.io/lexicography/entriesForChunk?chunk="'+encodeURIComponent(window.monlamAPI.chunk)+
@@ -765,28 +771,6 @@ var prevDiff = -1;
                                           el.toggleClass("on");
                                         });
                                       }
-                                      /*
-                                        this.props.monlamResults.map( (w,i) => { 
-                                          let word = //w.word
-                                                getLangLabel(this,"",[w.word]) 
-                                          let def = //w.def 
-                                                getLangLabel(this, "", [w.def])
-                                          let open = this.state.collapse["monlam-def-"+i] || this.props.monlamResults.length === 1 && this.state.collapse["monlam-def-"+i] === undefined
-                                          let kw = getLangLabel(this,"",[ { value:this.props.monlamKeyword, lang: this.props.etextLang }])
-                                          if(kw?.value) kw = kw.value 
-                                          else kw = this.props.monlamKeyword
-                                          return <div class="def">
-                                            <b lang={word.lang} onClick={() => this.setState({collapse:{...this.state.collapse, ["monlam-def-"+i]:!open}})}>
-                                                <span>{word?.value.split(kw).map((v,j) => <>{j > 0 ? <span className="kw">{kw}</span>:null}<span>{v}</span></>)}</span>
-                                                <ExpandMore className={open?"on":""}/>
-                                            </b>
-                                            <Collapse in={open}>{def?.value?.split(/[\r\n]+/).map(d => <span>{d}</span>)}</Collapse>
-                                          </div>
-                                      })
-                                    //}</pre>
-                                } else if(this.props.monlamResults && this.props.monlamResults != true) {
-                                    monlamResults = <div>Nothing found for "{this.props.monlamKeyword}".</div>
-                                    */
                                     },
                                     error: function(err){
                                       console.error("monlam err:",err);

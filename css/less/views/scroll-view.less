@@ -244,6 +244,7 @@
   &.on { background:none; }
 }
 .view-nav .eText { display:flex;align-items: center; }
+.view-nav .monlam.off { display:none; }
 
 
 @keyframes toggle {
@@ -350,7 +351,16 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
       font-family: "Noto Sans Tibetan", "Noto Sans", "Roboto", "Helvetica", "Arial", sans-serif !important; 
 
 
-      & > div { width:400px; height:~"calc(100% - 2 * 80px)"; position:fixed; right:0; top:80px; background:white; overflow:auto;}
+      & > div { width:400px; height:~"calc(100% - 2 * 80px)"; position:fixed; right:0; top:80px; background:white; overflow:auto;                      
+        &.loading {          
+          display: flex;
+          justify-content: center;      
+          img {
+            width: 45px;
+            object-fit: scale-down;
+          }
+        }
+      }
 
       & > div > * { padding:15px; font-size:15px; }
 

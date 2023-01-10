@@ -6056,6 +6056,9 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   display: flex;
   align-items: center;
 }
+.view-nav .monlam.off {
+  display: none;
+}
 @keyframes toggle {
   50% {
     filter: opacity(0.125);
@@ -6186,6 +6189,14 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
   top: 80px;
   background: white;
   overflow: auto;
+}
+.mirador-container .scroll-view ~ .monlamResults > div.loading {
+  display: flex;
+  justify-content: center;
+}
+.mirador-container .scroll-view ~ .monlamResults > div.loading img {
+  width: 45px;
+  object-fit: scale-down;
 }
 .mirador-container .scroll-view ~ .monlamResults > div > * {
   padding: 15px;
