@@ -703,9 +703,9 @@ var prevDiff = -1;
                             var end = Math.max(selection.anchorOffset,selection.focusOffset);
                             var startOff = Math.max(0, start - MIN_CONTEXT_LENGTH);
                             var endOff = Math.min(el.text().length, end + MIN_CONTEXT_LENGTH);
-                            var chunk = el.text().substring(startOff, endOff);
-                            start = chunk.indexOf(selection.toString());
-                            window.monlamAPI = { chunk: chunk, cursor_start: start, cursor_end:start+selection.toString().length, selection: selection.toString(), lang: lang };
+                            var chunk = el.text().substring(startOff, endOff).replace(/[\r\n]/g," ");
+                            start = chunk.indexOf(selection.toString().replace(/[\r\n]/g," "));
+                            window.monlamAPI = { chunk: chunk, cursor_start: start, cursor_end:start+selection.toString().replace(/[\r\n]/g," ").length, selection: selection.toString(), lang: lang };
                             var coords = Array.from(range.getClientRects());
                             console.log("coords:",coords,window.monlamAPI);
 
@@ -774,6 +774,8 @@ var prevDiff = -1;
                                     },
                                     error: function(err){
                                       console.error("monlam err:",err);
+                                      var res = "<div>Nothing found for \""+window.monlamAPI.selection+"\".</div>";
+                                      jQuery(".scroll-view~.monlamResults").html("<div>"+res+"</div>");
                                     }
                                   });
 
