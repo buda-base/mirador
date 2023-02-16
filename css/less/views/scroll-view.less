@@ -321,7 +321,11 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
 
   // .scroll-view .provider { display:none !important; }
 
+  
+  
 .mirador-container {
+  
+
   ul.scroll-listing-thumbs {
     clear: both;
     list-style: none;
@@ -348,7 +352,9 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
       box-shadow: -2px 0 3px rgba(0,0,0,0.15);
 
 
-      font-family: "Noto Sans Tibetan", "Noto Sans", "Roboto", "Helvetica", "Arial", sans-serif !important; 
+
+
+      font-family: "Noto Sans", "Noto Serif Tibetan", "Roboto", "Helvetica", "Arial", sans-serif !important; 
 
 
       & > div { width:400px; height:~"calc(100% - 2 * 80px)"; position:fixed; right:0; top:80px; background:white; overflow:auto;                      
@@ -382,7 +388,24 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
       & div .def:last-child { padding-bottom:30px; }
 
       & div .def b ~ div { overflow:hidden; max-height:0; }
-      & div .def b.on ~ div { max-height:10000px; }
+      & div .def b.on ~ div { max-height:10000px; overflow:visible; }
+
+
+
+      & div .def b[lang="bo-x-ewts"] ~ div img[align="middle"] { vertical-align: text-bottom;}
+
+      & div .def b[lang="bo-x-ewts"] ~ div .perna.ac-ac { line-height:24px; }
+      
+      & div .def .perna.ac-ac:first-child,
+      & div .def br:first-child + .perna.ac-ac { margin-top: 0;}
+      
+      & div .def br:first-child,
+      & div .def .spc { display:none; }
+      
+      & div .def p.gap { margin-top:0; }  
+      
+      & div .def .numbers,
+      & div .def .numbers2 { width:18px; height:18px; padding:0; display:inline-flex; justify-content: center; align-items: center; top:0; vertical-align: middle; }
 
     }
   }
@@ -425,7 +448,7 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
   .etext-content {
     box-sizing: border-box;
     //overflow:hidden; 
-    font-family: "Tibetan Machine Uni"; //"Noto Sans Tibetan" ;
+    
     color:black;  
     background:rgba(255,255,255,0.9);
     //background:white;
@@ -443,6 +466,10 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
     }
     
     &.hide { display:none; }
+
+    .pad:first-child+div > span {
+      font-family: "Noto Sans", "Tibetan Machine Uni", "Noto Serif Tibetan", "Noto Serif Khmer", "Noto Sans Mongolian", "Roboto", "Helvetica", "Arial", sans-serif !important; //"Noto Sans Tibetan" ;
+    }
 
     div:not(.pad) {
       //border:1px solid black;
@@ -471,7 +498,7 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
     &:empty { height:0 !important; transition: all 1s ease-in-out; padding-top:0;padding-bottom:0;}
    
     .monlam-popup {
-      margin-right:0 !important;width:max-content;display:flex !important;align-items:center;position:absolute;font-family:"Noto Sans", "Noto Sans TC", "Noto Sans Tibetan"; 
+      margin-right:0 !important;width:max-content;display:flex !important;align-items:center;position:absolute;font-family:"Noto Sans", "Noto Sans TC", "Noto Serif Tibetan"; 
       cursor:pointer;
       &:hover {
         background-color:#eee;

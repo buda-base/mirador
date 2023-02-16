@@ -6179,7 +6179,7 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
   height: calc(100% - 80px);
   background: white;
   box-shadow: -2px 0 3px rgba(0, 0, 0, 0.15);
-  font-family: "Noto Sans Tibetan", "Noto Sans", "Roboto", "Helvetica", "Arial", sans-serif !important;
+  font-family: "Noto Sans", "Noto Serif Tibetan", "Roboto", "Helvetica", "Arial", sans-serif !important;
 }
 .mirador-container .scroll-view ~ .monlamResults > div {
   width: 400px;
@@ -6255,6 +6255,35 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
 }
 .mirador-container .scroll-view ~ .monlamResults div .def b.on ~ div {
   max-height: 10000px;
+  overflow: visible;
+}
+.mirador-container .scroll-view ~ .monlamResults div .def b[lang="bo-x-ewts"] ~ div img[align="middle"] {
+  vertical-align: text-bottom;
+}
+.mirador-container .scroll-view ~ .monlamResults div .def b[lang="bo-x-ewts"] ~ div .perna.ac-ac {
+  line-height: 24px;
+}
+.mirador-container .scroll-view ~ .monlamResults div .def .perna.ac-ac:first-child,
+.mirador-container .scroll-view ~ .monlamResults div .def br:first-child + .perna.ac-ac {
+  margin-top: 0;
+}
+.mirador-container .scroll-view ~ .monlamResults div .def br:first-child,
+.mirador-container .scroll-view ~ .monlamResults div .def .spc {
+  display: none;
+}
+.mirador-container .scroll-view ~ .monlamResults div .def p.gap {
+  margin-top: 0;
+}
+.mirador-container .scroll-view ~ .monlamResults div .def .numbers,
+.mirador-container .scroll-view ~ .monlamResults div .def .numbers2 {
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  vertical-align: middle;
 }
 .mirador-container ul.scroll-listing-thumbs li {
   box-sizing: border-box;
@@ -6287,7 +6316,6 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
 }
 .mirador-container .etext-content {
   box-sizing: border-box;
-  font-family: "Tibetan Machine Uni";
   color: black;
   background: rgba(255, 255, 255, 0.9);
   font-size: 16px;
@@ -6302,6 +6330,9 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
 }
 .mirador-container .etext-content.hide {
   display: none;
+}
+.mirador-container .etext-content .pad:first-child + div > span {
+  font-family: "Noto Sans", "Tibetan Machine Uni", "Noto Serif Tibetan", "Noto Serif Khmer", "Noto Sans Mongolian", "Roboto", "Helvetica", "Arial", sans-serif !important;
 }
 .mirador-container .etext-content div:not(.pad) {
   text-align: left;
@@ -6336,7 +6367,7 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
   display: flex !important;
   align-items: center;
   position: absolute;
-  font-family: "Noto Sans", "Noto Sans TC", "Noto Sans Tibetan";
+  font-family: "Noto Sans", "Noto Sans TC", "Noto Serif Tibetan";
   cursor: pointer;
 }
 .mirador-container .etext-content .monlam-popup:hover {

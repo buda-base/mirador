@@ -737,9 +737,9 @@ var prevDiff = -1;
                                       if(val && val.length) for(var i in val) {
                                         var w = val[i], words = [], defs = [], kws = [] ;
                                         var word = _this.labelToString([ w.word ], words);
-                                        var def = _this.labelToString([ w.def ], defs);
+                                        var def = w.def; //_this.labelToString([ w.def ], defs);
                                         var kw = _this.labelToString([{ value:window.monlamAPI.selection, lang: window.monlamAPI.lang }], kws);                                        
-                                        console.log("w:",i,w,words,defs,kws);                                        
+                                        //console.log("w:",i,w,words,defs,kws);                                        
                                         if(kws && kws.length && kws[0].value) kw = kws[0].value ;
                                         else kw = window.monlamAPI.selection ;
                                         var kwLayout = "", lang ;
@@ -752,14 +752,21 @@ var prevDiff = -1;
                                             kwLayout += '<span>'+v+'</span>';
                                           }
                                         }
-                                        if(defs && defs.length && defs[0].value) {
-                                          def = defs[0].value.split(/[\r\n]+/).map(function(d){return "<span class='content'>"+d+"</span>";}).join("");
+                                        var defStyled = [];
+                                        defs = def.value.split(/[\r\n]+/);
+                                        for(var k in defs) {
+                                          var d = defs[k];
+                                          if(!d) continue ;
+                                          d = window.addMonlamStyle(d);
+                                          d = _this.labelToString([ {value:d, lang: "bo" }]);
+                                          defStyled.push("<span class='content'>"+d.replace(/((>) *\] *)|( *\[ *(<))/g,"$2 $4")+"</span>");
                                         }
+                                        defStyled = defStyled.join("");
                                         res += '<div class="def">'+
                                             '<b lang="'+lang+'"'+(val.length == 1 ? 'class="on"':'')+'>'+
                                               '<span>'+kwLayout+'</span><i class="fa fa-chevron-right" aria-hidden="true"></i>'+
                                             '</b>'+
-                                            '<div>'+ def + '</div>'+
+                                            '<div>'+ defStyled + '</div>'+
                                         '</div>';
 
                                       } else {

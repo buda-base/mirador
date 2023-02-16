@@ -383,11 +383,12 @@ var Z = 0 ;
 
               clearInterval(timer);
 
-              nav.before('<a class="monlam on"><span id="check"><img src="/icons/check.svg"></span>'+i18next.t("monlam")+'<img width="42" src="/icons/monlam.png"></a>');            
+              nav.before('<a class="monlam on off"><span id="check"><img src="/icons/check.svg"></span>'+i18next.t("monlam")+'<img width="42" src="/icons/monlam.png"></a>');            
               var monlam = nav.parent().find(".monlam");
               monlam.mousedown(function(){
                 monlam.find("#check").toggleClass("on");                
                 if(monlam.find("#check").hasClass("on")) {
+                  nav.parent().find(".monlam").removeClass("off");                  
                   if(window.monlamRange) {                                       
                     setTimeout(function() {
                       var selection = window.getSelection();
@@ -402,14 +403,17 @@ var Z = 0 ;
                   selection.removeAllRanges();
                   jQuery(document).find(".monlam-hilight,.monlam-popup").remove();
                   jQuery(".scroll-view").removeClass("withMonlam");
-                  jQuery(".scroll-view+.monlamResults").remove();
+                  jQuery(".scroll-view~.monlamResults").remove();
                   delete window.monlamRange;
                 }
               });
 
               var check = nav.find("#check");            
               nav.addClass("on");  
-              if(window.MiradorUseEtext == "open") check.addClass("on");                          
+              if(window.MiradorUseEtext == "open") { 
+                check.addClass("on");            
+                nav.parent().find(".monlam").removeClass("off");
+              }
 
               nav.click(function() {
                 check.toggleClass("on");
