@@ -6179,6 +6179,379 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
   height: calc(100% - 80px);
   background: white;
   box-shadow: -2px 0 3px rgba(0, 0, 0, 0.15);
+  /*@import url("/monlam/stylesheet.css");
+@import url("/files/css/monlam/stylesheet.css");*/
+  /*འདི་ནས་གསར་པ་ཡིན*/
+  /*འདི་ནས་པར་རིས་ཡིན*/
+  /*མཆན་འགྲེལ་དང་ཁུངས་*/
+}
+.mirador-container .scroll-view ~ .monlamResults .dhtmlgoodies_question {
+  color: #166b94;
+  background-color: #deeef7;
+  width: 99%;
+  margin-bottom: 2px;
+  margin-top: 2px;
+  padding-left: 4px;
+  /*background-image:url('images/bg_answer.gif');*/
+  background-repeat: no-repeat;
+  background-position: top right;
+  height: 28px;
+  line-height: 30px;
+  overflow: hidden;
+  cursor: pointer;
+}
+.mirador-container .scroll-view ~ .monlamResults .dhtmlgoodies_answer {
+  border: 1px solid #e8e8e6;
+  background-color: #f7f5df;
+  width: 99%;
+  border-radius: 6px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  margin-right: 4px;
+  font-family: "Monlam";
+  line-height: 28px;
+  display: none;
+  overflow: hidden;
+  position: relative;
+}
+.mirador-container .scroll-view ~ .monlamResults .dhtmlgoodies_answer_content {
+  /* Content that is slided down */
+  padding: 1px;
+  position: relative;
+}
+.mirador-container .scroll-view ~ .monlamResults a.tooltip {
+  position: relative;
+  text-decoration: none;
+  cursor: help;
+}
+.mirador-container .scroll-view ~ .monlamResults a.tooltip:hover span {
+  opacity: 1;
+  visibility: visible;
+  text-decoration: none;
+}
+.mirador-container .scroll-view ~ .monlamResults a.tooltip span {
+  padding-top: 14px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  top: 20px;
+  min-width: 75px;
+  max-width: 150px;
+  background-color: #ECF9FF;
+  color: #36F ;
+  height: auto;
+  border-radius: 15px;
+  border: 1px solid #C8DEE6;
+  opacity: 0;
+  position: absolute;
+  visibility: hidden;
+  word-wrap: break-word;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -ms-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+  text-decoration: none;
+  width: 300px;
+  line-height: 8px;
+  font-family: "Monlam";
+  color: #003;
+  z-index: 1;
+  overflow: hidden;
+}
+.mirador-container .scroll-view ~ .monlamResults .tooltipdf {
+  border-top: 1px solid #CFD3D8;
+  padding-top: 6px;
+  line-height: 28px;
+  font-family: "Monlam";
+}
+.mirador-container .scroll-view ~ .monlamResults .test + .tooltip > .tooltip-inner {
+  background-color: #8AC007;
+  color: #FFFFFF;
+  border: 1px solid green;
+  padding: 15px;
+}
+.mirador-container .scroll-view ~ .monlamResults .test + .tooltip.top > .tooltip-arrow {
+  border-top: 5px solid green;
+}
+.mirador-container .scroll-view ~ .monlamResults .test + .tooltip.bottom > .tooltip-arrow {
+  border-bottom: 5px solid blue;
+}
+.mirador-container .scroll-view ~ .monlamResults .test + .tooltip.left > .tooltip-arrow {
+  border-left: 5px solid red;
+}
+.mirador-container .scroll-view ~ .monlamResults .test + .tooltip.right > .tooltip-arrow {
+  border-right: 5px solid black;
+}
+.mirador-container .scroll-view ~ .monlamResults .perna1 {
+  margin-top: 0;
+  margin-bottom: 0;
+  color: #6E6F71;
+}
+.mirador-container .scroll-view ~ .monlamResults .gap {
+  position: relative;
+  margin-top: -10;
+  margin-bottom: 0;
+  padding: 1px;
+}
+.mirador-container .scroll-view ~ .monlamResults .numbers {
+  /* width: 23px;
+height:23px;
+font-size: 10px;
+font-weight:bold; 
+color: #2060c0; 
+line-height: 15px;
+background-image:url("data:image/png;base64,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");
+background-repeat: no-repeat;  */
+  /* background-position: center; */
+  /* padding-top: 3px;
+padding-left: 8px;
+padding-right: 4px;
+padding-bottom: 1px;
+margin-right: 2px; */
+  background-position: center;
+  background-color: #80808024;
+  padding: 1px 6px 1px 6px;
+  border-radius: 50%;
+  margin-right: 4px;
+  font-size: 9px;
+  font-weight: 600;
+  color: #2060c0ed;
+  position: relative;
+  top: -3px;
+}
+.mirador-container .scroll-view ~ .monlamResults .numbers2 {
+  /* width: 32px;
+height:25px;
+font-weight:bold; 
+font-size: 10px; 
+color: #2060c0;
+line-height: 15px;
+background-image:url("data:image/png;base64,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	");
+
+background-repeat: no-repeat; 
+background-position: center;
+padding-top: 4px;
+    padding-left: 8px;
+    padding-bottom: 2px;
+    padding-right: 4px;
+    margin-right: 4px;
+    margin-left: 2px; */
+  background-color: #80808024;
+  padding: 2px 4px 0px 4px;
+  border-radius: 50%;
+  margin-right: 4px;
+  font-size: 9px;
+  font-weight: 600;
+  color: #2060c0f2;
+  position: relative;
+  top: -3px;
+}
+.mirador-container .scroll-view ~ .monlamResults .perna {
+  color: #98989a;
+  font-family: "Monlam";
+  line-height: 30px;
+  margin-bottom: 4px;
+  padding-top: 0px;
+  padding-bottom: 6px;
+  position: relative;
+}
+.mirador-container .scroll-view ~ .monlamResults .img-responsive {
+  margin: 0px 5px;
+  border: 5px solid black;
+  float: left;
+  width: 120px;
+  height: 80px;
+  top: -100px;
+  display: inline;
+}
+.mirador-container .scroll-view ~ .monlamResults .images {
+  color: #3d7bbf;
+  width: 130px;
+  font-family: "Monlam";
+  font-style: italic;
+  background-image: url(images/sound02.PNG);
+  background-repeat: no-repeat;
+  background-position: right;
+}
+.mirador-container .scroll-view ~ .monlamResults .a.images {
+  position: relative;
+  text-decoration: none;
+}
+.mirador-container .scroll-view ~ .monlamResults .sound {
+  line-height: 40px;
+  color: #999;
+  font-family: "Monlam";
+  font-size: 13px;
+}
+.mirador-container .scroll-view ~ .monlamResults .endescrtion {
+  font-family: "Monlam";
+  line-height: 28px;
+  padding: 6px;
+}
+.mirador-container .scroll-view ~ .monlamResults .cndescrtion {
+  padding: 6px;
+  margin: 6px 4px 6px 4px;
+}
+.mirador-container .scroll-view ~ .monlamResults .cnbutton {
+  margin-right: 6px;
+  background-color: #efefef;
+  border: 1px solid #D7D7D7;
+  border-radius: 5px;
+  color: #1E90FF;
+  line-height: 20px;
+  width: 50px;
+  margin-left: 10px;
+  padding-top: 4px;
+}
+.mirador-container .scroll-view ~ .monlamResults .word {
+  font-family: "Monlam";
+  color: #7D2727;
+  line-height: 45px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+.mirador-container .scroll-view ~ .monlamResults .note {
+  font-family: "Monlam";
+  color: #504f4f;
+}
+.mirador-container .scroll-view ~ .monlamResults .descrtion {
+  font-family: "Monlam";
+  color: #000;
+}
+.mirador-container .scroll-view ~ .monlamResults .info {
+  font-family: "Monlam";
+  line-height: 28px;
+  color: #820410;
+}
+.mirador-container .scroll-view ~ .monlamResults .lobsangtooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  color: #029cb5;
+  line-height: 28px;
+  margin: 0px;
+  padding: 0px;
+}
+.mirador-container .scroll-view ~ .monlamResults .lobsangtooltip .lobsangtooltiptext {
+  visibility: hidden;
+  width: 300px;
+  background-color: #cee2ec;
+  color: #000000;
+  text-align: left;
+  border-radius: 6px;
+  padding: 0px 10px 10px 10px;
+  position: absolute;
+  z-index: 9999;
+  top: 20%;
+  left: 145%;
+  margin-left: -20px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  border: 1px;
+  border-color: #c8c9ca;
+}
+.mirador-container .scroll-view ~ .monlamResults .lobsangtooltip .lobsangtooltiptext::after {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  transform: rotate(180deg);
+  left: 60px;
+  margin-left: -5px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: #f2fdff;
+}
+.mirador-container .scroll-view ~ .monlamResults .lobsangtooltip:hover .lobsangtooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+.mirador-container .scroll-view ~ .monlamResults span .lobsangtooltiph {
+  background-color: #21759b;
+  display: inline-block;
+  width: 300px;
+  left: -10px;
+  position: relative;
+  color: white;
+  font-style: normal;
+  padding: 2px 6px 4px 4px;
+  margin-bottom: 6px;
+}
+.mirador-container .scroll-view ~ .monlamResults .lobsangtooltip2 {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  color: #0462c3;
+  font-style: italic;
+  z-index: 1;
+}
+.mirador-container .scroll-view ~ .monlamResults .lobsangtooltip2 .lobsangtooltiptext2 {
+  visibility: hidden;
+  width: 300px;
+  background-color: #cee2ec;
+  color: #000000;
+  text-align: left;
+  border-radius: 6px;
+  padding: 0px 10px 10px 10px;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  opacity: 0;
+  transition: opacity 0.3s;
+  border: 1px;
+  border-color: #c8c9ca;
+}
+.mirador-container .scroll-view ~ .monlamResults .lobsangtooltip2 .lobsangtooltiptext2::after {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  transform: rotate(180deg);
+  left: 60px;
+  margin-left: -5px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: #f2fdff;
+}
+.mirador-container .scroll-view ~ .monlamResults .lobsangtooltip2:hover .lobsangtooltiptext2 {
+  visibility: visible;
+  opacity: 1;
+}
+.mirador-container .scroll-view ~ .monlamResults span .lobsangtooltiph2 {
+  background-color: #21759b;
+  display: inline-block;
+  width: 300px;
+  left: -10px;
+  position: relative;
+  color: white;
+  font-style: normal;
+  padding: 2px 6px 4px 4px;
+  margin-bottom: 6px;
+}
+.mirador-container .scroll-view ~ .monlamResults .notetitle {
+  font-style: italic;
+  padding-top: 6px;
+  line-height: 16px;
+  color: #827845;
+  position: relative;
+  z-index: 1;
+  padding-bottom: 6px;
+  padding-top: 4px;
+  padding-left: 6px;
+}
+.mirador-container .scroll-view ~ .monlamResults #myDIV {
+  width: 100%;
+  padding: 50px 0;
+  text-align: center;
+  background-color: lightblue;
+  margin-top: 20px;
+}
+.mirador-container .scroll-view ~ .monlamResults .dhtmlgoodies_answer,
+.mirador-container .scroll-view ~ .monlamResults .perna,
+.mirador-container .scroll-view ~ .monlamResults {
   font-family: "Noto Sans", "Noto Serif Tibetan", "Roboto", "Helvetica", "Arial", sans-serif !important;
 }
 .mirador-container .scroll-view ~ .monlamResults > div {
@@ -6285,6 +6658,19 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
   top: 0;
   vertical-align: middle;
 }
+.mirador-container .scroll-view ~ .monlamResults .lobsangtooltip .lobsangtooltiptext {
+  width: 290px;
+  left: 10px;
+  top: 30px;
+}
+.mirador-container .scroll-view ~ .monlamResults span .lobsangtooltiph {
+  width: 310px;
+  padding-left: 10px;
+  box-sizing: border-box;
+}
+.mirador-container .scroll-view ~ .monlamResults .lobsangtooltip .lobsangtooltiptext::after {
+  content: none;
+}
 .mirador-container ul.scroll-listing-thumbs li {
   box-sizing: border-box;
   margin: 0 0 15px 0;
@@ -6332,7 +6718,7 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
   display: none;
 }
 .mirador-container .etext-content .pad:first-child + div > span {
-  font-family: "Noto Sans", "Tibetan Machine Uni", "Noto Serif Tibetan", "Noto Serif Khmer", "Noto Sans Mongolian", "Roboto", "Helvetica", "Arial", sans-serif !important;
+  font-family: "Tibetan Machine Uni", "Noto Sans", "Noto Serif Tibetan", "Noto Serif Khmer", "Noto Sans Mongolian", "Roboto", "Helvetica", "Arial", sans-serif !important;
 }
 .mirador-container .etext-content div:not(.pad) {
   text-align: left;

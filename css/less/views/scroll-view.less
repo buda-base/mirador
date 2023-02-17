@@ -352,9 +352,12 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
       box-shadow: -2px 0 3px rgba(0,0,0,0.15);
 
 
+      @import (less) "https://monlamdic.com/dictionarys/files/css/basic.css";
 
+      .dhtmlgoodies_answer, .perna, & {
+        font-family: "Noto Sans", "Noto Serif Tibetan", "Roboto", "Helvetica", "Arial", sans-serif !important; 
+      }
 
-      font-family: "Noto Sans", "Noto Serif Tibetan", "Roboto", "Helvetica", "Arial", sans-serif !important; 
 
 
       & > div { width:400px; height:~"calc(100% - 2 * 80px)"; position:fixed; right:0; top:80px; background:white; overflow:auto;                      
@@ -406,6 +409,12 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
       
       & div .def .numbers,
       & div .def .numbers2 { width:18px; height:18px; padding:0; display:inline-flex; justify-content: center; align-items: center; top:0; vertical-align: middle; }
+
+
+      .lobsangtooltip .lobsangtooltiptext { width: 290px; left:10px; top:30px; }
+      span .lobsangtooltiph { width:310px; padding-left:10px; box-sizing: border-box;}
+      .lobsangtooltip .lobsangtooltiptext::after { content: none; }
+
 
     }
   }
@@ -468,7 +477,7 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
     &.hide { display:none; }
 
     .pad:first-child+div > span {
-      font-family: "Noto Sans", "Tibetan Machine Uni", "Noto Serif Tibetan", "Noto Serif Khmer", "Noto Sans Mongolian", "Roboto", "Helvetica", "Arial", sans-serif !important; //"Noto Sans Tibetan" ;
+      font-family: "Tibetan Machine Uni", "Noto Sans", "Noto Serif Tibetan", "Noto Serif Khmer", "Noto Sans Mongolian", "Roboto", "Helvetica", "Arial", sans-serif !important; //"Noto Sans Tibetan" ;
     }
 
     div:not(.pad) {

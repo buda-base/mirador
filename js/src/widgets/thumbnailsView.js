@@ -691,7 +691,7 @@ var prevDiff = -1;
                         console.log("sel:",selection.rangeCount,selection.anchorOffset,selection.focusOffset);
                         if (!selection.rangeCount || selection.anchorOffset == selection.focusOffset || !jQuery(".view-nav .monlam #check.on").length) { 
                           jQuery(".scroll-view").removeClass("withMonlam");
-                          jQuery(".scroll-view+.monlamResults").remove();
+                          jQuery(".scroll-view~.monlamResults").remove();
                           //if(window.monlamRange) delete window.monlamRange ;
                           return ;
                         }
