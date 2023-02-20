@@ -759,17 +759,17 @@ var prevDiff = -1;
                                           if(!d) continue ;
                                           d = window.addMonlamStyle(d);
                                           d = _this.labelToString([ {value:d, lang: "bo" }]);
-                                          defStyled.push("<span class='content'>"+d.replace(/((>) *\] *)|( *\[ *(<))/g,"$2 $4"));
-                                          if(hasCollapsible) defStyled.push("</div></div></span>");
+                                          defStyled.push(d.replace(/((>) *\] *)|( *\[ *(<))/g,"$2 $4"));
+                                          if(hasCollapsible) defStyled.push("</div></div>");
                                           hasCollapsible = d.indexOf("dhtmlgoodies_answer") != -1 ;
-                                          if(!hasCollapsible) defStyled.push("</span>");
+                                          //if(!hasCollapsible) defStyled.push("</span>");
                                         }
                                         defStyled = defStyled.join("");
                                         res += '<div class="def">'+
                                             '<b lang="'+lang+'"'+(val.length == 1 ? 'class="on"':'')+'>'+
                                               '<span>'+kwLayout+'</span><i class="fa fa-chevron-right" aria-hidden="true"></i>'+
                                             '</b>'+
-                                            '<div>'+ defStyled + '</div>'+
+                                            '<div><div><div>'+ defStyled + '</div></div></div>'+
                                         '</div>';
 
                                       } else {

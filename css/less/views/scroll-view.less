@@ -243,7 +243,11 @@
   &:not(.on) img { display:none;  }
   &.on { background:none; }
 }
-.view-nav .eText { display:flex;align-items: center; }
+.view-nav .eText { display:flex;align-items: center; position:relative; padding:10px 0; 
+  ul.select { top:-75px; 
+    li.on { font-weight:700 !important; background-color:#f5f5f5; }
+  }
+}
 .view-nav .monlam.off { display:none; }
 
 
@@ -252,7 +256,7 @@
       filter:opacity(0.125); 
   }
 }
-.view-nav .eText.on {animation: 1s toggle 5; animation-delay:0.75s; }
+.view-nav .eText.on:not(.hovered) {animation: 1s toggle 5; animation-delay:0.75s; }
 
 .image-view .provider img,
 .scroll-view .provider img { max-height:80px; max-width:40px;padding:0 4px; border:none !important;}
@@ -386,7 +390,7 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
       & div .def > b > span > .kw { background:rgba(0,128,255,0.2); }
       & div .def > b > span { font-size:115%; text-decoration:underline; }
       & div .def > b[lang='bo'] > span { font-size:135%;}
-      & div .def span.content { padding-left:15px; display: block; padding-top:12px;  }
+      & div .def > div > div > div { padding-left:15px; display: block; padding-top:12px;  }
       & div .def:first-child { padding-top:30px; }
       & div .def:last-child { padding-bottom:30px; }
 
@@ -405,7 +409,8 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
       & div .def br:first-child,
       & div .def .spc { display:none; }
       
-      & div .def p.gap { margin-top:0; }  
+      & div .def p.gap { margin-top:12px; }  
+      & div .def p.gap:first-child { margin-top:0px; }  
       
       & div .def .numbers,
       & div .def .numbers2 { width:18px; height:18px; padding:0; display:inline-flex; justify-content: center; align-items: center; top:0; vertical-align: middle; }
