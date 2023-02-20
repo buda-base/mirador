@@ -6671,6 +6671,22 @@ padding-top: 4px;
 .mirador-container .scroll-view ~ .monlamResults .lobsangtooltip .lobsangtooltiptext::after {
   content: none;
 }
+.mirador-container .scroll-view ~ .monlamResults .dhtmlgoodies_answer {
+  box-sizing: border-box;
+}
+.mirador-container .scroll-view ~ .monlamResults .dhtmlgoodies_question {
+  height: 32px;
+  box-sizing: border-box;
+}
+.mirador-container .scroll-view ~ .monlamResults .dhtmlgoodies_question img {
+  vertical-align: middle;
+}
+.mirador-container .scroll-view ~ .monlamResults .dhtmlgoodies_question.on {
+  font-weight: 600;
+}
+.mirador-container .scroll-view ~ .monlamResults .dhtmlgoodies_question.on + .dhtmlgoodies_answer {
+  display: block;
+}
 .mirador-container ul.scroll-listing-thumbs li {
   box-sizing: border-box;
   margin: 0 0 15px 0;

@@ -752,14 +752,17 @@ var prevDiff = -1;
                                             kwLayout += '<span>'+v+'</span>';
                                           }
                                         }
-                                        var defStyled = [];
+                                        var defStyled = [], hasCollapsible = false;
                                         defs = def.value.split(/[\r\n]+/);
                                         for(var k in defs) {
                                           var d = defs[k];
                                           if(!d) continue ;
                                           d = window.addMonlamStyle(d);
                                           d = _this.labelToString([ {value:d, lang: "bo" }]);
-                                          defStyled.push("<span class='content'>"+d.replace(/((>) *\] *)|( *\[ *(<))/g,"$2 $4")+"</span>");
+                                          defStyled.push("<span class='content'>"+d.replace(/((>) *\] *)|( *\[ *(<))/g,"$2 $4"));
+                                          if(hasCollapsible) defStyled.push("</div></div></span>");
+                                          hasCollapsible = d.indexOf("dhtmlgoodies_answer") != -1 ;
+                                          if(!hasCollapsible) defStyled.push("</span>");
                                         }
                                         defStyled = defStyled.join("");
                                         res += '<div class="def">'+
@@ -776,6 +779,9 @@ var prevDiff = -1;
                                         jQuery(".scroll-view~.monlamResults").html("<div>"+res+"</div>").find(".def b").click(function(ev){
                                           var el = jQuery(ev.currentTarget);
                                           el.toggleClass("on");
+                                        });
+                                        jQuery(".scroll-view~.monlamResults .dhtmlgoodies_question.collapsible").off("click").on("click",function(ev) {
+                                          jQuery(ev.currentTarget).toggleClass("on");
                                         });
                                       }
                                     },
