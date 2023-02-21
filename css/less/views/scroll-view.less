@@ -251,6 +251,18 @@
 .view-nav .monlam.off { display:none; }
 
 
+.view-nav .monlam { position: relative;
+  .new { display: block; position: absolute; top:~"calc(50% - 8px)"; right:~"calc(100% + 7px)"; font-size:10px; text-transform: uppercase; line-height: 12px; 
+    font-weight: 600; background:#d73449; border-radius: 2px; padding:2px 4px 1px 4px; box-sizing: border-box; width: max-content;
+    font-family:"Noto Sans","Noto Serif Tibetan";
+  }
+  &:hover .new { text-decoration: none !important;}
+}
+
+[lang='bo'] .view-nav .monlam .new {  padding:3px 3px 8px 3px; font-size:100%;  top:~"calc(50% - 10px)"; }
+
+
+
 @keyframes toggle {
   50% {
       filter:opacity(0.125); 
@@ -384,11 +396,15 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
         user-select: none;
       }
 
-      & div .def > b { color:#09b; display: inline-flex; align-items: center; cursor: pointer; text-decoration: none; }
+
+      & > div > a:first-child { position: absolute; right:5px; top:0; padding:0; opacity:0.5; transition: all 100ms ease-in-out;}
+      & > div > a:first-child:hover { opacity:1; }
+
+      & div .def > b { color:#000; display: inline-flex; align-items: center; cursor: pointer; text-decoration: none; }
       & div .def > b > i { transform: rotate(0deg); margin:-5px 5px 0 5px; text-decoration: none; font-size:13px; }
       & div .def > b.on > i { transform: rotate(90deg); }
-      & div .def > b > span > .kw { background:rgba(0,128,255,0.2); }
-      & div .def > b > span { font-size:115%; text-decoration:underline; }
+      & div .def > b > span > .kw { background:rgba(252,224,141,0.65); }
+      & div .def > b > span { font-size:115%; /*text-decoration:underline;*/ font-weight:500; color:#000; }
       & div .def > b[lang='bo'] > span { font-size:135%;}
       & div .def > div > div > div { padding-left:15px; display: block; padding-top:12px;  }
       & div .def:first-child { padding-top:30px; }
@@ -408,6 +424,7 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
       
       & div .def br:first-child,
       & div .def .spc { display:none; }
+      & div .def img + .spc { display: inline; } 
       
       & div .def p.gap { margin-top:12px; }  
       & div .def p.gap:first-child { margin-top:0px; }  
@@ -421,7 +438,7 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
       .lobsangtooltip .lobsangtooltiptext::after { content: none; }
 
 
-      .dhtmlgoodies_answer { box-sizing: border-box;}
+      .dhtmlgoodies_answer { box-sizing: border-box; padding:10px;}
 
       .dhtmlgoodies_question { height:32px; box-sizing: border-box; }
       .dhtmlgoodies_question img { vertical-align: middle; }

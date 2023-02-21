@@ -383,7 +383,8 @@ var Z = 0 ;
 
               clearInterval(timer);
 
-              nav.before('<a class="monlam on off"><span id="check"><img src="/icons/check.svg"></span>'+i18next.t("monlam")+'<img width="42" src="/icons/monlam.png"></a>');            
+              var newTxt = '<div class="new">'+i18next.t("new")+'</div>';
+              nav.before('<a class="monlam on off">'+newTxt+'<span id="check"><img src="/icons/check.svg"></span>'+i18next.t("monlam")+'<img width="42" src="/icons/monlam.png"></a>');            
               var monlam = nav.parent().find(".monlam");
               monlam.mousedown(function(){
                 monlam.find("#check").toggleClass("on");                
@@ -446,7 +447,8 @@ var Z = 0 ;
                 nav.find(".select.on").removeClass("on");
                 if(check.hasClass("on")) {                   
                   if(!nav.find(".select li.on").length) {
-                    nav.find(".select li:first-child").addClass("on");
+                    if(window.multipleEtextRes && window.multipleEtextRes.index) nav.find(".select li:nth-child("+(1+window.multipleEtextRes.index)+")").addClass("on");
+                    else nav.find(".select li:first-child").addClass("on");
                   }
                   window.MiradorUseEtext = "open" ;
                   jQuery(".etext-content").removeClass("hide"); 

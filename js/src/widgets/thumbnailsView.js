@@ -776,7 +776,7 @@ var prevDiff = -1;
                                         res = "<div>Nothing found for \""+window.monlamAPI.selection+"\".</div>";
                                       }
                                       if(res) {
-                                        jQuery(".scroll-view~.monlamResults").html("<div>"+res+"</div>").find(".def b").click(function(ev){
+                                        jQuery(".scroll-view~.monlamResults").html("<div><a href='https://monlamdic.com' title='monlamdic.com' target='_blank' rel='noopener noreferrer'><img width='48' src='/icons/monlam.png'/></a>"+res+"</div>").find(".def b").click(function(ev){
                                           var el = jQuery(ev.currentTarget);
                                           el.toggleClass("on");
                                         });
@@ -797,7 +797,7 @@ var prevDiff = -1;
 
                               });
                             coords.map(function(c){ 
-                              el.append("<div class='monlam-hilight' style='scroll-margin:35vh 35vw;width:"+c.width+"px;height:"+c.height+"px;top:"+(c.top-decalH.top+scrollElem.scrollTop)+"px;left:"+(c.left-decalH.left+scrollElem.scrollLeft)+"px;position:absolute;background:rgba(0,153,255,0.35);padding:0;margin:0;box-shadow:none;'></div>"); 
+                              el.append("<div class='monlam-hilight' style='scroll-margin:35vh 35vw;width:"+c.width+"px;height:"+c.height+"px;top:"+(c.top-decalH.top+scrollElem.scrollTop)+"px;left:"+(c.left-decalH.left+scrollElem.scrollLeft)+"px;position:absolute;background:rgba(252,224,141,0.65);padding:0;margin:0;box-shadow:none;mix-blend-mode:darken;'></div>"); 
                               //el.parent().parent().append("<div class='monlam-hilight' style='scroll-margin:50px;width:"+(1/window.currentZoom)*c.width+"px;height:"+(1/window.currentZoom)*c.height+"px;top:"+(1/window.currentZoom)*(c.top-decalP.top)+"px;left:"+(1/window.currentZoom)*(c.left-decalP.left)+"px;position:absolute;background:rgba(0,153,255,0.35);padding:0;margin:0;box-shadow:none;'></div>"); 
                             });
                             selection.removeAllRanges();
