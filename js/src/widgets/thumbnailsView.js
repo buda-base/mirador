@@ -776,7 +776,7 @@ var prevDiff = -1;
                                         res = "<div>Nothing found for \""+window.monlamAPI.selection+"\".</div>";
                                       }
                                       if(res) {
-                                        jQuery(".scroll-view~.monlamResults").html("<div><a href='https://monlamdic.com' title='monlamdic.com' target='_blank' rel='noopener noreferrer'><img width='48' src='/icons/monlam.png'/></a>"+res+"</div>").find(".def b").click(function(ev){
+                                        jQuery(".scroll-view~.monlamResults").html("<div><h2><a href='https://monlamdic.com' title='monlamdic.com' target='_blank' rel='noopener noreferrer'><img width='32' src='/icons/monlam.png'/></a><a href='https://monlamdic.com' title='monlamdic.com' target='_blank' rel='noopener noreferrer'>"+i18next.t("monlamTitle")+"</a><a href='https://monlamdic.com' title='monlamdic.com' target='_blank' rel='noopener noreferrer'><img width='32' src='/icons/monlam.png'/></a></h2>"+res+"</div>").find(".def b").click(function(ev){
                                           var el = jQuery(ev.currentTarget);
                                           el.toggleClass("on");
                                         });

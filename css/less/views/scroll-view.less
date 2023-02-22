@@ -253,7 +253,7 @@
 
 .view-nav .monlam { position: relative;
   .new { display: block; position: absolute; top:~"calc(50% - 8px)"; right:~"calc(100% + 7px)"; font-size:10px; text-transform: uppercase; line-height: 12px; 
-    font-weight: 600; background:#d73449; border-radius: 2px; padding:2px 4px 1px 4px; box-sizing: border-box; width: max-content;
+    font-weight: 600; background:#d73449; border-radius: 2px; padding:2px 4px 2px 4px; box-sizing: border-box; width: max-content;
     font-family:"Noto Sans","Noto Serif Tibetan";
   }
   &:hover .new { text-decoration: none !important;}
@@ -401,7 +401,7 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
       & > div > a:first-child:hover { opacity:1; }
 
       & div .def > b { color:#000; display: inline-flex; align-items: center; cursor: pointer; text-decoration: none; }
-      & div .def > b > i { transform: rotate(0deg); margin:-5px 5px 0 5px; text-decoration: none; font-size:13px; }
+      & div .def > b > i { transform: rotate(0deg); margin:0px 5px 0 5px; text-decoration: none; font-size:13px; }
       & div .def > b.on > i { transform: rotate(90deg); }
       & div .def > b > span > .kw { background:rgba(252,224,141,0.65); }
       & div .def > b > span { font-size:115%; /*text-decoration:underline;*/ font-weight:500; color:#000; }
@@ -414,6 +414,10 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
       & div .def b.on ~ div { max-height:10000px; overflow:visible; }
 
 
+
+      h2 { display: flex; align-items: center; padding-top:0; margin-bottom:0; font-size:20px; font-weight:700; text-align: center; } 
+      h2 a { margin-right: 10px; color:#152631; text-decoration: none;}
+      h2 a:last-child { visibility:hidden; }
 
       & div .def b[lang="bo-x-ewts"] ~ div img[align="middle"] { vertical-align: text-bottom;}
 

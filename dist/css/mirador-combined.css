@@ -6082,7 +6082,7 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   font-weight: 600;
   background: #d73449;
   border-radius: 2px;
-  padding: 2px 4px 1px 4px;
+  padding: 2px 4px 2px 4px;
   box-sizing: border-box;
   width: max-content;
   font-family: "Noto Sans", "Noto Serif Tibetan";
@@ -6641,7 +6641,7 @@ padding-top: 4px;
 }
 .mirador-container .scroll-view ~ .monlamResults div .def > b > i {
   transform: rotate(0deg);
-  margin: -5px 5px 0 5px;
+  margin: 0px 5px 0 5px;
   text-decoration: none;
   font-size: 13px;
 }
@@ -6678,6 +6678,23 @@ padding-top: 4px;
 .mirador-container .scroll-view ~ .monlamResults div .def b.on ~ div {
   max-height: 10000px;
   overflow: visible;
+}
+.mirador-container .scroll-view ~ .monlamResults h2 {
+  display: flex;
+  align-items: center;
+  padding-top: 0;
+  margin-bottom: 0;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+}
+.mirador-container .scroll-view ~ .monlamResults h2 a {
+  margin-right: 10px;
+  color: #152631;
+  text-decoration: none;
+}
+.mirador-container .scroll-view ~ .monlamResults h2 a:last-child {
+  visibility: hidden;
 }
 .mirador-container .scroll-view ~ .monlamResults div .def b[lang="bo-x-ewts"] ~ div img[align="middle"] {
   vertical-align: text-bottom;
