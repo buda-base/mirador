@@ -255,6 +255,8 @@
   .new { display: block; position: absolute; top:~"calc(50% - 8px)"; right:~"calc(100% + 7px)"; font-size:10px; text-transform: uppercase; line-height: 12px; 
     font-weight: 600; background:#d73449; border-radius: 2px; padding:2px 4px 2px 4px; box-sizing: border-box; width: max-content;
     font-family:"Noto Sans","Noto Serif Tibetan";
+
+    @media(max-width:1000px) { display:none;}
   }
   &:hover .new { text-decoration: none !important;}
 }
@@ -350,7 +352,7 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
 
   }
 
-  .image-view { z-index:1; }
+  .image-view { z-index:4; background:none; pointer-events: none; }
 
   .scroll-view { border:none !important;
     &.withMonlam { width:~"calc(100% - 400px)"; }
@@ -367,7 +369,7 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
       background:white;    
       box-shadow: -2px 0 3px rgba(0,0,0,0.15);
 
-
+      
       @import (less) "https://monlamdic.com/dictionarys/files/css/basic.css";
 
       .dhtmlgoodies_answer, .perna, & {
@@ -375,6 +377,17 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
       }
 
 
+      .X { position:absolute; font-size:40px; color:black;font-family: sans-serif; display:inline-block; cursor:pointer; top:-10px; right:5px;
+        font-weight:300; transform:rotate(45deg);  margin:0; padding:0;
+        &::before { content:'+'; }
+      }
+
+
+
+      & > div .monlam-no-result { display:flex; align-items: baseline;
+        & > span { white-space: nowrap; max-width:200px; text-overflow: ellipsis; overflow: hidden;  }
+      } 
+      
 
       & > div { width:400px; height:~"calc(100% - 2 * 80px)"; position:fixed; right:0; top:80px; background:white; overflow:auto;                      
         &.loading {          
@@ -415,7 +428,7 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
 
 
 
-      h2 { display: flex; align-items: center; padding-top:0; margin-bottom:0; font-size:20px; font-weight:700; text-align: center; } 
+      h2 { display: flex; align-items: center; padding-top:0; margin-bottom:0; font-size:20px; font-weight:700; text-align: left; } 
       h2 a { margin-right: 10px; color:#152631; text-decoration: none;}
       h2 a:last-child { visibility:hidden; }
 

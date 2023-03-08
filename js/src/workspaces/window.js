@@ -384,7 +384,7 @@ var Z = 0 ;
               clearInterval(timer);
 
               var newTxt = '<div class="new">'+i18next.t("new")+'</div>';
-              nav.before('<a class="monlam on off">'+newTxt+'<span id="check"><img src="/icons/check.svg"></span>'+i18next.t("monlam")+'<img width="42" src="/icons/monlam.png"></a>');            
+              nav.before('<a class="monlam on off">'+newTxt+'<span id="check" class="on"><img src="/icons/check.svg"></span>'+i18next.t("monlam")+'<img width="42" src="/icons/monlam.png"></a>');            
               var monlam = nav.parent().find(".monlam");
               monlam.mousedown(function(){
                 monlam.find("#check").toggleClass("on");                
