@@ -6612,7 +6612,7 @@ padding-top: 4px;
   position: absolute;
   font-size: 40px;
   color: black;
-  font-family: sans-serif;
+  font-family: "Noto Sans", sans-serif;
   display: inline-block;
   cursor: pointer;
   top: -10px;
@@ -6642,7 +6642,8 @@ padding-top: 4px;
   right: 0;
   top: 80px;
   background: white;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 .mirador-container .scroll-view ~ .monlamResults > div.loading {
   display: flex;

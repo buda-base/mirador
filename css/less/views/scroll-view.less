@@ -377,7 +377,7 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
       }
 
 
-      .X { position:absolute; font-size:40px; color:black;font-family: sans-serif; display:inline-block; cursor:pointer; top:-10px; right:5px;
+      .X { position:absolute; font-size:40px; color:black;font-family: "Noto Sans", sans-serif; display:inline-block; cursor:pointer; top:-10px; right:5px;
         font-weight:300; transform:rotate(45deg);  margin:0; padding:0;
         &::before { content:'+'; }
       }
@@ -389,7 +389,7 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
       } 
       
 
-      & > div { width:400px; height:~"calc(100% - 2 * 80px)"; position:fixed; right:0; top:80px; background:white; overflow:auto;                      
+      & > div { width:400px; height:~"calc(100% - 2 * 80px)"; position:fixed; right:0; top:80px; background:white; overflow-y:auto; overflow-x:hidden;                      
         &.loading {          
           display: flex;
           justify-content: center;      
