@@ -189,6 +189,8 @@ var Z = 0 ;
       templateData.showFullScreen = _this.fullScreen;
       templateData.userButtons = _this.userButtons;
 
+      templateData.useFeedbucket = window.useFeedbucket;
+
       if(this.qualityGrade == "0") templateData.quality0 = true;
 
       _this.element = jQuery(this.template(templateData)).appendTo(_this.appendTo);
@@ -1497,6 +1499,7 @@ var Z = 0 ;
       '{{/if}}',
       '<div class="overlay"></div>',
       '<div class="view-container {{#if inApp}}inApp thumbs-off{{/if}} {{#unless sidePanel}}focus-max-width{{/unless}}">',
+      '{{#if useFeedbucket}}<div id="feedbucket"></div>{{/if}}',
       // TODO move to mirador-main-menu
       //'{{#if inApp}}<div class="mobile-button top"><img src="/icons/burger.svg"/></div>{{/if}}',
       '<div class="bottomPanel">',
