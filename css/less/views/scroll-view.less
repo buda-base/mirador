@@ -384,7 +384,7 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
 
 
 
-      & > div .monlam-no-result { display:flex; align-items: baseline;
+      & > div .monlam-no-result { display:flex; align-items: baseline; 
         & > span { white-space: nowrap; max-width:200px; text-overflow: ellipsis; overflow: hidden;  }
       } 
       
@@ -409,6 +409,9 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
         user-select: none;
       }
 
+      li.tab { list-style-type:none; font-size:15px; margin-bottom:10px; padding:0 15px;}
+      li.tab:hover { text-decoration: underline; }
+
 
       & > div > a:first-child { position: absolute; right:5px; top:0; padding:0; opacity:0.5; transition: all 100ms ease-in-out;}
       & > div > a:first-child:hover { opacity:1; }
@@ -416,6 +419,7 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
       & div .def > b { color:#000; display: inline-flex; align-items: center; cursor: pointer; text-decoration: none; }
       & div .def > b > i { transform: rotate(0deg); margin:0px 5px 0 5px; text-decoration: none; font-size:13px; }
       & div .def > b.on > i { transform: rotate(90deg); }
+      & div .def > b + div .kw,
       & div .def > b > span > .kw { background:rgba(252,224,141,0.65); }
       & div .def > b > span { font-size:115%; /*text-decoration:underline;*/ font-weight:500; color:#000; }
       & div .def > b[lang='bo'] > span { font-size:135%;}

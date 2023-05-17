@@ -6667,6 +6667,15 @@ padding-top: 4px;
   /* IE 10+ */
   user-select: none;
 }
+.mirador-container .scroll-view ~ .monlamResults li.tab {
+  list-style-type: none;
+  font-size: 15px;
+  margin-bottom: 10px;
+  padding: 0 15px;
+}
+.mirador-container .scroll-view ~ .monlamResults li.tab:hover {
+  text-decoration: underline;
+}
 .mirador-container .scroll-view ~ .monlamResults > div > a:first-child {
   position: absolute;
   right: 5px;
@@ -6694,6 +6703,7 @@ padding-top: 4px;
 .mirador-container .scroll-view ~ .monlamResults div .def > b.on > i {
   transform: rotate(90deg);
 }
+.mirador-container .scroll-view ~ .monlamResults div .def > b + div .kw,
 .mirador-container .scroll-view ~ .monlamResults div .def > b > span > .kw {
   background: rgba(252, 224, 141, 0.65);
 }

@@ -528,13 +528,15 @@ var prevDiff = -1;
       jQuery(".scroll-view").addClass("withMonlam");
       ev.preventDefault();
       ev.stopPropagation();
-      
+            
       setTimeout(function(){
         var hi = el.find(".monlam-hilight")[0];
-        if(hi) hi.scrollIntoView({behavior:"smooth",block:"nearest",inline:"start"});
+        if(hi) hi.scrollIntoView({behavior:"smooth",block:"center",inline:"center"});
         if(fromPopup) ev.currentTarget.remove();
         if(!jQuery(".scroll-view~.monlamResults").length) jQuery(".scroll-view").parent().append("<div class='monlamResults'></div>");
         jQuery(".scroll-view~.monlamResults").html("<div class='loading'><img src='/scripts/mirador/images/spinner.gif'/></div>");
+        
+        //if(!_this.monlamPS) _this.monlamPS = new PerfectScrollbar(".monlamResults");
 
         var title = "<h2><a href='https://monlamdic.com' title='monlamdic.com' target='_blank' rel='noopener noreferrer'><img width='32' src='/icons/monlam.png'/></a><a href='https://monlamdic.com' title='monlamdic.com' target='_blank' rel='noopener noreferrer'>"+i18next.t("monlamTitle")+"</a><a href='https://monlamdic.com' title='monlamdic.com' target='_blank' rel='noopener noreferrer'><img width='32' src='/icons/monlam.png'/></a></h2>";
 
@@ -551,46 +553,66 @@ var prevDiff = -1;
           success: function(val){
             console.log("monlam val:",val);
             var res = "" ;
-            if(val && val.length) for(var i in val) {
-              var w = val[i], words = [], defs = [], kws = [] ;
+            if(val && val.length) { 
 
-              if(! (w.type == "e" || w.type == "c") ) continue ;
+              var renderMonlamResults = function(val) {
+                var res = jQuery("<div class='tabPanel'></div>") ;
+                for(var i in val) {
+                  var w = val[i], words = [], defs = [], kws = [] ;
+                    
+                  //if(! (w.type == "e" || w.type == "c") ) continue ;
 
-              var word = _this.labelToString([ w.word ], words);
-              var def = w.def; //_this.labelToString([ w.def ], defs);
-              var kw = _this.labelToString([{ value:window.monlamAPI.selection, lang: window.monlamAPI.lang }], kws);                                        
-              //console.log("w:",i,w,words,defs,kws);                                        
-              if(kws && kws.length && kws[0].value) kw = kws[0].value ;
-              else kw = window.monlamAPI.selection ;
-              var kwLayout = "", lang ;
-              if(words && words.length && words[0].value) { 
-                lang = words[0].lang ;
-                var arr = words[0].value.split(kw);
-                for(var j in arr) {
-                  var v = arr[j] ; 
-                  if(j > 0) kwLayout += '<span class="kw">'+kw+'</span>';
-                  kwLayout += '<span>'+v+'</span>';
+                  var word = _this.labelToString([ w.word ], words);
+                  var def = w.def; //_this.labelToString([ w.def ], defs);
+                  var kw = _this.labelToString([{ value:window.monlamAPI.selection, lang: window.monlamAPI.lang }], kws);                                        
+                  //console.log("w:",i,w,words,defs,kws);                                        
+                  if(kws && kws.length && kws[0].value) kw = kws[0].value ;
+                  else kw = window.monlamAPI.selection ;
+                  kw = kw.replace(/(^[ ་།/]+)|([ ་།/]+$)/g, "");
+                  var kwLayout = "", lang ;
+                  if(words && words.length && words[0].value) { 
+                    if(words[0].value.indexOf("↦") == -1) { 
+                      lang = words[0].lang ;
+                      var arr = words[0].value.split(kw);
+                      for(var j in arr) {
+                        var v = arr[j] ; 
+                        if(j > 0) kwLayout += '<span class="kw">'+kw+'</span>';
+                        kwLayout += '<span>'+v+'</span>';
+                      }
+                    } else {
+                      kwLayout = words[0].value.replace(/\[?↦\]?([^↤]+?)\[?↤\]?/g,"<span class='kw'>$1</span>");
+                    }
+                  }
+                  var defStyled = [], hasCollapsible = false;
+                  defs = def.value.split(/[\r\n]+/);
+                  for(var k in defs) {
+                    var d = defs[k];
+                    if(!d) continue ;
+                    d = window.addMonlamStyle(d);
+                    d = _this.labelToString([ {value:d, lang: "bo" }]);
+                    defStyled.push(d.replace(/((>) *\] *)|( *\[ *(<))/g,"$2 $4"));
+                    if(hasCollapsible) defStyled.push("</div></div>");
+                    hasCollapsible = d.indexOf("dhtmlgoodies_answer") != -1 ;
+                    //if(!hasCollapsible) defStyled.push("</span>");
+                  }
+                  defStyled = defStyled.join("");
+                  res.append('<div class="def">'+
+                      '<b lang="'+lang+'"'+(val.length == 1 ? 'class="on"':'')+'>'+
+                        '<span>'+kwLayout+'</span><i class="fa fa-chevron-right" aria-hidden="true"></i>'+
+                      '</b>'+
+                      '<div><div><div>'+ defStyled + '</div></div></div>'+
+                  '</div>');
                 }
-              }
-              var defStyled = [], hasCollapsible = false;
-              defs = def.value.split(/[\r\n]+/);
-              for(var k in defs) {
-                var d = defs[k];
-                if(!d) continue ;
-                d = window.addMonlamStyle(d);
-                d = _this.labelToString([ {value:d, lang: "bo" }]);
-                defStyled.push(d.replace(/((>) *\] *)|( *\[ *(<))/g,"$2 $4"));
-                if(hasCollapsible) defStyled.push("</div></div>");
-                hasCollapsible = d.indexOf("dhtmlgoodies_answer") != -1 ;
-                //if(!hasCollapsible) defStyled.push("</span>");
-              }
-              defStyled = defStyled.join("");
-              res += '<div class="def">'+
-                  '<b lang="'+lang+'"'+(val.length == 1 ? 'class="on"':'')+'>'+
-                    '<span>'+kwLayout+'</span><i class="fa fa-chevron-right" aria-hidden="true"></i>'+
-                  '</b>'+
-                  '<div><div><div>'+ defStyled + '</div></div></div>'+
-              '</div>';
+                return res;                
+              };
+
+              var val1 = val.filter(function(r){ return r.type == "e" || r.type == "c"; }), r1 = renderMonlamResults(val1);
+              var val2 = val.filter(function(r){ return r.type == "k" ; }), r2 = renderMonlamResults(val2);
+              var val3 = val.filter(function(r){ return r.type == "d" ; }), r3 = renderMonlamResults(val3);
+              res = "<li class='tab'>"+i18next.t("monlamExact",{count:val1.length})+"</li>"   + r1.html() +
+                    "<li class='tab'>"+i18next.t("monlamContain",{count:val2.length})+"</li>" + r2.html() +
+                    "<li class='tab'>"+i18next.t("monlamDef",{count:val3.length})+"</li>"     + r3.html() ;
+              
 
             } else {
               res = "<div class='monlam-no-result'>Nothing found for \"<span>"+window.monlamAPI.selection+"</span>\".</div>";
@@ -603,6 +625,7 @@ var prevDiff = -1;
               jQuery(".scroll-view~.monlamResults .dhtmlgoodies_question.collapsible").off("click").on("click",function(ev) {
                 jQuery(ev.currentTarget).toggleClass("on");
               });
+              //setTimeout(function(){ _this.monlamPS.update(); }, 10);
             }
           },
           error: function(err){
@@ -829,7 +852,7 @@ var prevDiff = -1;
                             
 
                             coords.map(function(c){ 
-                              el.append("<div class='monlam-hilight' style='scroll-margin:35vh 35vw;width:"+c.width+"px;height:"+c.height+"px;top:"+(c.top-decalH.top+scrollElem.scrollTop)+"px;left:"+(c.left-decalH.left+scrollElem.scrollLeft)+"px;position:absolute;background:rgba(252,224,141,0.65);padding:0;margin:0;box-shadow:none;mix-blend-mode:darken;'></div>"); 
+                              el.append("<div class='monlam-hilight' style='scroll-margin:0;width:"+c.width+"px;height:"+c.height+"px;top:"+(c.top-decalH.top+scrollElem.scrollTop)+"px;left:"+(c.left-decalH.left+scrollElem.scrollLeft)+"px;position:absolute;background:rgba(252,224,141,0.65);padding:0;margin:0;box-shadow:none;mix-blend-mode:darken;'></div>"); 
                               //el.parent().parent().append("<div class='monlam-hilight' style='scroll-margin:50px;width:"+(1/window.currentZoom)*c.width+"px;height:"+(1/window.currentZoom)*c.height+"px;top:"+(1/window.currentZoom)*(c.top-decalP.top)+"px;left:"+(1/window.currentZoom)*(c.left-decalP.left)+"px;position:absolute;background:rgba(0,153,255,0.35);padding:0;margin:0;box-shadow:none;'></div>"); 
                             });
                             selection.removeAllRanges();
