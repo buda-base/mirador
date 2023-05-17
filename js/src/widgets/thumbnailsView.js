@@ -553,6 +553,9 @@ var prevDiff = -1;
             var res = "" ;
             if(val && val.length) for(var i in val) {
               var w = val[i], words = [], defs = [], kws = [] ;
+
+              if(! (w.type == "e" || w.type == "c") ) continue ;
+
               var word = _this.labelToString([ w.word ], words);
               var def = w.def; //_this.labelToString([ w.def ], defs);
               var kw = _this.labelToString([{ value:window.monlamAPI.selection, lang: window.monlamAPI.lang }], kws);                                        
