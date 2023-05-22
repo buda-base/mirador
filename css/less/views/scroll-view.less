@@ -390,6 +390,7 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
       
 
       & > div { width:400px; height:~"calc(100% - 2 * 80px)"; position:fixed; right:0; top:80px; background:white; overflow-y:auto; overflow-x:hidden;                      
+        padding-bottom:20px; box-sizing: border-box;
         &.loading {          
           display: flex;
           justify-content: center;      
@@ -400,7 +401,7 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
         }
       }
 
-      & > div > * { padding:15px; font-size:15px; }
+      & > div > div > * { padding:15px; font-size:15px; }
 
 
       & div .def { margin-bottom:0px; line-height:24px; padding-bottom:15px;
@@ -409,8 +410,15 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
         user-select: none;
       }
 
-      li.tab { list-style-type:none; font-size:15px; margin-bottom:10px; padding:0 15px;}
-      li.tab:hover { text-decoration: underline; }
+      li.tab { list-style-type:none; font-size:15px; margin-bottom:10px; padding:0 15px; cursor: pointer;}
+      li.tab:not([disabled]):hover { text-decoration: underline; }
+      li.tab.on { font-weight:600; margin-bottom:0; text-decoration: underline;}
+      li.tab[disabled] { pointer-events: none; color:rgb(128,128,128); }
+
+      li.tab:not(.on) + div { display: none;}
+
+      li.tab + div { padding-left: 15px;}
+      li.tab + div > .def:first-child { padding-top:15px; }
 
 
       & > div > a:first-child { position: absolute; right:5px; top:0; padding:0; opacity:0.5; transition: all 100ms ease-in-out;}
@@ -432,13 +440,15 @@ html:not(#a) > body:not(#b) > #root:not(#c) > #viewer.auto_rela:not(:root):fulls
 
 
 
-      h2 { display: flex; align-items: center; padding-top:0; margin-bottom:0; font-size:20px; font-weight:700; text-align: left; } 
+      h2 { display: flex; align-items: center; padding-top:0; margin-bottom:0; font-size:20px; font-weight:700; text-align: left; padding: 0 15px 15px 15px; } 
       h2 a { margin-right: 10px; color:#152631; text-decoration: none;}
       h2 a:last-child { visibility:hidden; }
 
       & div .def b[lang="bo-x-ewts"] ~ div img[align="middle"] { vertical-align: text-bottom;}
 
       & div .def b[lang="bo-x-ewts"] ~ div .perna.ac-ac { line-height:24px; }
+
+      & div .def b[lang="bo"] { line-height: 32px; }
       
       & div .def .perna.ac-ac:first-child,
       & div .def br:first-child + .perna.ac-ac { margin-top: 0;}

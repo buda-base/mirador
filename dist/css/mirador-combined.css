@@ -6644,6 +6644,8 @@ padding-top: 4px;
   background: white;
   overflow-y: auto;
   overflow-x: hidden;
+  padding-bottom: 20px;
+  box-sizing: border-box;
 }
 .mirador-container .scroll-view ~ .monlamResults > div.loading {
   display: flex;
@@ -6653,7 +6655,7 @@ padding-top: 4px;
   width: 45px;
   object-fit: scale-down;
 }
-.mirador-container .scroll-view ~ .monlamResults > div > * {
+.mirador-container .scroll-view ~ .monlamResults > div > div > * {
   padding: 15px;
   font-size: 15px;
 }
@@ -6672,9 +6674,28 @@ padding-top: 4px;
   font-size: 15px;
   margin-bottom: 10px;
   padding: 0 15px;
+  cursor: pointer;
 }
-.mirador-container .scroll-view ~ .monlamResults li.tab:hover {
+.mirador-container .scroll-view ~ .monlamResults li.tab:not([disabled]):hover {
   text-decoration: underline;
+}
+.mirador-container .scroll-view ~ .monlamResults li.tab.on {
+  font-weight: 600;
+  margin-bottom: 0;
+  text-decoration: underline;
+}
+.mirador-container .scroll-view ~ .monlamResults li.tab[disabled] {
+  pointer-events: none;
+  color: #808080;
+}
+.mirador-container .scroll-view ~ .monlamResults li.tab:not(.on) + div {
+  display: none;
+}
+.mirador-container .scroll-view ~ .monlamResults li.tab + div {
+  padding-left: 15px;
+}
+.mirador-container .scroll-view ~ .monlamResults li.tab + div > .def:first-child {
+  padding-top: 15px;
 }
 .mirador-container .scroll-view ~ .monlamResults > div > a:first-child {
   position: absolute;
@@ -6743,6 +6764,7 @@ padding-top: 4px;
   font-size: 20px;
   font-weight: 700;
   text-align: left;
+  padding: 0 15px 15px 15px;
 }
 .mirador-container .scroll-view ~ .monlamResults h2 a {
   margin-right: 10px;
@@ -6757,6 +6779,9 @@ padding-top: 4px;
 }
 .mirador-container .scroll-view ~ .monlamResults div .def b[lang="bo-x-ewts"] ~ div .perna.ac-ac {
   line-height: 24px;
+}
+.mirador-container .scroll-view ~ .monlamResults div .def b[lang="bo"] {
+  line-height: 32px;
 }
 .mirador-container .scroll-view ~ .monlamResults div .def .perna.ac-ac:first-child,
 .mirador-container .scroll-view ~ .monlamResults div .def br:first-child + .perna.ac-ac {
