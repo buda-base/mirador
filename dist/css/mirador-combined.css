@@ -6628,6 +6628,7 @@ padding-top: 4px;
 .mirador-container .scroll-view ~ .monlamResults > div .monlam-no-result {
   display: flex;
   align-items: baseline;
+  padding: 0 15px 15px 15px;
 }
 .mirador-container .scroll-view ~ .monlamResults > div .monlam-no-result > span {
   white-space: nowrap;
@@ -6655,7 +6656,7 @@ padding-top: 4px;
   width: 45px;
   object-fit: scale-down;
 }
-.mirador-container .scroll-view ~ .monlamResults > div > div > * {
+.mirador-container .scroll-view ~ .monlamResults > div > .defGroup > * {
   padding: 15px;
   font-size: 15px;
 }

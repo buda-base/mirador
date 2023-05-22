@@ -51304,9 +51304,9 @@ var prevDiff = -1;
               if(selec == -1 && val2.length) selec = 1;
               var val3 = val.filter(function(r){ return r.type == "d" ; }), r3 = renderMonlamResults(val3);
               if(selec == -1 && val3.length) selec = 2;
-              res = "<li class='tab "+(selec==0?"on":"")+"' "+(!val1.length?"disabled":"")+">"+i18next.t("monlamExact",  {count:val1.length})+"</li><div>" + r1.html() + "</div>" +
-                    "<li class='tab "+(selec==1?"on":"")+"' "+(!val2.length?"disabled":"")+">"+i18next.t("monlamContain",{count:val2.length})+"</li><div>" + r2.html() + "</div>" +
-                    "<li class='tab "+(selec==2?"on":"")+"' "+(!val3.length?"disabled":"")+">"+i18next.t("monlamDef",    {count:val3.length})+"</li><div>" + r3.html() + "</div>";
+              res = "<li class='tab "+(selec==0?"on":"")+"' "+(!val1.length?"disabled":"")+">"+i18next.t("monlamExact",  {count:val1.length})+"</li><div class='defGroup'>" + r1.html() + "</div>" +
+                    "<li class='tab "+(selec==1?"on":"")+"' "+(!val2.length?"disabled":"")+">"+i18next.t("monlamContain",{count:val2.length})+"</li><div class='defGroup'>" + r2.html() + "</div>" +
+                    "<li class='tab "+(selec==2?"on":"")+"' "+(!val3.length?"disabled":"")+">"+i18next.t("monlamDef",    {count:val3.length})+"</li><div class='defGroup'>" + r3.html() + "</div>";
               
 
             } else {
@@ -51318,6 +51318,7 @@ var prevDiff = -1;
                 el.toggleClass("on");
               }).closest(".monlamResults").find("li.tab").click(function(ev){
                 var el = jQuery(ev.currentTarget);
+                el.siblings(".on").removeClass("on");
                 el.toggleClass("on");
               });
               jQuery(".scroll-view~.monlamResults .dhtmlgoodies_question.collapsible").off("click").on("click",function(ev) {
