@@ -4074,6 +4074,45 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   position: absolute;
   z-index: 10;
 }
+.mirador-container #feedbucket {
+  position: fixed;
+  color: #d73449;
+  background: white;
+  display: flex;
+  border-radius: 25px;
+  width: 50px;
+  height: 50px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 4px rgba(187, 187, 187, 0.5);
+  bottom: 5px;
+  left: 5px ;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+.mirador-container #feedbucket svg {
+  width: 28px;
+  height: 28px;
+  display: none;
+}
+.mirador-container #feedbucket:not(.X) svg:first-child {
+  display: block;
+}
+.mirador-container #feedbucket.X svg:last-child {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+.mirador-container #feedbucket.X {
+  top: calc(50% + 117px);
+  right: 10px;
+  bottom: auto;
+  left: auto;
+  border-radius: 20px;
+  width: 40px;
+  height: 40px;
+}
 .mirador-main-menu-bar .X,
 .view-nav .X,
 .mirador-hud .X {
