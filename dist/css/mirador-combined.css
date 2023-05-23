@@ -4095,6 +4095,7 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   width: 28px;
   height: 28px;
   display: none;
+  fill: #d73449;
 }
 .mirador-container #feedbucket:not(.X) svg:first-child {
   display: block;
