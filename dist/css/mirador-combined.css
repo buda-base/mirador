@@ -6167,7 +6167,7 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   padding: 0 4px;
   border: none !important;
 }
-.provider img[src$="bdrc.io/static::logo.png/full/max/0/default.png"] {
+.provider img[src*="bdrc"][src$="/static::logo.png/full/max/0/default.png"] {
   filter: invert(100%);
 }
 .provider img[src$="bl_logo_100.gif"] {

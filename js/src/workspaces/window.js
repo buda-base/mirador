@@ -282,7 +282,9 @@ var Z = 0 ;
       }  
             
       if(window.useFeedbucket) {
-        jQuery("feedbucket-app").removeClass("on");
+        if(jQuery(".nav+#feedback.on.X").length) {
+          jQuery("#feedbucket").addClass("X");
+        }
         jQuery(".mirador-container #feedbucket").click(function(event){
           var elem = jQuery(event.currentTarget);
           elem.toggleClass("X");

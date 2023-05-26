@@ -40,7 +40,7 @@
             var _this = this;            
             this.element = jQuery(this.template({
                 showURLBox : this.state.getStateProperty('showAddFromURLBox'),
-                lang:i18next.language
+                lang: i18next.language
             })).appendTo(this.appendTo);
             this.manifestListElement = this.element.find('ul');
 
@@ -183,8 +183,7 @@
         },
 
         bindEvents: function() {
-            var _this = this;
-            
+            var _this = this;            
 
             // toggle node on simple click
             jQuery('#collection-tree').on('click', '.jstree-anchor', function (e) {
@@ -832,7 +831,7 @@
                 '<ul class="items-listing">',
                 '</ul>',
               '</div>',
-          '</div>',
+          '</div>',          
           '<a class="mirador-btn mirador-osd-fullscreen mirador-tooltip" role="button" title="{{t "fullScreenWindowTooltip"}}" aria-label="{{t "fullScreenWindowTooltip"}}">',
           '<span></span>',
           '</a>',
