@@ -182,6 +182,22 @@
       if (this.state.getStateProperty('windowObjects').length === 0 && this.state.getStateProperty('openManifestsPage')) {
         this.workspace.slots[0].addItem();
       }
+
+      window.initFeedbucketInMirador = function() {
+        if(window.useFeedbucket && window.innerWidth <= 800 && !jQuery(".mirador-viewer #feedbucket").length) {
+          jQuery(".mirador-container#viewer").append('<div id="feedbucket"><svg class="MuiSvgIcon-root-1" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" d="M0 0h24v24H0z"></path><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 12h-2v-2h2v2zm0-4h-2V6h2v4z"></path></svg><svg class="MuiSvgIcon-root-1" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path><path fill="none" d="M0 0h24v24H0z"></path></svg></div>');
+          if(jQuery(".nav+#feedback.on.X").length) {
+            jQuery("#feedbucket").addClass("X");
+          }
+          jQuery(".nav+#feedback").css("display","none");
+          jQuery(".mirador-container #feedbucket").off("click").click(function(event){
+            var elem = jQuery(event.currentTarget);
+            elem.toggleClass("X");
+            jQuery("feedbucket-app").toggleClass("on");
+          });
+        } 
+      };      
+      window.initFeedbucketInMirador();
     },
 
     listenForActions: function() {
