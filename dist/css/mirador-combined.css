@@ -6064,10 +6064,27 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   cursor: pointer;
   top: -75px;
 }
-.metadata-listing ul.select.login:hover,
-.items-listing ul.select.login:hover,
-.view-nav ul.select.login:hover {
+.metadata-listing ul.select.login:not(.notInList):hover,
+.items-listing ul.select.login:not(.notInList):hover,
+.view-nav ul.select.login:not(.notInList):hover {
   text-decoration: underline;
+}
+.metadata-listing ul.select.login.notInList,
+.items-listing ul.select.login.notInList,
+.view-nav ul.select.login.notInList {
+  top: -105px;
+}
+.metadata-listing ul.select.login.notInList a,
+.items-listing ul.select.login.notInList a,
+.view-nav ul.select.login.notInList a {
+  color: #d73449;
+}
+.metadata-listing ul.select.login.notInList a:hover,
+.items-listing ul.select.login.notInList a:hover,
+.view-nav ul.select.login.notInList a:hover {
+  color: #d73449;
+  text-decoration: underline;
+  text-shadow: none;
 }
 .metadata-listing ul.select {
   top: inherit;

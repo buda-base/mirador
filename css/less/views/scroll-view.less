@@ -222,7 +222,11 @@
     }
 
     &.login { padding:5px 15px; font-size:14px; cursor:pointer; top:-75px; 
-      &:hover { text-decoration: underline; }
+      &:not(.notInList):hover { text-decoration: underline; }
+      &.notInList {  top:-105px; 
+        a { color: #d73449; }
+        a:hover {color: #d73449; text-decoration: underline; text-shadow: none;}
+      }
     }
   }
 

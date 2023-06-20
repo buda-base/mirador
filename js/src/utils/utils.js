@@ -390,10 +390,15 @@ function getService(resource) {
         if(pdfTimer[value]) clearInterval(pdfTimer[value]);
         console.log("error:",jsonLd,elem);
         if([401].includes(jsonLd.status)) { 
-          elem.parent().addClass("login").html(i18next.t("mustLogin")).click(function() {
-            window.location.href = 
+          if(window.isProxied) {
+            var url = 'https://library'+'.'+'bdrc'+'.'+'io'+window.location.pathname+window.location.search;
+            elem.parent().addClass("login notInList").html(i18next.t('notInList1', { lnk: '<a href="'+url+'" target="_blank">'+i18next.t('notInList2')+'</a>', interpolation: { escapeValue: false } })) ;
+          } else {
+            elem.parent().addClass("login").html(i18next.t("mustLogin")).click(function() {
+              window.location.href = 
               window.location.href.replace(/^(https?:\/\/[^/]+).*/,"$1/login?backToViewer="+encodeURIComponent(window.location.href));
-          });
+            });
+          }
         } else if([403].includes(jsonLd.status)){
           elem.html(i18next.t("dlError403")+"<i class='fa fa-close'></i>");
           reinit(elem,value);
