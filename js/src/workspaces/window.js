@@ -324,9 +324,17 @@ var Z = 0 ;
           elem.removeClass("image");
           jQuery(".mirador-viewer li.scroll-option").click();           
         } else {
+                    
+          if(elem.hasClass("bot") && !elem.hasClass("on")) {
+            jQuery(".mirador-viewer").addClass("hide-FB");
+          } else  {
+            jQuery(".mirador-viewer").removeClass("hide-FB");
+          }
+          
           elem.toggleClass("on");
           //if(!elem.hasClass("bot")) jQuery(".provider").toggleClass("off");
-          console.log("TOGGLE");
+          console.log("TOGGLE");          
+
         /*
         e.stopPropagation();
         e.preventDefault();
@@ -339,6 +347,7 @@ var Z = 0 ;
         var elem = jQuery(e.currentTarget);
         elem.parent().parent().prev().toggleClass("on");
         //if(!elem.closest(".view-nav").length) jQuery(".provider").toggleClass("off");
+        if(elem.closest(".view-nav").length) jQuery(".mirador-viewer.hide-FB").removeClass("hide-FB");
       });
 
       if(manifest && manifest.rendering) {

@@ -4114,6 +4114,11 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   width: 40px;
   height: 40px;
 }
+.mirador-container .mirador-viewer.hide-FB + #feedbucket:not(.X) {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease-in-out;
+}
 .mirador-main-menu-bar .X,
 .view-nav .X,
 .mirador-hud .X {

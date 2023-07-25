@@ -147,6 +147,10 @@
   #feedbucket.X svg:last-child { display: block; width:24px; height:24px; }
 
   #feedbucket.X { top:~"calc(50% + 117px)"; right:10px; bottom:auto; left:auto;  border-radius: 20px; width:40px; height: 40px; }
+
+  .mirador-viewer.hide-FB {
+    & + #feedbucket:not(.X) { opacity:0; pointer-events: none; transition: opacity 200ms ease-in-out; }
+  }
 }
 
 .mirador-main-menu-bar,
