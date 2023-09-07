@@ -54,7 +54,7 @@
         fallbackLng: 'en',
         whitelist: [ 'bo', 'en', 'zh', 'fr', 'km'],
         //load: 'unspecific',
-        debug: true,
+        //debug: true,
         backend: {
           loadPath: '/scripts/mirador/locales/{{lng}}/translation.json' //_this.state.getStateProperty('buildPath') + _this.state.getStateProperty('i18nPath')+'{{lng}}/{{ns}}.json'
         }
