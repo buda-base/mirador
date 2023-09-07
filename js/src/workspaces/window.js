@@ -61,7 +61,7 @@ var Z = 0 ;
       resID:null
     }, options);
 
-    console.log("resID?",this.resID);
+    // auto // console.log("resID?",this.resID);
 
     this.init();
     this.bindAnnotationEvents();
@@ -168,7 +168,7 @@ var Z = 0 ;
       // TODO use "responsive" flag to work in library as well
       var urlParams = new URLSearchParams(window.location.search), origin = urlParams.get("origin");
       templateData.inApp = (window.innerWidth < 800) || (origin && origin.startsWith("BDRCLibApp"));
-      console.log("inApp:",templateData.inApp);
+      // auto // console.log("inApp:",templateData.inApp);
 
       //determine if any buttons should be hidden in template
       templateData.iconClasses = {};
@@ -333,7 +333,7 @@ var Z = 0 ;
           
           elem.toggleClass("on");
           //if(!elem.hasClass("bot")) jQuery(".provider").toggleClass("off");
-          console.log("TOGGLE");          
+          // auto // console.log("TOGGLE");          
 
         /*
         e.stopPropagation();
@@ -377,13 +377,13 @@ var Z = 0 ;
           });
 
 
-          console.log("uText?",window.MiradorUseEtext);
+          // auto // console.log("uText?",window.MiradorUseEtext);
 
           // need to delay this until etext info is received
           var timer = setInterval(function() {
             var nav =  jQuery(".view-nav .eText") ;
 
-            console.log("timer:",timer,window.MiradorUseEtext);
+            // auto // console.log("timer:",timer,window.MiradorUseEtext);
 
             if(!window.MiradorUseEtext) {
               clearInterval(timer);
@@ -489,7 +489,7 @@ var Z = 0 ;
         appendTo:".view-nav #DL",
         position: { my : "right-1 bottom-1", at: "right-2 top" },
         select: function( event, ui ) { 
-          console.log('DL', event, ui, ui.item, ui.item.value) ; 
+          // auto // console.log('DL', event, ui, ui.item, ui.item.value) ; 
           jQuery(event.currentTarget).find("div").html("<a href='youpi' target='_blank'>"+ui.item.label+"</a>");
           setImmediate(function(){ sel.selectmenu('open'); });
         }
@@ -703,7 +703,7 @@ var Z = 0 ;
         if ($.fullscreenElement()) {
           $.exitFullscreen();
         } else {
-          console.log("click fs");
+          // auto // console.log("click fs");
           $.enterFullscreen(_this.element.closest("html")[0]);
         }
       });
@@ -732,7 +732,7 @@ var Z = 0 ;
         /* 
         // TODO keep current page when switching orientation
 
-        console.log("scrollTops:",jQuery(window).scrollTop(),jQuery("html,body").scrollTop());
+        // auto // console.log("scrollTops:",jQuery(window).scrollTop(),jQuery("html,body").scrollTop());
 
         if(window.innerWidth < window.innerHeight) {
           jQuery(window).scrollTop(jQuery("html,body").scrollTop());
@@ -764,7 +764,7 @@ var Z = 0 ;
 
             //window.miradorBookmark[0].scrollIntoView(); // why does this break scrolling up??
             
-            console.log("sT>",window.miradorBookmark.attr("data-image-id"));            
+            // auto // console.log("sT>",window.miradorBookmark.attr("data-image-id"));            
           
             var body = jQuery("html,body");
             if(window.innerWidth > window.innerHeight) body = jQuery(window);
@@ -861,7 +861,7 @@ var Z = 0 ;
         },
                               function() {
                                 //provide useful feedback to user
-                                console.log("There was an error saving this new annotation");
+                                // auto // console.log("There was an error saving this new annotation");
                               });
       });
 
@@ -877,7 +877,7 @@ var Z = 0 ;
           _this.eventEmitter.publish('ANNOTATIONS_LIST_UPDATED', {windowId: _this.id, annotationsList: _this.annotationsList});
         },
                               function() {
-                                console.log("There was an error updating this annotation");
+                                // auto // console.log("There was an error updating this annotation");
                               });
       });
 
@@ -1386,7 +1386,7 @@ var Z = 0 ;
       });
 
       this.element.find('.scroll-option').on('click', function() {
-        console.log("tog");
+        // auto // console.log("tog");
         _this.toggleScrollView(_this.canvasID);
       });
 
@@ -1534,7 +1534,7 @@ var Z = 0 ;
       if(!button.iconClass){
         throw "userButtons must have an iconClass";
       }
-      console.log("button",button);
+      // auto // console.log("button",button);
       // add custom attributes to the button element
       if(button.attributes){
         $a.attr(button.attributes);

@@ -294,7 +294,7 @@ function getService(resource) {
     };
 
     dfd.fail(function() {
-      console.log('image failed to load: ' + img.src);      
+      // auto // console.log('image failed to load: ' + img.src);      
       dfd.resolve("failed");
     });
 
@@ -388,7 +388,7 @@ function getService(resource) {
 
       request.error(function(jsonLd) {
         if(pdfTimer[value]) clearInterval(pdfTimer[value]);
-        console.log("error:",jsonLd,elem);
+        // auto // console.log("error:",jsonLd,elem);
         if([401].includes(jsonLd.status)) { 
           if(window.isProxied) {
             var url = 'https://library'+'.'+'bdrc'+'.'+'io'+window.location.pathname+window.location.search;
@@ -412,7 +412,7 @@ function getService(resource) {
       });
 
       request.done(function(jsonLd) {
-        console.log("ajax:",jsonLd,elem,value);
+        // auto // console.log("ajax:",jsonLd,elem,value);
         if(jsonLd.link) {
           if(pdfTimer[value]) clearInterval(pdfTimer[value]);
           elem.html("<a download target='_blank' href='"+//url.replace(/^(.*?bdrc.io).*/,"$1")
@@ -428,7 +428,7 @@ function getService(resource) {
     var getRange = function(ev) {
       var elem = jQuery(ev.target).closest("[data-init]");
       var range = elem.find("input").val();
-      console.log("ev:",ev, range);
+      // auto // console.log("ev:",ev, range);
       elem.find("[data-range]").attr("data-range",range).click();
     };
 
@@ -450,7 +450,7 @@ function getService(resource) {
           elem.find(".fa-close").click(function(ev){
             var elem = jQuery(ev.currentTarget).closest("[data-init]");
             var t = elem.attr("data-value").includes("pdf") ? "pdf" : "zip";
-            console.log("fa:",elem,t);
+            // auto // console.log("fa:",elem,t);
             elem.attr("data-init",0).text(i18next.t("get" + (t == "pdf"?"PDF":"ZIP")));
             ev.stopPropagation();
           });                  
@@ -466,7 +466,7 @@ function getService(resource) {
               headers = { "Authorization": "Bearer " + id_token } ; // TODO no need if manifest not from BDRC x is token valid ?
           }
 
-          console.log("header:",headers);
+          // auto // console.log("header:",headers);
 
           var range = defaultRange;
           if(!(range = jQuery(event.target).attr("data-range"))) range = defaultRange;
@@ -483,7 +483,7 @@ function getService(resource) {
         return false;
       } else if(elem.attr("data-source")){
 
-        console.log("click",elem);
+        // auto // console.log("click",elem);
 
         if(elem.hasClass("checked")) {
           elem.removeClass("checked already error");
@@ -532,7 +532,7 @@ function getService(resource) {
 
         /*
         request.done(function (response) {
-          console.log("response:",response);
+          // auto // console.log("response:",response);
 
           var filename = url.split(/[\\\/]/).pop().replace(/[.]jpe?g$/i, ".tif"); // default
           var disposition = xhr.getResponseHeader('Content-Disposition');

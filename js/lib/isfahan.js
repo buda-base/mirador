@@ -75,15 +75,15 @@ var Isfahan = function(configObject) {
     });
 
     if (old) {
-      console.log('preserved');
+      // auto // console.log('preserved');
       var sum = group.reduce(
         function(previousValue, currentValue, index, array) {
         return previousValue[dimension] + currentValue[dimension];
       });
-      console.log('sum: ' + sum);
+      // auto // console.log('sum: ' + sum);
       
       divisor = (node[dimension]/sum)*total;
-      console.log("divisor: "+divisor);
+      // auto // console.log("divisor: "+divisor);
       return divisor;
     } else {
       return n;
@@ -132,7 +132,7 @@ var Isfahan = function(configObject) {
 
     function padFunction(node) {
       var p = x.call(isfahan, node, node.depth);
-      console.log(p);
+      // auto // console.log(p);
       return p == null
       ? d3_layout_cellPadNull(node)
       : d3_layout_cellPad(node, typeof p === "number" ? [p, p, p, p] : p);

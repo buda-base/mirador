@@ -200,7 +200,7 @@ var prevDiff = -1;
           position: { my : "right-1 bottom-1", at: "right bottom-2" },
           select: function( event, ui ) { _this.eventEmitter.publish('GOTO_IMAGE_NUM.'+_this.windowId, ui.item.value) ; },
           create: function( event, ui ) { 
-            console.log("create:",ui,jQuery("#goto-page select"));
+            // auto // console.log("create:",ui,jQuery("#goto-page select"));
           }
         }).data("ui-selectmenu") ;
         menu.originalRenderItem = menu._renderItem ;
@@ -344,11 +344,11 @@ var prevDiff = -1;
 
           if (prevDiff > 0) {
             if (curDiff > prevDiff) {
-              console.log("Zin");
+              // auto // console.log("Zin");
               jQuery("#Zi.on").click();
             }
             if (curDiff < prevDiff) {
-              console.log("Zout");
+              // auto // console.log("Zout");
               jQuery("#Zo.on").click();
             }
           }
@@ -385,7 +385,7 @@ var prevDiff = -1;
         window.miradorIniScroll = true ; 
         
         jQuery(window).scroll(function() {          
-          console.log("scroll1?",window.miradorNoScroll);
+          // auto // console.log("scroll1?",window.miradorNoScroll);
           if( /* window.innerWidth < window.innerHeight ||*/ window.miradorNoScroll) return ;     
           _this.loadImages();
         });
@@ -393,7 +393,7 @@ var prevDiff = -1;
         /*
         // DONE fix lazy loading in portrait mode
         jQuery("html,body").scroll(function() {     
-          console.log("scroll2?",window.miradorNoScroll);
+          // auto // console.log("scroll2?",window.miradorNoScroll);
           if( window.innerWidth > window.innerHeight || window.miradorNoScroll) return ;
           _this.loadImages();
         });
@@ -419,9 +419,9 @@ var prevDiff = -1;
       jQuery(document).off("mouseup").on('mouseup',function() {
         //if(window.getSelection().toString().length) {
 
-          console.log("docup:",_this,_this.element);
+          // auto // console.log("docup:",_this,_this.element);
           jQuery(".scroll-view:not(.withMonlam) .scroll-listing-thumbs").find(".monlam-popup,.monlam-hilight").each( function(i,e) {
-            console.log("i,e",i,e);
+            // auto // console.log("i,e",i,e);
             var je = jQuery(e);
             //if(je.hasClass("init")) je.removeClass("init");
             //else 
@@ -451,7 +451,7 @@ var prevDiff = -1;
         
         if (key == 67 && ctrl && window.monlamAPI && window.monlamAPI.selection) {         
            navigator.clipboard.writeText(window.monlamAPI.selection);
-           console.log("copied:",window.monlamAPI.selection);
+           // auto // console.log("copied:",window.monlamAPI.selection);
         }
      });
       
@@ -524,7 +524,7 @@ var prevDiff = -1;
 
 
     callMonlam: function(ev, el, _this, fromPopup){
-      console.log("go:");
+      // auto // console.log("go:");
       jQuery(".scroll-view").addClass("withMonlam");
       ev.preventDefault();
       ev.stopPropagation();
@@ -551,7 +551,7 @@ var prevDiff = -1;
           type: 'GET',
           dataType: 'json',
           success: function(val){
-            console.log("monlam val:",val);
+            // auto // console.log("monlam val:",val);
             var res = "" ;
             if(val && val.length) { 
 
@@ -802,9 +802,9 @@ var prevDiff = -1;
                       var selection = window.getSelection();
                       if(selection.rangeCount) {
                         window.monlamRange = selection.getRangeAt(0);                        
-                        console.log("range:",window.monlamRange);
+                        // auto // console.log("range:",window.monlamRange);
                       }
-                      console.log("up:",selection.toString(),selection,ev);
+                      // auto // console.log("up:",selection.toString(),selection,ev);
                       var el = jQuery(ev.currentTarget);
                       var scrollElem = ev.currentTarget.closest(".monlam-selec");
                       var decalH = scrollElem.getBoundingClientRect();
@@ -812,7 +812,7 @@ var prevDiff = -1;
                       jQuery(document).find(".monlam-hilight,.monlam-popup").remove();
                       setTimeout(function() {
                         var selection = window.getSelection();                        
-                        console.log("sel:",selection.rangeCount,selection.anchorOffset,selection.focusOffset);
+                        // auto // console.log("sel:",selection.rangeCount,selection.anchorOffset,selection.focusOffset);
                         // #800
                         if (!selection.rangeCount /*|| selection.anchorOffset == selection.focusOffset*/ || !jQuery(".view-nav .monlam #check.on").length) { 
                           jQuery(".scroll-view").removeClass("withMonlam");
@@ -849,7 +849,7 @@ var prevDiff = -1;
                             start = chunk.indexOf(selection.toString().replace(/[\r\n]/g," "));
                             window.monlamAPI = { chunk: chunk, cursor_start: start, cursor_end:start+selection.toString().replace(/[\r\n]/g," ").length, selection: selection.toString(), lang: lang };
                             var coords = Array.from(range.getClientRects());
-                            console.log("coords:",coords,window.monlamAPI);
+                            // auto // console.log("coords:",coords,window.monlamAPI);
 
 
                             
@@ -865,14 +865,14 @@ var prevDiff = -1;
                             });
                             selection.removeAllRanges();
 
-                            console.log("decal:",decalH,decalP,scrollElem.scrollLeft);
+                            // auto // console.log("decal:",decalH,decalP,scrollElem.scrollLeft);
                           }
                         }                        
                       }, 150);
                     });
                     /*
                     .on("mousedown", function(ev){
-                      console.log("down:",ev);
+                      // auto // console.log("down:",ev);
                       var el = jQuery(ev.currentTarget);
                       el.parent().find(".monlam-hilight,.monlam-popup").remove();
                     }) ;                       

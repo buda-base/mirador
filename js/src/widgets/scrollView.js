@@ -147,9 +147,9 @@
         /* TODO not working with setInterval (try with "Goto" from footer menu)
         var ima = jQuery(".nav-bar-top #breadcrumbs #image");
         if(ima.attr("data-page-view-id")) { 
-          console.log("scroll?",ima.attr("data-page-view-id"));
+          // auto // console.log("scroll?",ima.attr("data-page-view-id"));
           var timerScroll = setInterval(function() { 
-            console.log(ima.attr("data-page-view-id"), jQuery("[data-image-id='"+ima.attr("data-page-view-id")+"']"));
+            // auto // console.log(ima.attr("data-page-view-id"), jQuery("[data-image-id='"+ima.attr("data-page-view-id")+"']"));
             if(jQuery("[data-image-id='"+ima.attr("data-page-view-id")+"']").length) {
               window.scrollToImage(ima.attr("data-page-view-id")); 
               clearInterval(timerScroll);
@@ -256,7 +256,7 @@
     }
 
 
-    console.log("provUrl",window.providerUrl,window.providerAttr,this.manifest);
+    // auto // console.log("provUrl",window.providerUrl,window.providerAttr,this.manifest);
 
 
 
@@ -277,11 +277,11 @@
 
     var _this = this ;
     var iniT = setInterval(function(){ 
-      console.log("scrollView postinit check...",jQuery(".scroll-listing-thumbs li img[data-image-id^='http']:not([src^='http'])").length);
+      // auto // console.log("scrollView postinit check...",jQuery(".scroll-listing-thumbs li img[data-image-id^='http']:not([src^='http'])").length);
       if(jQuery(".scroll-listing-thumbs li img[data-image-id^='http']:not([src^='http'])").length) {
         //jQuery(window).resize(); 
         _this.eventEmitter.publish('windowResize');
-        console.log("RESIZED images should be visible (Z="+Z+")");        
+        // auto // console.log("RESIZED images should be visible (Z="+Z+")");        
         if(Z != undefined) {
           if(window.currentZoom != undefined) delete window.currentZoom;
           window.setZoom(0);
@@ -293,7 +293,7 @@
     },350);  
 
     setTimeout(function() {
-      console.log("scrollView postinit end");
+      // auto // console.log("scrollView postinit end");
       clearInterval(iniT);
     }, 5000);
 

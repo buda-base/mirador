@@ -100,7 +100,7 @@
                   _this.onCollectionNotReceived.apply(_this, v);
                 }
               });
-              console.log("ok",theQueue);
+              // auto // console.log("ok",theQueue);
             });
 
             //this code gives us the max width of the results area, used to determine how many preview images to show
@@ -260,7 +260,7 @@
 
               var ew = elem.width() ; 
               if(ew) {
-                console.log("W:"+w+":",ew,mw,w*(1-coef),w * coef, Math.min(mw,w*(1-coef)), ev.type);
+                // auto // console.log("W:"+w+":",ew,mw,w*(1-coef),w * coef, Math.min(mw,w*(1-coef)), ev.type);
                 if(w <= 800)  { 
                   elem.width(w * coef);
                   if(elem.hasClass("closed")) elem.css({"margin-left":-(w*coef - 25)+"px"});
@@ -300,7 +300,7 @@
 
               if(!elem.is(":visible")) return ; 
 
-              console.log("scroll?");
+              // auto // console.log("scroll?");
 
               jQuery(".member-select-results").find('.preview-images').each(function(_, w) {
                 var img = jQuery(this).find('img[data-src]');
@@ -352,7 +352,7 @@
             if ($.fullscreenElement()) {
               $.exitFullscreen();
             } else {
-              console.log("click fs");
+              // auto // console.log("click fs");
               $.enterFullscreen(_this.element.closest("html")[0]);
             }
           });
@@ -467,7 +467,7 @@
          
 
             var node = this.addCollectionNode(parentNodeId, newCollection);
-            console.log("ok?",node,newCollection);
+            // auto // console.log("ok?",node,newCollection);
             this.treeElement.jstree('deselect_all');
             this.treeElement.jstree('select_node', node);
             this.treeElement.jstree('open_node', node);          

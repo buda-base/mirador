@@ -163,7 +163,7 @@
                 if(width > canvas.width) width = canvas.width ;
                 
                 url = _this.manifest.getThumbnailForCanvas(canvas, width);
-                console.log("startC:",url,canvas);
+                // auto // console.log("startC:",url,canvas);
                 break ;
               }
             }
@@ -180,7 +180,7 @@
             
             url = _this.manifest.getThumbnailForCanvas(canvas, width);
 
-            console.log("startC:",canvas,url);
+            // auto // console.log("startC:",canvas,url);
           }
         }
 
@@ -291,7 +291,7 @@
       });
 
       _this.eventEmitter.subscribe('UPDATE_MAIN_MENU_MANIFEST.'+_this.manifest.jsonLd["@id"], function(e){
-        console.log("UMMM",_this,e);
+        // auto // console.log("UMMM",_this,e);
 
         var label = _this.labelToString(manifest.label, [], true) ;
         if(label.startsWith("volume ")) label = "V"+label.substring(1) ;
@@ -313,7 +313,7 @@
       });
 
       _this.eventEmitter.subscribe('UPDATE_MAIN_MENU_IMAGE.'+_this.manifest.jsonLd["@id"], function(e){
-        console.log("UMMI",_this,e);
+        // auto // console.log("UMMI",_this,e);
 
         if(_this.allImages.length && _this.allImages[0].id) {
           if(jQuery(".nav-bar-top #breadcrumbs #image").attr("data-reading-view-id") !== _this.allImages[0].id) {

@@ -2,7 +2,7 @@
 
     $.MainMenu = function(options) {
 
-        console.log("MM options?",options);
+        // auto // console.log("MM options?",options);
 
         jQuery.extend(true, this, {
             element:                    null,
@@ -179,7 +179,7 @@
                     jQuery(".preview-image[data-image-id='"+the.attr("data-reading-view-id")+"']").click();
                     var timer = setInterval(function(){
                       image = jQuery(".thumbnail-image[data-image-id='"+the.attr("data-page-view-id")+"']");
-                      console.log(image,the.attr("data-page-view-id"));
+                      // auto // console.log(image,the.attr("data-page-view-id"));
                       if(image.length) { 
                         image.click();
                         clearInterval(timer);

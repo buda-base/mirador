@@ -41,7 +41,7 @@
     this.init();
 
 
-    console.log("provUrl",window.providerUrl);
+    // auto // console.log("provUrl",window.providerUrl);
 
     if(window.providerUrl) {var urlParams = new URLSearchParams(window.location.search), origin = urlParams.get("origin");
       var inApp = (window.screen.width < 800) || (origin && origin.startsWith("BDRCLibApp"));      
@@ -258,7 +258,7 @@
         if(!m && n.match(/^[༠-༩]+$/)) m = n ;
         // if(n == Number(n)) n-- ;        
           
-        console.log("imaN",imageNum,n,m,n==m);
+        // auto // console.log("imaN",imageNum,n,m,n==m);
 
         if(imageNum.startsWith("#")) {
           n = Number(imageNum.replace(/^#/,""));
@@ -287,7 +287,7 @@
                 ((n == m && label[l]["@value"].match(new RegExp("^[^0-9༠-༩]*"+(m)+"[^0-9༠-༩]*$"))) ||
                 (n != m &&  label[l]["@value"].startsWith(n)) ) ) {                
               
-              console.log("found",l,label[l]["@value"],label);
+              // auto // console.log("found",l,label[l]["@value"],label);
               
               n = i ;
               found = true ;
@@ -302,7 +302,7 @@
           img = _this.getImageLabel(n-1);
           n = n - 1;
         }
-        console.log("GOTO",found,n,m);
+        // auto // console.log("GOTO",found,n,m);
         if(found && n >= 0 && n < _this.imagesList.length) {          
             _this.eventEmitter.publish('SET_CURRENT_CANVAS_ID.' + _this.windowId, _this.imagesList[n]['@id']);
             _this.eventEmitter.publish('SET_PAGINATION.' + _this.windowId, img ? img : (n+1)  /*+ " / " + _this.imagesList.length*/ );
@@ -726,14 +726,14 @@
         e.stopPropagation();
         if(_this.currentImgIndex >= _this.imagesList.length - 1) return false ;
 
-        console.log("sLeft");
+        // auto // console.log("sLeft");
         var elem = jQuery(e.currentTarget).find("canvas:first-of-type");
         if(elem.hasClass("sRightIn")) {
-          console.log("cancelRightIn?");
+          // auto // console.log("cancelRightIn?");
           if(elem.hasClass("sRightOut")) {
             //_this.next();
           } else {
-            console.log("cancelRightOut");          
+            // auto // console.log("cancelRightOut");          
             if(timerSw != -1) clearTimeout(timerSw);    
             elem.removeClass("sRightOut");
             elem.removeClass("sRightIn");
@@ -741,14 +741,14 @@
         } else {
           elem.addClass("sLeftIn");        
           timerSw = setTimeout(function(){
-            console.log("sLeftIn");
+            // auto // console.log("sLeftIn");
             _this.next();
             elem.addClass("sLeftOut");
             timerSw = setTimeout(function(){
-              console.log("sLeftOut");
+              // auto // console.log("sLeftOut");
               elem.removeClass("sLeftIn");
               timerSw = setTimeout(function(){
-                console.log("sLeftOut2");
+                // auto // console.log("sLeftOut2");
                 elem.removeClass("sLeftOut");
               }, 500);
             }, 10);
@@ -763,14 +763,14 @@
         e.stopPropagation();
         if(_this.currentImgIndex <= 0) return false ;
 
-        console.log("sRight");
+        // auto // console.log("sRight");
         var elem = jQuery(e.currentTarget).find("canvas:first-of-type");
         if(elem.hasClass("sLeftIn")) {
-          console.log("cancelLeftIn?");
+          // auto // console.log("cancelLeftIn?");
           if(elem.hasClass("sLeftOut")) {
             //_this.previous();
           } else {
-            console.log("cancelLeftInOut");          
+            // auto // console.log("cancelLeftInOut");          
             if(timerSw != -1) clearTimeout(timerSw);
             elem.removeClass("sLeftOut");
             elem.removeClass("sLeftIn");
@@ -778,14 +778,14 @@
         } else {
           elem.addClass("sRightIn");        
           timerSw = setTimeout(function(){
-            console.log("sRightIn");
+            // auto // console.log("sRightIn");
             _this.previous();
             elem.addClass("sRightOut");
             timerSw = setTimeout(function(){
-              console.log("sRightOut");
+              // auto // console.log("sRightOut");
               elem.removeClass("sRightIn");
               timerSw = setTimeout(function(){
-                console.log("sRightOut2");
+                // auto // console.log("sRightOut2");
                 elem.removeClass("sRightOut");
               }, 500);
             }, 10);
@@ -956,7 +956,7 @@
 
     toggle: function(stateValue) {
       if (stateValue) {
-        console.log("toggle",this,window.tmpScroll);
+        // auto // console.log("toggle",this,window.tmpScroll);
         if(window.tmpScroll) delete window.tmpScroll ;
         jQuery(".nav-bar-top #breadcrumbs .on").removeClass("on");
         jQuery(".nav-bar-top #breadcrumbs #image span").text(this.canvasID.replace(/^.*?[/]([^/]+)([/]canvas)?$/,"$1"))
@@ -1017,7 +1017,7 @@
       if(_this.manifest && _this.manifest.jsonLd && _this.manifest.jsonLd["@id"] && _this.manifest.jsonLd["@id"].indexOf(".bdrc.io") == -1) {
         withCredentials = false ;
       }
-      console.log("cred:",withCredentials);
+      // auto // console.log("cred:",withCredentials);
 
       _this.osd = $.OpenSeadragon({
         id: osdID,
@@ -1105,13 +1105,13 @@
         _this.setBounds();
         if(_this.manifest && _this.manifest.jsonLd && _this.manifest.jsonLd["@id"]){
           if(!window.OSDzoom) window.OSDzoom = {} ; 
-          console.log("zoomed:",_this.osd.viewport.getZoom(),window.OSDzoom[_this.manifest.jsonLd["@id"]]);
+          // auto // console.log("zoomed:",_this.osd.viewport.getZoom(),window.OSDzoom[_this.manifest.jsonLd["@id"]]);
           window.OSDzoom[_this.manifest.jsonLd["@id"]] = _this.osd.viewport.getZoom() ; 
         }
       }, 500));
 
       _this.osd.addHandler('pan', $.debounce(function(){
-        console.log("paned:");
+        // auto // console.log("paned:");
         _this.setBounds();
       }, 500));
     },
@@ -1163,7 +1163,7 @@
 
           // DONE: set initial rotation in OSD (#5)
           var degrees = getCanvasRotation(newCanvas); 
-          console.log("d:",degrees);
+          // auto // console.log("d:",degrees);
           if(degrees > 0) _this.osd.viewport.setRotation(degrees);
 
           var z = null;

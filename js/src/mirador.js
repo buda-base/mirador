@@ -1,3 +1,5 @@
+
+
 // This file defines the global Mirador constructor function.
 // This is the entry point to Mirador and is intentionally sparse.
 (function(global) {
@@ -12,7 +14,7 @@
 
   function Mirador(config) {
 
-    console.log("M options?",config);
+    // auto // console.log("M options?",config);
 
     // TODO add token to info.json (OSD)
 

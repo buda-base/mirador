@@ -50,12 +50,12 @@
     listenForActions: function() {
       var _this = this;
       this.eventEmitter.subscribe('DISABLE_TOOLTIPS_BY_CLASS.' + this.windowId, function(event, className) {
-        console.log("QTIP off",className);
+        // auto // console.log("QTIP off",className);
         _this.element.find(className).qtip('disable');
       });
 
       this.eventEmitter.subscribe('ENABLE_TOOLTIPS_BY_CLASS.' + this.windowId, function(event, className) {
-        console.log("QTIP on",className);
+        // auto // console.log("QTIP on",className);
         _this.element.find(className).qtip('enable');
       });
 

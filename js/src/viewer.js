@@ -3,7 +3,7 @@
   $.Viewer = function(options) {
 
 
-    console.log("V options?",options);
+    // auto // console.log("V options?",options);
 
     jQuery.extend(true, this, {
       id:                     null,
@@ -122,7 +122,7 @@
       .appendTo(this.element);
 
       var urlParams = new URLSearchParams(window.location.search), origin = urlParams.get("origin"), work = urlParams.get("work");
-      console.log("origin:",origin,jQuery("#viewer").hasClass("withIAlink"));
+      // auto // console.log("origin:",origin,jQuery("#viewer").hasClass("withIAlink"));
       if(origin && origin.startsWith("BDRCLibApp") && jQuery("#viewer").hasClass("withIAlink")) {
         var id = work.replace(/^(bdr:M?)|(_[A-Z0-9]+)$/g,"");
         var IAlink = "https://archive.org/details/bdrc-"+id+"/";
