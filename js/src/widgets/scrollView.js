@@ -108,8 +108,6 @@
     $.ScrollView.prototype.toggle = function(stateValue) {
       if (stateValue) {
 
-
-
         var urlParams = new URLSearchParams(window.location.search), origin = urlParams.get("origin");
         var inApp = (window.screen.width < 800) || (origin && origin.startsWith("BDRCLibApp"));
         if(inApp) {
@@ -158,6 +156,9 @@
           setTimeout(function(){ clearInterval(timerScroll);},1000);
         }
         */
+
+        if(window.myAnalytics) window.myAnalytics.track("page loaded", { "target": this.manifest.jsonLd["@id"] });
+        
       } else {
         this.hide();
       }
