@@ -720,7 +720,7 @@
               subcollectionBlocks = collection.getCollectionBlocks();
           // Add the new node
           var newNodeId = _this.treeElement.jstree('create_node', nodeId ? nodeId : null, {
-            text: this.labelToString(collection.jsonLd.label),
+            text: this.labelToString(collection.jsonLd.label) || i18next.t('noT'),
             icon: unexpanded ? 'fa fa-spinner fa-pulse' : 'fa fa-folder', // Unexpanded = still loading, expanded = loaded
             children: []
           }, 'last');
@@ -738,7 +738,7 @@
             jQuery.each(subcollectionBlocks, function(i, v) {
               // Create the subnode
               var nid = _this.treeElement.jstree('create_node', newNodeId, {
-                text: _this.labelToString(v.label),
+                text: _this.labelToString(v.label)  || i18next.t('noT') ,
                 icon: 'fa fa-spinner fa-pulse',
                 children: []
               }, 'last');
