@@ -4439,6 +4439,10 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   content: none;
   display: none;
 }
+#viewer.demo.embed .nav-bar-top #breadcrumbs > a:first-child::before {
+  content: none;
+  display: none;
+}
 @media (max-width: 1240px) {
   .embed.mirador-container .mirador-main-menu-bar:not(#a) .nav-bar-top {
     padding-left: 10px;

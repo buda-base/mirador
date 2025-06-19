@@ -2,8 +2,10 @@ var Isfahan = function(configObject) {
   var _this = this,
 
   containerSize = function(containerId) {
-    return [document.getElementById(containerId).offsetWidth,
-      document.getElementById(containerId).offsetHeight]
+    var doc = document.getElementById(containerId)
+    if(!doc) return []
+    return [doc.offsetWidth,
+      doc.offsetHeight]
   },
   containerId = configObject.containerId,
   pad = d3_layout_cellPadNull,
